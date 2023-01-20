@@ -1,0 +1,45 @@
+
+% Alle Konfigurationsbefehle sind optional. Fehlende Befehle fueheren einfach
+% zu "blank forms".
+
+% Type of thesis
+% valid parameters: bachelor,master,diplom,idp,gr,hiwi,other
+% If 'other' is chosen an optional parameter can be passed along (\type[optional]{other}).
+% Without an optional parameter 'other' is chosen as a description.
+\type{bachelor}
+
+% \studiengang{} details the field of study
+% valid parameters:
+%   "Informatik",
+%   "Wirtschaftsinformatik",
+%   "Robotics, Cognition, Intelligence"
+%   "Informatik: Games Engineering"
+\studiengang{Informatik}
+
+% Informationen ueber den Studenten. Sollte selbsterklaerend sein.
+\anrede{Herr}
+\nachname{nachname}
+\vorname{vorname}
+\matrikel{matrikel}
+\rbgaccount{rbgaccount}
+\semester{1}{SoSe\,2016}
+\studientelefon{}{tel}
+\heimattelefon{}{--}
+\studienadresse{strasse}{plz stadt}
+\heimatadresse[adresszusatz=,appartment=]{}{}
+\mail{student@tum.de}
+
+% Informationen ueber die Arbeit. Sollte selbsterklaerend sein.
+\themensteller{\chairhead}
+\beginn{04}{2016}
+\endt{08}{2016}
+\betreuer{Nyan Cat, Grumpy Cat}
+\title{English Title of My Thesis}{Englischer Titel Meiner Arbeit}
+
+% Nur für Bachelorarbeiten
+\sprache{englisch} % options: deutsch | englisch
+
+% Falls \type{hiwi} gesetzt wurde, wird die Taetigkeit auf dem Aufnahmeformular
+% des Lehrstuhls angegeben.
+\taetigkeit{test}
+

@@ -1,0 +1,52 @@
+\documentclass[german,11pt,a4paper]{netforms}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usetikzlibrary{calc}
+
+\input{studentdefs}
+
+\newgeometry{
+	top=18mm,
+	bottom=2.5cm,
+	left=25mm,
+	right=25mm,
+}
+
+\begin{document}
+\vspace*{\fill}
+\centering
+\begin{tikzpicture}
+	\node[rectangle] (card) at (0,0) {%
+		\begin{minipage}[t]{.2\textwidth}%
+			\centering%
+			\includegraphics[width=.9\textwidth]{image.png}
+		\end{minipage}%
+		\hspace{.03\textwidth}%
+		\begin{minipage}[b]{.57\textwidth}%
+			{\Large\bfseries\thevorname, \thenachname}\\
+			\vspace{.5\baselineskip}%
+			\thetype\\
+			{\scshape\thetitleenglish}\\
+
+			\vspace{\fill}
+			\emph{\theadvisorlabel: \thebetreuer}
+		\end{minipage}%
+		\hspace{.03\textwidth}
+	};
+
+	\draw[draw=black!20,line width=1pt] ($(card.north west)+(0,1.2cm)$) to ++(0,-1cm);
+	\draw[draw=black!20,line width=1pt] ($(card.north west)+(-1.2cm,0)$) to ++(1cm,0);
+
+	\draw[draw=black!20,line width=1pt] ($(card.north east)+(0,1.2cm)$) to ++(0,-1cm);
+	\draw[draw=black!20,line width=1pt] ($(card.north east)+(1.2cm,0)$) to ++(-1cm,0);
+
+	\draw[draw=black!20,line width=1pt] ($(card.south west)+(0,-1.2cm)$) to ++(0,1cm);
+	\draw[draw=black!20,line width=1pt] ($(card.south west)+(-1.2cm,0)$) to ++(1cm,0);
+
+	\draw[draw=black!20,line width=1pt] ($(card.south east)+(0,-1.2cm)$) to ++(0,1cm);
+	\draw[draw=black!20,line width=1pt] ($(card.south east)+(1.2cm,0)$) to ++(-1cm,0);
+\end{tikzpicture}
+\vfill
+\end{document}

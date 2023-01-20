@@ -1,0 +1,173 @@
+% intro talk in german
+%\documentclass[NET,a4paper,12pt,ngerman]{netforms}
+
+% intro talk in english
+\documentclass[NET,a4paper,12pt,english]{netforms}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tumlang}
+\usepackage{tumcontact}
+\usepackage{scrlayer-scrpage}
+\usepackage[textsize=scriptsize]{todonotes}
+% Disable todonotes with
+%\setuptodonotes{disable}
+\setuptodonotes{inline}
+\usepackage{pgfgantt}
+\usepackage{float}
+\usepackage{enumitem}
+\newlist{researchquestions}{enumerate}{1}
+\setlist[researchquestions,1]{label=\textbf{\textit{RQ \arabic*}}, resume}
+
+
+\geometry{%
+	top=20mm,
+	bottom=20mm,
+	left=25mm,
+	right=25mm,
+	headsep=1.5cm,
+	includehead,
+}
+\input{studentdefs}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\chead{\TUMheader{1cm}}
+
+\renewcommand{\maketitle}{%
+	\begin{center}
+		\textbf{\introductoryheadline}%
+
+		\Large%
+		\textbf{\thetitle}%
+	\end{center}
+
+	\footnotesize%
+	\hrule
+	\vskip1ex
+	\begin{tabular}{ll}
+		\thenamelabel: & \thevorname{} \textbf{\thenachname}\\
+		\theadvisorlabel: & \hspace*{-.5ex}\thebetreuer\\
+		\thesupervisorlabel: & \chairhead\\
+		\thebeginlabel: & \thebeginnmonat/\thebeginnjahr\\
+		\theendlabel: & \theendmonat/\theendjahr\\
+	\end{tabular}
+	\vskip1ex
+	\hrule
+	\vskip4ex
+}
+
+\linespread{1.2}
+\setlength{\parskip}{.5\baselineskip}
+
+\begin{document}
+\maketitle
+
+\subsection*{Topic}
+
+\todo{Add Motivation: Why is this topic relevant? Which ``big'' problem does it solve?}
+This Bachelor's Thesis shall implement a wide band scanning application
+resembling a spectrum analyzer using software defined radio hardware.
+It shall be possible to both sweep the whole spectrum supported by the hardware
+in use as well as tuning into specific parts of that spectrum.
+In addition it shall be possible to record a narrow band of the spectrum for
+both offline-analyses and replay at a later time.
+The intended field of application is, for instance, the generation of
+reproducible error signals in a testbed or empirically measuring the gain
+of different antennas.
+
+\subsection*{Related Work}
+
+\todo{Explain here how this project compares to existing publications}
+
+The thesis is thematically similar to the Master's Thesis \emph{Automatic Line
+Code Detection of RF Signals on Software Defined Radios}, which also implemented a spectrum analyzer.
+However, it was never planned to record or replay signals.
+In addition, this thesis lacks some scientific rigor with respect to the
+validity of recorded samples.
+
+
+\subsection*{Research Questions}
+
+\todo{Optional section: Maybe you can formulate research questions which you try to answer in this thesis}
+
+\begin{researchquestions}
+\item Do USB interfaces interfere with SDR?
+\end{researchquestions}
+
+\subsection*{Approach}
+In the first part we will make measurements and statistic evaluations to
+ensure, that the acquired data, which comes from the SDR, is valid.  Therefore
+we will test, if the samples are valid right after the internal tuning phase of
+the SDR.
+We will also investigate whether or not external influences such as the USB
+interface interfere with the process.
+Other influence such as the quantization error will also be analyzed.
+The latter are of particular interest when it comes to replay of previously
+recorded signals.
+The second part is about the scanning application itself.
+The program can use the wide range of the present USRP hardware, which covers a
+frequency range from 75\,MHz to 6\,GHz.
+The tool would scan the whole band for online investigation or store the
+samples for later use.
+Further more, you will be able to rescan narrow bands of the spectrum to have a
+closer look whats happening there.
+The UI will consist of a zoomable heatmap (waterfall diagram) interface with
+mouse support.
+
+To get proper values to display, we have to consider different parameters like
+integration time and gain settings etc.
+These parameters will also be part of the research.
+The software will be based on the GNUradio software defined radio
+framework.  The additional work is planed to be done with python3.
+The used hardware consists of 2 URSP b210, where for the main part only one is
+needed.
+
+\subsection*{Skills}
+\todo{Optional section: include only if you
+have worked on projects that are relevant for this thesis.}
+
+I did some previous work with SDR hardware, the RTL-SDR and the
+hackrf.
+For this work the packet generator MoonGen was used~\cite{DBLP:conf/imc/EmmerichGRWC15}.
+I am quite familiar with the software (GNUradio) and
+hardware environment.
+
+\subsection*{Additional Hardware Requirements}
+\todo{Optional section: include only if you
+    need new hardware for this thesis.}
+
+\subsection*{Planned Schedule}
+\begin{figure}[H]
+  \centering
+  \begin{ganttchart}[
+      x unit=1.25mm,
+      y unit title=0.6cm,
+      title height=1,
+      title label font=\small,
+      bar label font=\scriptsize,
+      milestone label font=\scriptsize,
+      milestone inline label node/.append style={left=2mm},
+      milestone/.append style={fill=orange, shape=rectangle},
+      y unit chart=.6cm,
+      time slot format=isodate,
+      time slot unit=day,
+      inline,
+      bar height=0.7,
+    ]{2016-04-15}{2016-08-25}
+    \gantttitlecalendar{month=name}\\
+    \ganttbar{Reading}{2016-04-15}{2016-04-28}\\
+    \ganttbar{Setup testbed}{2016-04-15}{2016-05-05}\\
+    \ganttbar{Work on first prototype}{2016-05-01}{2016-05-30}\\
+    \ganttbar{Perform measurements}{2016-05-20}{2016-07-15}\\
+    \ganttmilestone{Intermediate talk}{2016-06-15}\\
+    \ganttbar{Write thesis}{2016-06-30}{2016-08-15}\\
+    \ganttmilestone{Submission}{2016-08-14}
+  \end{ganttchart}
+  \label{fig:work-plan}
+\end{figure}
+
+\bibliographystyle{IEEEtran}
+\scriptsize
+\bibliography{IEEEabrv,lit}
+
+\end{document}
