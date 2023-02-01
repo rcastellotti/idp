@@ -87,36 +87,12 @@ We found some reasearch regarding measurements \cite{10.1145/3517745.3561416} \c
 \end{researchquestions}
 
 \subsection*{Approach}
-In the first part we will make measurements and statistic evaluations to
-ensure, that the acquired data, which comes from the SDR, is valid.  Therefore
-we will test, if the samples are valid right after the internal tuning phase of
-the SDR.
-We will also investigate whether or not external influences such as the USB
-interface interfere with the process.
-Other influence such as the quantization error will also be analyzed.
-The latter are of particular interest when it comes to replay of previously
-recorded signals.
-The second part is about the scanning application itself.
-The program can use the wide range of the present USRP hardware, which covers a
-frequency range from 75\,MHz to 6\,GHz.
-The tool would scan the whole band for online investigation or store the
-samples for later use.
-Further more, you will be able to rescan narrow bands of the spectrum to have a
-closer look whats happening there.
-The UI will consist of a zoomable heatmap (waterfall diagram) interface with
-mouse support.
+In the first part we will try to understand and document the API, then, we will work on a library to make access to the API easier.
+We will develop this in Python3, because of the great support of other libraries and because it seems to be the de-facto standard language
+for data analysis and measuremets. This will simplify data gathering for other researchers willing to do some more measurements.
 
-To get proper values to display, we have to consider different parameters like
-integration time and gain settings etc.
-These parameters will also be part of the research.
-The software will be based on the GNUradio software defined radio
-framework.  The additional work is planed to be done with python3.
-The used hardware consists of 2 URSP b210, where for the main part only one is
-needed.
-
-\subsection*{Skills}
-\todo{Optional section: include only if you
-have worked on projects that are relevant for this thesis.}
+We will intercept API calls made by the Android application using a proxy like Burpsuite Community Edition, and will eventually dissect the APK file
+using tools like Jadx or Apktool. If needed we can also use Frida to do some dynamic patching.
 
 
 \subsection*{Additional Hardware Requirements}
