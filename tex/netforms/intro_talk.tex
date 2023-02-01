@@ -70,27 +70,20 @@ In this IDP project we will investigate Starlink internals. Starlink is a projec
 anywhere in the world. We aim to understand in detail internal routing decision, general behaviour for handling incoming packets and
 understand how satellite handovers are performed.
 We plan to fuzz the dish interal GRPC dishy api to see if we manage to get access to internal statistics.
- We will probably reverse engineer the Android application provided to manage the dish to see if we can find some hidden endpoints.
-Eventually we will develop some tooling to facilitate the usage of the API, furthermore we will develop a tool to compare
-the measurements provided by the API with the measurements we make.
+Additional information will be extracted by dissecting the Android application provided to manage the dish.
+Eventually we will develop some tooling to interact with the API, in order to abstract some of the logic in the event 
+someone wants to perform some measurements, additional tooling may be developed to understand how satellite handovers are made. 
 
 \subsection*{Related Work}
 
-\todo{Explain here how this project compares to existing publications}
+There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON.
 
-The thesis is thematically similar to the Master's Thesis \emph{Automatic Line
-Code Detection of RF Signals on Software Defined Radios}, which also implemented a spectrum analyzer.
-However, it was never planned to record or replay signals.
-In addition, this thesis lacks some scientific rigor with respect to the
-validity of recorded samples.
-
-
-\subsection*{Research Questions}
-
-\todo{Optional section: Maybe you can formulate research questions which you try to answer in this thesis}
+We found some reasearch regarding measurements \cite{10.1145/3517745.3561416} \cite{10.1145/3517745.3561457}
 
 \begin{researchquestions}
-\item Do USB interfaces interfere with SDR?
+\item Are there ani hidden API endpoints?
+\item How satellite handovers are performed?
+\item Can we extract some data that helps us verify the data the API is offering?
 \end{researchquestions}
 
 \subsection*{Approach}
@@ -125,15 +118,12 @@ needed.
 \todo{Optional section: include only if you
 have worked on projects that are relevant for this thesis.}
 
-I did some previous work with SDR hardware, the RTL-SDR and the
-hackrf.
-For this work the packet generator MoonGen was used~\cite{DBLP:conf/imc/EmmerichGRWC15}.
-I am quite familiar with the software (GNUradio) and
-hardware environment.
 
 \subsection*{Additional Hardware Requirements}
-\todo{Optional section: include only if you
-    need new hardware for this thesis.}
+\begin{itemize}
+  \item Starlink terminal (router and dish)
+  \item a rooted Android phone to dissect the application
+\end{itemize} 
 
 \subsection*{Planned Schedule}
 \begin{figure}[H]
