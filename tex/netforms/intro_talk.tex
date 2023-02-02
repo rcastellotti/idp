@@ -104,13 +104,12 @@ using tools like Jadx or Apktool. If needed we can also use Frida to do some dyn
 
 
 \subsection*{Planned Schedule}
-\begin{figure}[H]
-  \centering
   \begin{ganttchart}[
       x unit=0.7mm,
       y unit title=0.6cm,
       title height=1,
       title label font=\small,
+      newline shortcut=true,
       bar label font=\scriptsize,
       milestone label font=\scriptsize,
       milestone inline label node/.append style={left=2mm},
@@ -118,17 +117,15 @@ using tools like Jadx or Apktool. If needed we can also use Frida to do some dyn
       y unit chart=.6cm,
       time slot format=isodate,
       time slot unit=day,
-      inline,
       bar height=0.7,
     ]{2023-03-01}{2023-08-31}
     \gantttitlecalendar{month=name}\\
     \ganttbar{Explore and document dish API}{2023-03-01}{2023-03-31}\\
     \ganttbar{Dissect the Android application}{2023-04-01}{2023-04-31}\\
-    \ganttbar{Develop some tooling to interact with API }{2023-05-01}{2023-05-31}\\
+    \ganttbar{Develop  some tooling to interact with API }{2023-05-01}{2023-05-31}\\
     \ganttbar{Use the tool to understand internals}{2023-06-01}{2023-08-31}
   \end{ganttchart}
   \label{fig:work-plan}
-\end{figure}
 
 
 \bibliographystyle{IEEEtran}
