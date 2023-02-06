@@ -71,7 +71,7 @@ We plan to fuzz the dish interal GRPC dishy api to see if we manage to get acces
 Additional information will be extracted by dissecting the Android application provided to manage the dish.
 Eventually we will develop some tooling to interact with the API, in order to abstract some of the logic in the event 
 someone wants to perform some measurements, additional tooling may be developed to understand how satellite handovers are made. 
-
+We will also try to understand the Starlink network behavior in order to try to make sense of sudden ping or bandwidth changes when doing measurements.
 \subsection*{Related Work}
 
 There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON.
@@ -80,7 +80,7 @@ We found some reasearch regarding measurements \cite{10.1145/3517745.3561416} \c
 
 \begin{researchquestions}
 \item Are there ani hidden API endpoints?
-\item How satellite handovers are performed?
+\item Can the dish data be used to deduct internal starlink network behavior?
 \item Can we extract some data that helps us verify the data the API is offering?
 \end{researchquestions}
 
