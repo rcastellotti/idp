@@ -65,9 +65,9 @@
 \subsection*{Topic}
 
 In this IDP project we will investigate Starlink internals. Starlink is a project from SpaceX aiming to provide fast internet connection
-anywhere in the world. We aim to understand in detail internal routing decision, general behaviour for handling incoming packets and
+anywhere in the world. We aim to understand in detail internal routing decision, general behavior for handling incoming packets and
 understand how satellite handovers are performed.
-We plan to fuzz the dish interal GRPC dishy api to see if we manage to get access to internal statistics.
+We plan to fuzz the dish internal GRPC dishy API to see if we manage to get access to internal statistics.
 Additional information will be extracted by dissecting the Android application provided to manage the dish.
 Eventually we will develop some tooling to interact with the API, in order to abstract some of the logic in the event 
 someone wants to perform some measurements, additional tooling may be developed to understand how satellite handovers are made. 
@@ -76,10 +76,10 @@ We will also try to understand the Starlink network behavior in order to try to 
 
 There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON.
 
-We found some reasearch regarding measurements \cite{10.1145/3517745.3561416} \cite{10.1145/3517745.3561457}
+We found some research regarding measurements \cite{10.1145/3517745.3561416} \cite{10.1145/3517745.3561457}
 
 \begin{researchquestions}
-\item Are there ani hidden API endpoints?
+\item Are there any hidden API endpoints?
 \item Can the dish data be used to deduct internal starlink network behavior?
 \item Can we extract some data that helps us verify the data the API is offering?
 \end{researchquestions}
@@ -87,7 +87,7 @@ We found some reasearch regarding measurements \cite{10.1145/3517745.3561416} \c
 \subsection*{Approach}
 In the first part we will try to understand and document the API, then, we will work on a library to make access to the API easier.
 We will develop this in Python3, because of the great support of other libraries and because it seems to be the de-facto standard language
-for data analysis and measuremets. This will simplify data gathering for other researchers willing to do some more measurements.
+for data analysis and measurements. This will simplify data gathering for other researchers willing to do some more measurements.
 
 We will intercept API calls made by the Android application using a proxy like Burpsuite Community Edition, and will eventually dissect the APK file
 using tools like Jadx or Apktool. If needed we can also use Frida to do some dynamic patching.
