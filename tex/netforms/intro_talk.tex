@@ -77,7 +77,7 @@ Starlink is an interesting project because it can provide internet to remote are
 
 There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON \cite{defcon}, they managed to get a shell on the dishy, however this hardware-level research won't be part of our research.
 
-We found some research regarding measurements \cite{10.1145/3517745.3561416} \cite{10.1145/3517745.3561457}
+We found some research regarding measurements \cite{10.1145/3517745.3561416} \cite{10.1145/3517745.3561457}, in the latter study observed a consisten loss of packages correlated with satellite handovers, but they are only suggesting a correlation, we will try to provide some insights regarding the impact of satellite handovers in latency increases.
 
 \subsection*{Research Questions}
 \begin{researchquestions}
@@ -94,6 +94,7 @@ for data analysis and measurements. This will simplify data gathering for other 
 We will intercept API calls made by the Android application using a proxy like Burpsuite Community Edition, and will eventually dissect the APK file
 using tools like Jadx or Apktool. If needed we can also use Frida to do some dynamic patching.
 
+We will try to combine the information from the API and dish with passive measurement data, such as pcaps/flow extracted to check the quality of the measurements offered by the API. We will probably develop some tooling to extract the data and combine or compare the two data sources.
 
 
 \subsection*{Planned Schedule}
