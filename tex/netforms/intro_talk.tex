@@ -98,6 +98,7 @@ We will try to combine the information from the API and dish with passive measur
 
 
 \subsection*{Planned Schedule}
+  \resizebox{\textwidth}{!}{
   \begin{ganttchart}[
       x unit=0.7mm,
       y unit title=0.6cm,
@@ -108,7 +109,7 @@ We will try to combine the information from the API and dish with passive measur
       milestone label font=\scriptsize,
       milestone inline label node/.append style={left=2mm},
       milestone/.append style={fill=orange, shape=rectangle},
-      y unit chart=.6cm,
+      y unit chart=.4cm,
       time slot format=isodate,
       time slot unit=day,
       bar height=0.7,
@@ -120,10 +121,10 @@ We will try to combine the information from the API and dish with passive measur
     \ganttbar{Use the tool to understand internals}{2023-06-01}{2023-08-31}
   \end{ganttchart}
   \label{fig:work-plan}
+  }
 
   \subsection*{Lecture}
-  To complement my IDP I chose "Analysis, Modeling and Simulation of Communication Networks", because I the topics covered (packet level simulation and topology models) will help me in understanding routing decisions taken by the dish. Moreover the practical approach to the arguments will be 
-  useful for the implementation of solutions to test performance and behaviour of the dish.
+  To complement my IDP I chose "Analysis, Modeling and Simulation of Communication Networks". The IDP project work builds upon the foundations thought on the couse. The covered topics (e.g., packet level simulation and topology models) will help to understand routing decisions potentially taken by the dish. Moreover, the practical approach to the arguments will be useful for the implementation of solutions to test performance and behaviour of the dish while using Starlink.
 
 \bibliographystyle{IEEEtran}
 \scriptsize
