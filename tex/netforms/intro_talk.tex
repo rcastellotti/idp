@@ -66,20 +66,19 @@
 \subsection*{Topic}
 
 In this IDP project we will investigate Starlink internals. Starlink is a project from SpaceX~\cite{starlink} aiming to provide fast Internet connection
-anywhere in the world. We aim to understand in internal routing decisions, general behavior for handling incoming packets and to
-understand how satellite handovers are performed.
-We plan to fuzz the dish internal gRPC dish API to see if we manage to get access to internal statistics.
-Additional information will be extracted by dissecting the Android application provided to manage the dish.
-Eventually we will develop a toolset to interact with the API, in order to abstract some of the logic to make it easier to perform managements. 
+anywhere in the world. Our scope is to understand internal routing decisions, general behavior for handling incoming packets and to
+comprehend how satellite handovers are performed.
+Our plan plan to fuzz the dish internal gRPC API to see if we manage to get access to internal statistics, additional information will be extracted by dissecting the companion Android application.
+Eventually we will develop a toolset to interact with the API, in order to abstract away some of the logic with the end goal of making it easier to perform managements. 
 Additional tooling may be developed to understand how satellite handovers are made. 
-We will also try to understand the Starlink network behavior in order to try to make sense of sudden ping or bandwidth changes when doing measurements.
+We will also investigate the Starlink network behavior in order to try to make sense of sudden ping or bandwidth changes when doing measurements.
 
-Starlink is an interesting project because it can provide Internet to remote areas and could potentially be a revolution in how we connect to the Internet. Low orbiting satellites provide for low latency connections, this is not common for satellite-based connections. Being able to measure performance of this new technology could be very important.
+Starlink is an interesting project because it can provide Internet to remote areas and could potentially be a revolution in how we connect to the Internet, a huge part of the reasons why this project is getting so popular is that it is able to provide a satellite-based low latency connection. Being able to measure performance of this new technology could be very important and potentially we believe that our work can be important for further analysis.
 \subsection*{Related Work}
 
-There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON~\cite{defcon}, in which they managed to get a shell on the dish. However this hardware-level research won't be part of our research.
+There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON~\cite{defcon}, in which they managed to get a shell on the dish, however this hardware-level research won't be part of our research.
 
-We found some research regarding measurements~\cite{10.1145/3517745.3561416, 10.1145/3517745.3561457}, in the latter study a consistent loss of packages correlated with satellite handovers was observed, they are only suggesting a correlation, we will try to provide some insights regarding the impact of satellite handovers in latency increases.
+We found some research regarding measurements~\cite{10.1145/3517745.3561416, 10.1145/3517745.3561457}, in the latter study a consistent loss of packages correlated with satellite handovers was observed. We will try to provide some insights regarding the impact of satellite handovers in latency increases.
 
 Additionaly there is a repository on GitHub from the Starlink community containing pre-generated Go gRPC bindings \cite{starlink-grpc-go}.
 
@@ -92,8 +91,8 @@ Additionaly there is a repository on GitHub from the Starlink community containi
 
 \subsection*{Approach}
 In the first part we will try to understand and document the API, then, we will work on a library to make access to the API easier.
-We will develop this in Python3, because of the great support of other libraries and because it seems to be the de-facto standard language
-for data analysis and measurements. This will simplify data gathering for other researchers willing to do some more measurements.
+We will develop this in Python, because of the great support of other libraries and because it seems to be the de-facto standard language
+for data analysis and measurements. This will simplify data gathering for measurements performed by other researchers.
 
 We will intercept API calls made by the Android application using a proxy like Burpsuite Community Edition, and will eventually dissect the APK file
 using tools like Jadx or Apktool. If needed we can also use Frida to do some dynamic patching.
