@@ -64,18 +64,18 @@
 
 \subsection*{Topic}
 
-In this IDP project we will investigate Starlink internals. Starlink is a project from SpaceX aiming to provide fast internet connection
+In this IDP project we will investigate Starlink internals. Starlink is a project from SpaceX aiming to provide fast Internet connection
 anywhere in the world. We aim to understand in detail internal routing decision, general behavior for handling incoming packets and
 understand how satellite handovers are performed.
-We plan to fuzz the dish internal GRPC dishy API to see if we manage to get access to internal statistics.
+We plan to fuzz the dish internal GRPC dish API to see if we manage to get access to internal statistics.
 Additional information will be extracted by dissecting the Android application provided to manage the dish.
 Eventually we will develop some tooling to interact with the API, in order to abstract some of the logic in the event 
 someone wants to perform some measurements, additional tooling may be developed to understand how satellite handovers are made. 
 We will also try to understand the Starlink network behavior in order to try to make sense of sudden ping or bandwidth changes when doing measurements.
-Starlink is an interesting project because it can provide internet to remote areas and could potentially be a revolution in how we connect to the internet. Low orbiting satellites provide for low latency connections, this is not common for satellite-based connections. Being able to measure performance of this new technology could be very important.
+Starlink is an interesting project because it can provide Internet to remote areas and could potentially be a revolution in how we connect to the Internet. Low orbiting satellites provide for low latency connections, this is not common for satellite-based connections. Being able to measure performance of this new technology could be very important.
 \subsection*{Related Work}
 
-There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON \cite{defcon}, they managed to get a shell on the dishy, however this hardware-level research won't be part of our research.
+There is not much literature about internals of the dish and about the API, there's an interesting hardware-level hacking talk given at DEFCON \cite{defcon}, they managed to get a shell on the dish, however this hardware-level research won't be part of our research.
 
 We found some research regarding measurements \cite{10.1145/3517745.3561416} \cite{10.1145/3517745.3561457}, in the latter study a consistent loss of packages correlated with satellite handovers was observed, they are only suggesting a correlation, we will try to provide some insights regarding the impact of satellite handovers in latency increases.
 
