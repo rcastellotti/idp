@@ -75,7 +75,7 @@ We plan to fuzz the internal gRPC API of the dish to see if we manage to get acc
 Additional information will be extracted by dissecting the companion Android application.
 Eventually we will develop a toolset to interact with the API, in order to ease performing measurement operations. 
 Additional tooling may be developed to understand how satellite handovers are performed. 
-We will also investigate the Starlink network behavior in order to try to explain of sudden ping or bandwidth changes during measurements.
+We will also investigate the Starlink network behavior in order to try to explain sudden ping or bandwidth changes during measurements.
 
 \subsection*{Related Work}
 
@@ -100,7 +100,7 @@ We will develop such in Python, mainly because of the good support by other libr
 for data analysis and measurements. This will simplify data gathering for measurements performed by other researchers.
 
 We can intercept API calls made by the Android application in order to gain additional information.
-Such task can be achieved using a proxy such as Burpsuite Community Edition, and will eventually dissect the APK file
+Such task can be achieved using a proxy such as Burpsuite Community Edition, and we will eventually dissect the APK file
 using tools such as Jadx or Apktool. If needed we can also use Frida to do some dynamic patching.
 
 Finally, we will combine the information from the API and dish with passive measurement data we extract to check the quality of the measurements offered by the API.
