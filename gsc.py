@@ -5,12 +5,12 @@ import argparse
 import os
 import pyasn
 
-asndb = pyasn.pyasn("/root/ipasn_20230327.dat")
+asndb = pyasn.pyasn("/root/idp-castellotti-data/ipasn_20230315.dat")
 
 
 def main(host, protocol):
     print(f"==analysing traceroute to {host} using {protocol} protocol")
-    dir = f"/root/idp-castellotti/traceroutes_cgs/{host}"
+    dir = f"/root/idp-castellotti-data/traceroutes_cgs/{host}"
     for filename in os.listdir(dir):
         with open(os.path.join(dir, filename), "r") as f:
             if filename.startswith(protocol):
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         "--host",
         "-H",
         help="host",
-        choices=["utu.fi", "caida.org", "tum.de", "garr.it", "mit.edu"],
+        choices=["utu.fi", "caida.org", "tum.de", "garr.it", "mit.edu", "unibuc.ro","ox.ac.uk","cam.ac.uk","www.uct.ac.za"],
     )
     parser.add_argument(
         "--protocol", "-P", help="protocol", choices=["icmp", "tcp", "udp"]
