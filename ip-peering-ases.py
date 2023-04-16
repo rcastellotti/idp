@@ -40,23 +40,23 @@ else:
     logging.getLogger().setLevel(logging.INFO)
 
 # getting all ASes peering with SpaceX (AS14593)
-ases=[]
+ases=set()
 with open(args.input, "r") as csvfile:
     for row in csv.reader(csvfile, dialect="piper"):
         if row[2] == "0":
             if row[0] != "14593":
-                ases.append(row[0])
+                ases.add(row[0])
             else:
-                ases.append(row[1])
+                ases.add(row[1])
 
 # getting as names, prefixes and random ips from certain ases
 ases_ip = []
-ases = random.choices(ases, k=args.ases)
-for _as in ases:
+ases_list = random.choices(list(ases), k=args.ases)
+for _as in ases_list:
     r = requests.get("https://stat.ripe.net/data/as-names/data.json", params={"resource":_as})
     asname = r.json()["data"]["names"][_as]
     url = "https://stat.ripe.net/data/announced-prefixes/data.json"
-    params = {"resource": _as, "starttime": "2020-12-12T12:00"}
+    params = {"resource": _as, "starttime": "2023-04-01T12:00"}
     r = requests.get(url, params=params)
     j = r.json()
     prefixes = j["data"]["prefixes"]
@@ -65,8 +65,15 @@ for _as in ases:
     colorful_json = highlight(
         formatted_json, lexers.JsonLexer(), formatters.TerminalFormatter()
     )
-    logging.debug()
+    logging.debug(colorful_json)
     logging.info(f"ASN: {_as}")
+    tmp = dict()
+    tmp["asn"] = _as
+    tmp["as_name"] = asname
+    tmp["ips"]=[]
+    tmp["hostnames"]=[]
+    logging.debug(prefixes)
+
     for prefix in tqdm(prefixes):
         p = prefix["prefix"]
         if ":" not in p:
@@ -76,12 +83,10 @@ for _as in ases:
             logging.debug(f"random ips: {ips}")
             hostnames = [socket.getnameinfo((ip, 0), 0)[0] for ip in ips]
             logging.debug(f"hostnames: {hostnames}")
-            tmp = dict()
-            tmp["asn"] = _as
-            tmp["as_name"] = asname
-            tmp["ips"] = ips
-            tmp["hostnames"] = hostnames
-            ases_ip.append(tmp)
+            tmp["ips"].append(ips)
+            tmp["hostnames"].append(hostnames)
+    ases_ip.append(tmp)
 
-with open(args.output, "w") as f:
-    json.dump(ases_ip, f)
+with open(args.output, "w+") as f:
+    json.dump(ases_ip, f,indent=4)
+
