@@ -20,7 +20,6 @@ from pygments import highlight, lexers, formatters
 
 csv.register_dialect("piper", delimiter="|", quoting=csv.QUOTE_NONE)
 
-ases = []
 parser = argparse.ArgumentParser(prog="parse", description="caidastuff helper")
 parser.add_argument("--input", "-i", help="input", required=True)
 parser.add_argument("--output", "-o", help="output", required=True)
@@ -40,7 +39,8 @@ if args.verbose:
 else:
     logging.getLogger().setLevel(logging.INFO)
 
-
+# getting all ASes peering with SpaceX (AS14593)
+ases=[]
 with open(args.input, "r") as csvfile:
     for row in csv.reader(csvfile, dialect="piper"):
         if row[2] == "0":
@@ -49,6 +49,7 @@ with open(args.input, "r") as csvfile:
             else:
                 ases.append(row[1])
 
+# getting as names, prefixes and random ips from certain ases
 ases_ip = []
 ases = random.choices(ases, k=args.ases)
 for _as in ases:
@@ -64,7 +65,7 @@ for _as in ases:
     colorful_json = highlight(
         formatted_json, lexers.JsonLexer(), formatters.TerminalFormatter()
     )
-    logging.debug(colorful_json)
+    logging.debug()
     logging.info(f"ASN: {_as}")
     for prefix in tqdm(prefixes):
         p = prefix["prefix"]
@@ -84,7 +85,3 @@ for _as in ases:
 
 with open(args.output, "w") as f:
     json.dump(ases_ip, f)
-
-
-# # maybe we should also run the traceroutes now?
-# https://stat.ripe.net/data/as-names/data.json?resource=14593
