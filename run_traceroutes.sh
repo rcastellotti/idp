@@ -1,7 +1,7 @@
 #!/bin/bash
 # a simple script to run some traceroutes
 set -e 
-targets=("caida.org" "utu.fi" "garr.it" "tum.de" "mit.edu")
+targets=("caida.org" "utu.fi" "garr.it" "tum.de" "mit.edu" "unibuc.ro" "ox.ac.uk" "cam.ac.uk" "www.uct.ac.za" )
 date=$(date +"%Y-%m-%dT%H:%M:%S")
 mkdir -p traceroutes/$date
 for target in "${targets[@]}"
