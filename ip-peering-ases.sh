@@ -8,10 +8,13 @@ set -e
 
 tr() {
     echo "traceroute $1 $2"   
+    echo "===ICMP==="
     traceroute -i enp1s0f2 -q 1 -n -I $1 
     traceroute -i enp1s0f2 -q 1 -n -I $2 
+    echo "===UDP==="
     traceroute -i enp1s0f2 -q 1 -n -U $1 
     traceroute -i enp1s0f2 -q 1 -n -U $2  
+    echo "===TCP==="
     traceroute -i enp1s0f2 -q 1 -n -T $1 
     traceroute -i enp1s0f2 -q 1 -n -T $2 
     echo ====
