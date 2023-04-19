@@ -15,4 +15,3 @@ do
     traceroute -I -i enp1s0f2  $target >>  /root/idp-castellotti-data/traceroutes_cgs/$target/extended_icmp_${date}.txt
 done
 
-
