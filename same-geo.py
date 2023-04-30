@@ -13,7 +13,7 @@ from ipaddress import IPv4Network
 from common import *
 
 # use starlink
-# conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
 
 
 parser = argparse.ArgumentParser(
@@ -111,9 +111,4 @@ for t in targets:
         ips = [str(ip) for ip in IPv4Network(prefix)]
         random_ip_address = random.choice(ips)
         logging.debug(f"{dir}/{region}-{name}")
-        reach_target(random_ip_address,f"{dir}/{region}-{name}",args.asndb)
-        # perfetto il file che salviamo deve avere nome name-region-ip
-
-# for each target we create a subdirectory called region
-# for each region we start reaching the targets as in the other script
-# to do this we need the ip addresses we can extract from the file
+        reach_target(random_ip_address,f"{dir}/{region}-{name}-{random_ip_address}",args.asndb)
