@@ -8,20 +8,13 @@ from datetime import datetime
 import json
 from pathlib import Path
 import urllib.request
-# use starlink
-conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+from pathlib import Path
+from ipaddress import IPv4Network
+from common import *
 
-targets = (
-    "caida.org",
-    "utu.fi",
-    "garr.it",
-    "tum.de",
-    "mit.edu",
-    "unibuc.ro",
-    "ox.ac.uk",
-    "cam.ac.uk",
-    "www.uct.ac.za",
-)
+# use starlink
+# conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+
 
 parser = argparse.ArgumentParser(
     prog="reach-single-target",
@@ -31,13 +24,18 @@ parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )
 parser.add_argument(
-    "--download", "-d", help="download file https://www.gstatic.com/ipranges/cloud.json"
+    "--download", help="download file https://www.gstatic.com/ipranges/cloud.json"
 )
-args = parser.parse_args()
+parser.add_argument(
+    "--asndb", help="asndb file location"
+)
+parser.add_argument("--directory", "-d", help="where to store files", required=True)
+args = parser.parse_args()  
 
 if args.download:
-    urllib.request.urlretrieve("https://www.gstatic.com/ipranges/cloud.json", "cloud.json")
-
+    urllib.request.urlretrieve(
+        "https://www.gstatic.com/ipranges/cloud.json", "cloud.json"
+    )
 
 if args.verbose:
     logging.getLogger().setLevel(logging.DEBUG)
@@ -47,84 +45,75 @@ else:
     logging.getLogger().setLevel(logging.INFO)
 
 
+targets = [
+    {
+        "area": "it",
+        "data": [
+            {
+                "region": "europe-west8",
+                "name": "milan",
+                "prefix": "34.0.160.0/19",
+            },
+            {
+                "region": "europe-west12",
+                "name": "turin",
+                "prefix": "34.17.0.0/16",
+            },
+        ],
+    },
+    {
+        "area": "jp",
+        "data": [
+            {
+                "area": "jp",
+                "region": "asia-northeast1",
+                "name": "tokio",
+                "prefix": "34.17.0.0/16",
+            },
+            {
+                "area": "jp",
+                "region": "asia-northeast2",
+                "name": "osaka",
+                "prefix": "34.127.177.0/24",
+            },
+        ],
+    },
+    {
+        "area": "us",
+        "data": [
+            {
+                "area": "us",
+                "region": "us-west-2",
+                "name": "los-angeles",
+                "prefix": "34.20.128.0/17",
+            },
+            {
+                "area": "us",
+                "region": "us-west-4",
+                "name": "las-vegas",
+                "prefix": "34.16.128.0/17",
+            },
+        ],
+    },
+]
 
-datacenters=[]
+for t in targets:
+    area = t["area"]
+    data = t["data"]
+    dir=f"{args.directory}/{area}"
+    logging.debug({dir})
 
-with open("cloud.json","r") as f:
-    data=json.load(f)
-    for prefix in data["prefixes"]:
-        datacenters.append(prefix)
+    Path(dir).mkdir(parents=True, exist_ok=True)
+    for i in data:
+        region=i["region"]
+        name=i["name"]
+        prefix=i["prefix"]
+        ips = [str(ip) for ip in IPv4Network(prefix)]
+        random_ip_address = random.choice(ips)
+        logging.debug(f"{dir}/{region}-{name}")
+        reach_target(random_ip_address,f"{dir}/{region}-{name}",args.asndb)
+        # perfetto il file che salviamo deve avere nome name-region-ip
 
-
-print(datacenters)
-# # this script tries to reach the same target overtime and saves the hops related to starlink
-# from scapy.all import *
-# # import pyasn
-# import logging
-# import argparse
-# import csv
-# from datetime import datetime
-# import os
-# from pathlib import Path
-# import json
-# # use starlink
-# conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-
-# 
-
-
-# # for prefix in tqdm(prefixes):
-# # prefix = prefix["prefix"]
-# # if ":" not in prefix:
-# #     logging.debug(f"network: {prefix}")
-# #     ips = [str(ip) for ip in IPv4Network(prefix)]
-# #     ip = random.choice(ips)
-# #     try:
-# #         hostname = socket.getnameinfo((ip, 0), 0)[0]
-# #     except:
-# #         pass
-# #     logging.debug(f"hostname: {hostname}")
-# #     with open(args.output, "a") as csv_file:
-# #         writer = csv.writer(csv_file)
-# #         writer.writerow([_as, asname, prefix, ip, hostname])
-
-
-
-# parser = argparse.ArgumentParser(
-#     prog="reach-single-target",
-#     description="reach the same target overtime and saves the hops related to starlink",
-# )
-# parser.add_argument(
-#     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
-# )
-
-# args = parser.parse_args()
-
-
-# # if args.verbose:
-# #     logging.getLogger().setLevel(logging.DEBUG)
-# #     logging.getLogger("urllib3").setLevel(logging.WARNING)
-
-# # else:
-# #     logging.getLogger().setLevel(logging.INFO)
-
-# # for t in targets:
-# #     logging.debug(f"reaching {t}")
-# #     time = datetime.now()
-# #     Path(args.directory).mkdir(parents=True, exist_ok=True)
-# #     filename=f"{args.directory}/{t}.csv"
-# #     file_exists=os.path.isfile(filename)
-# #     f=open(filename, "a")
-# #     writer = csv.writer(f)
-# #     if not file_exists:
-# #         writer.writerow(["time", "hop#", "ip"])
-
-# #     for i in range(4,6):
-# #         myPacket = IP(dst="www.caida.org", ttl=i) / ICMP()
-# #         res = sr1(myPacket, verbose=0, timeout=3)
-# #         if res:
-# #             logging.debug(res.src)
-# #             src = res.src
-# #             lookup = asndb.lookup(src)
-# #             if lookup[0] == 14593:
-# #                 writer.writerow([time, i, src])
+# for each target we create a subdirectory called region
+# for each region we start reaching the targets as in the other script
+# to do this we need the ip addresses we can extract from the file
