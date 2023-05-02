@@ -4,12 +4,13 @@ final results to be sure we are indeed checking all the hops
 
 
 ## sample usage for `common.traceroute`
+!! make sure to configure the correct interface!!
 
 ```python
 import socket
 from common import traceroute
 from scapy.all import *
-
+# conf.route.add(net="0.0.0.0/0", gw="192.168.1.1") # interface config in our case
 hostname = "garr.it"
 
 hops = traceroute(hostname, verbose=0)
