@@ -54,7 +54,7 @@ for t in targets:
         writer.writerow(["time", "hop#", "ip"])
 
     for i in range(4,6):
-        myPacket = IP(dst="www.caida.org", ttl=i) / ICMP()
+        myPacket = IP(dst=t, ttl=i) / ICMP()
         res = sr1(myPacket, verbose=0, timeout=3)
         if res:
             logging.debug(res.src)

@@ -6,10 +6,6 @@ import csv
 from datetime import datetime
 import os
 
-# use starlink
-
-# assumes the directory already exists?
-# takes as input the entire filename 
 def reach_target(target,filename,asndb):
     asndb = pyasn.pyasn(asndb)
     time = datetime.now()
@@ -27,5 +23,4 @@ def reach_target(target,filename,asndb):
             logging.debug(src)
             lookup = asndb.lookup(src)
             if lookup[0] == 14593:
-                print(res.src)
                 writer.writerow([time, i, src])
