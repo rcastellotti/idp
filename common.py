@@ -6,7 +6,7 @@ from datetime import datetime
 import socket
 
 import pyasn
-from scapy.all import RandShort, sr, IP, TCP, RandInt, TracerouteResult, conf, ICMP
+from scapy.all import RandShort, sr, IP, TCP, RandInt, TracerouteResult, conf, ICMP,sr1
 
 
 def reach_target(target, filename, asndb):
