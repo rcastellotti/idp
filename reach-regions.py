@@ -12,9 +12,6 @@ from pathlib import Path
 from ipaddress import IPv4Network
 from common import *
 
-# use starlink
-conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-
 parser = argparse.ArgumentParser(
     prog="reach-single-target",
     description="reach the same target overtime and saves the hops related to starlink",
@@ -22,6 +19,10 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )
+parser.add_argument(
+    "--starlink", "-s", help="use starlink?", action=argparse.BooleanOptionalAction
+)
+
 parser.add_argument("--asndb", help="asndb file location")
 parser.add_argument("--region_file", "-r", help="region file")
 parser.add_argument("--directory", "-d", help="where to store files", required=True)
@@ -33,6 +34,9 @@ if args.verbose:
 
 else:
     logging.getLogger().setLevel(logging.INFO)
+
+if args.starlink:
+    conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
 
 with open(args.region_file, "r") as f:
     data = json.load(f)
