@@ -11,7 +11,8 @@ import urllib.request
 from pathlib import Path
 from ipaddress import IPv4Network
 from common import *
-import subprocess
+import subprocess as s
+
 parser = argparse.ArgumentParser(
     prog="reach-single-target",
     description="reach the same target overtime and saves the hops related to starlink",
@@ -35,9 +36,6 @@ if args.verbose:
 else:
     logging.getLogger().setLevel(logging.INFO)
 
-if args.starlink:
-    conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-
 with open(args.region_file, "r") as f:
     data = json.load(f)
 
@@ -46,13 +44,30 @@ for t in data["prefixes"]:
     scope = t["scope"]
     dir = f"{args.directory}"
     Path(dir).mkdir(parents=True, exist_ok=True)
-    # with open()
-    # logging.debug({dir})
-    # qua con sto indirizzo ci facciamo: traceroute con udp icmp tcp
-
-    reach_target(target=ip, asndb=args.asndb, filename=f"{dir}/{scope}-{ip}")
+    logging.debug(f"tracerouting {scope} {ip}")
 
 
+    if args.starlink:
+        with open(f"{dir}/{scope}-{ip}-icmp-starlink-4.csv", "a+") as f:
+            cmd=["mtr","--csv","-4",'-I',"enp1s0f2",ip]
+            s.call(cmd, stdout=f)
 
-# f = open("blah.txt", "w")
-# subprocess.call(["/home/myuser/run.sh", "/tmp/ad_xml",  "/tmp/video_xml"], stdout=f)
+        with open(f"{dir}/{scope}-{ip}-udp-starlink-4.csv", "a+") as f:
+            cmd=["mtr","--csv","-4","-u",'-I',"enp1s0f2",ip]
+            s.call(cmd, stdout=f)
+        
+        with open(f"{dir}/{scope}-{ip}-tcp-starlink-4.csv", "a+") as f:
+            cmd=["traceroute","--csv","-4","-T",'-I',"enp1s0f2",ip]
+            s.call(cmd, stdout=f)
+    else:
+        with open(f"{dir}/{scope}-{ip}-icmp-4.csv", "a+") as f:
+            cmd=["mtr","--csv","-4",ip]
+            s.call(cmd, stdout=f)
+
+        with open(f"{dir}/{scope}-{ip}-udp-4.csv", "a+") as f:
+            cmd=["mtr","--csv","-4","-u",ip]
+            s.call(cmd, stdout=f)
+        
+        with open(f"{dir}/{scope}-{ip}-tcp-4.csv", "a+") as f:
+            cmd=["mtr","--csv","-4","-T",ip]
+            s.call(cmd, stdout=f)

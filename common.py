@@ -4,9 +4,9 @@ import logging
 import os
 from datetime import datetime
 import socket
-
+import time
 import pyasn
-from scapy.all import RandShort, sr, IP, TCP, RandInt, TracerouteResult, conf, ICMP,sr1
+from scapy.all import RandShort, sr, IP, TCP, RandInt, TracerouteResult, conf, ICMP, sr1, UDP
 
 
 def reach_target(target, filename, asndb):
@@ -22,7 +22,7 @@ def reach_target(target, filename, asndb):
     writer = csv.writer(f)
     if not file_exists:
         writer.writerow(["time", "hop#", "ip"])
-    for i in range(4, 6):
+    for i in range(3, 8):
         pkt = IP(dst=target, ttl=i) / ICMP()
         res = sr1(pkt, verbose=0, timeout=3)
         if res:
@@ -33,61 +33,49 @@ def reach_target(target, filename, asndb):
                 writer.writerow([time, i, src])
 
 
-def traceroute(
-        target,
-        dport=80,
-        minttl=1,
-        maxttl=30,
-        sport=RandShort(),
-        l4=None,
-        filter=None,
-        timeout=2,
-        verbose=None,
-        **kargs,
-):
-    """Instant TCP traceroute traceroute(target, [maxttl=30,] [dport=80,] [sport=80,] [verbose=conf.verb]) -> None"""
-    if verbose is None:
-        verbose = conf.verb
-    if filter is None:
-        # we only consider ICMP error packets and TCP packets with at
-        # least the ACK flag set *and* either the SYN or the RST flag
-        # set
-        filter = "(icmp and (icmp[0]=3 or icmp[0]=4 or icmp[0]=5 or icmp[0]=11 or icmp[0]=12)) or (tcp and (tcp[13] & 0x16 > 0x10))"
-    if l4 is None:
-        a, b = sr(
-            IP(dst=target, id=RandShort(), ttl=(minttl, maxttl))
-            / TCP(seq=RandInt(), sport=sport, dport=dport),
-            timeout=timeout,
-            filter=filter,
-            verbose=verbose,
-            **kargs,
-        )
-    else:
-        # this should always work
-        filter = "ip"
-        a, b = sr(
-            IP(dst=target, id=RandShort(), ttl=(minttl, maxttl)) / l4,
-            timeout=timeout,
-            filter=filter,
-            verbose=verbose,
-            **kargs,
-        )
-    if verbose:
-        a = TracerouteResult(a.res)
-        a.show()
+def traceroute(target, protocol, asndb):
+    asndb = pyasn.pyasn(asndb)
 
-    hops = []
-    if l4 is None:
-        for i in a.res:
-            t = i[1].getlayer(TCP)
-            # we need to check we are not selecting the answers with SYN/AC
-            if t is None:
-                hops.append(i[1].src)
-                continue
-    else:
-        # only picking intermediate routers
-        hops = [i[1].src for i in a if i[1].type == 11]
-    return hops
+    ttl = 1
+    timestamp = int(time.time())
+    results = []
+    while ttl <30 :
+        pkt_base = IP(dst=target, ttl=ttl)
+        if protocol == "ICMP":
+            pkt = pkt_base / ICMP()
+        elif protocol == "UDP":
+            pkt = pkt_base / UDP(dport=53)
+        elif protocol == "TCP":
+            pkt = pkt_base / TCP(dport=80, flags="S")
+
+        reply = sr1(pkt, verbose=False, timeout=1)
+
+        if reply is None:
+            results.append([timestamp,ttl,"*","*","*"])
+            ttl+=1
+        else:
+            hostname = ""
+            try:
+                hostname = socket.gethostbyaddr(reply.src)[0]
+            except:
+                hostname = "???"
+            asn = asndb.lookup(reply.src)[0]
+            r = (timestamp, ttl, reply.src, hostname, asn)
+
+            results.append(r)
+
+            if (
+                protocol == "ICMP"
+                and reply.type == 0
+                or protocol == "UDP"
+                and reply.type == 3
+                or protocol == "TCP"
+                and reply.haslayer(TCP)
+                and reply.getlayer(TCP).flags == "SA"
+            ):
+                break
+            ttl += 1
+    return results
 
 
-
+# consider looking up asn name (maybe pyasn could be improved)

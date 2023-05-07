@@ -11,9 +11,9 @@ response = requests.get(url)
 data = json.loads(response.text)
 datone = {}
 just_one = []
-datone["syncToken"]=data["syncToken"]
-datone["creationTime"]=data["creationTime"]
-datone["prefixes"]=[]
+datone["syncToken"] = data["syncToken"]
+datone["creationTime"] = data["creationTime"]
+datone["prefixes"] = []
 # Loop through each item in the "prefixes" list and replace the "prefix" field with a random IP address inside that network
 for prefix in data["prefixes"]:
     if prefix["scope"] not in just_one:
