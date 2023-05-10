@@ -1,0 +1,9 @@
+[Unit]
+Description="run traceroutes"
+
+[Service]
+ExecStart=/usr/bin/python3 /root/idp-castellotti/main.py \
+            --asndb /root/idp-castellotti-data/ipasn_20230315.dat \
+            -r /root/idp-castellotti/targets.csv \
+            -d /root/idp-castellotti-data/new-traceroutes \
+            --verbose

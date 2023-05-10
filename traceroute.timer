@@ -1,0 +1,11 @@
+[Unit]
+Description="run traceroutes each 10 minutes"
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=24h
+OnCalendar=*:0/15
+Unit=traceroute.service
+
+[Install]
+WantedBy=multi-user.target

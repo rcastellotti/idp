@@ -7,7 +7,7 @@ import socket
 import time
 import pyasn
 from scapy.all import RandShort, sr, IP, TCP, RandInt, TracerouteResult, conf, ICMP, sr1, UDP
-
+import datetime
 
 def reach_target(target, filename, asndb):
     """
@@ -37,31 +37,31 @@ def traceroute(target, protocol, asndb):
     asndb = pyasn.pyasn(asndb)
 
     ttl = 1
-    timestamp = int(time.time())
+    probe_timestamp = int(time.time())
     results = []
     while ttl <30 :
         pkt_base = IP(dst=target, ttl=ttl)
+
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
         elif protocol == "UDP":
             pkt = pkt_base / UDP(dport=53)
         elif protocol == "TCP":
             pkt = pkt_base / TCP(dport=80, flags="S")
-
+        
         reply = sr1(pkt, verbose=False, timeout=1)
-
+        
         if reply is None:
-            results.append([timestamp,ttl,"*","*","*"])
+            results.append([probe_timestamp,ttl,"*","*","*"])
             ttl+=1
         else:
             hostname = ""
             try:
                 hostname = socket.gethostbyaddr(reply.src)[0]
-            except:
+            except socket.herror:
                 hostname = "???"
             asn = asndb.lookup(reply.src)[0]
-            r = (timestamp, ttl, reply.src, hostname, asn)
-
+            r = (probe_timestamp, ttl, reply.src, hostname, asn)
             results.append(r)
 
             if (
@@ -77,5 +77,3 @@ def traceroute(target, protocol, asndb):
             ttl += 1
     return results
 
-
-# consider looking up asn name (maybe pyasn could be improved)

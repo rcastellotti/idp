@@ -1,11 +1,11 @@
 from scapy.all import *
 from scapy.layers.inet import UDP
 import time
-import json
 import argparse
 from common import traceroute
 import csv
 from pathlib import Path
+from datetime import datetime
 
 parser = argparse.ArgumentParser(prog="traceroute")
 
@@ -16,8 +16,8 @@ parser.add_argument(
     "--starlink", "-s", help="use starlink?", action=argparse.BooleanOptionalAction
 )
 parser.add_argument("--directory", "-d", help="where to store files", required=True)
-parser.add_argument("--asndb", help="asndb file location", required=True)
-parser.add_argument("--region_file", "-r", help="region file  (csv)",required=True)
+parser.add_argument("--asndb", "-a", help="asndb file location", required=True)
+parser.add_argument("--region_file", "-r", help="region file  (csv)", required=True)
 
 args = parser.parse_args()
 
@@ -28,28 +28,44 @@ if args.verbose:
 else:
     logging.getLogger().setLevel(logging.INFO)
 
+def run_traceroute(filename,type):
+    logging.debug(f"traceroute {filename}")
+    file_exists = os.path.isfile(filename)
+
+    with open(filename, "a") as f:
+
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
+        results = traceroute(ip, p, asndb=args.asndb)
+        writer.writerows(results)
+
+    # with open(f"{dir}/{provider}-{type}-summary.csv", "a+") as f:
+    #     writer = csv.writer(f)
+    #     if not file_exists:
+    #         writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
+    #     writer.writerows(results)
+
 with open(args.region_file, "r") as csvfile:
+    next(csvfile)  # skipping the header
     reader = csv.reader(csvfile)
+
     for row in reader:
-        print(row)
+        provider, region, ip = row
+        dir = args.directory
+        Path(dir+"/"+provider).mkdir(parents=True, exist_ok=True)
 
-# for ip in data["prefixes"]:
-#     ip = t["ip"]
-#     scope = t["scope"]
-#     dir = f"{args.directory}"
-#     Path(dir).mkdir(parents=True, exist_ok=True)
-#     logging.debug(f"tracerouting {scope} {ip}")
-#     for p in ["ICMP", "UDP", "TCP"]:
-#         filename = f"{dir}/{scope}-{ip}-{p}-4.csv"
-#         if args.starlink:
-#             logging.debug("using starlink")
-#             conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-#             filename = f"{dir}/{scope}-{ip}-{p}-starlink-4.csv"
+        for p in ["ICMP", "UDP", "TCP"]:            
+            dt=datetime.now()
 
-#         file_exists = os.path.isfile(filename)
-#         f = open(filename, "a")
-#         writer = csv.writer(f)
-#         if not file_exists:
-#             writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
-#         results = traceroute(ip, p, asndb=args.asndb)
-#         writer.writerows(results)
+
+            results=[]
+
+            filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-normal.csv"
+            run_traceroute(filename,"normal")
+            
+            conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+            filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-starlink.csv"
+            run_traceroute(filename,"starlink")
+            conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
+    
