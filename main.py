@@ -56,9 +56,7 @@ with open(args.region_file, "r") as csvfile:
         Path(dir+"/"+provider).mkdir(parents=True, exist_ok=True)
 
         for p in ["ICMP", "UDP", "TCP"]:            
-            dt=datetime.now()
-
-
+            dt=datetime.now().isoformat()
             results=[]
 
             filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-normal.csv"
