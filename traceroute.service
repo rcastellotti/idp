@@ -6,5 +6,5 @@ User=root
 ExecStart=/usr/bin/python3 /home/rc/idp-castellotti/main.py \
             --asndb /home/rc/idp-castellotti-data/ipasn_20230315.dat \
             -r /home/rc/idp-castellotti/targets.csv \
-            -d /home/rc/idp-castellotti-data/new-traceroutes \
+            -d /home/rc/idp-castellotti-data/new-traceroutes-latency \
             --verbose
