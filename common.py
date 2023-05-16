@@ -48,11 +48,10 @@ def traceroute(target, protocol, asndb):
             pkt = pkt_base / UDP(dport=53)
         elif protocol == "TCP":
             pkt = pkt_base / TCP(dport=80, flags="S")
-        
         reply = sr1(pkt, verbose=False, timeout=1)
-        
+        rtt_ms=(reply.time - pkt.sent_time)*1000
         if reply is None:
-            results.append([probe_timestamp,ttl,"*","*","*"])
+            results.append([probe_timestamp,ttl,"*","*","*",rtt_ms])
             ttl+=1
         else:
             hostname = ""
@@ -61,7 +60,7 @@ def traceroute(target, protocol, asndb):
             except socket.herror:
                 hostname = "???"
             asn = asndb.lookup(reply.src)[0]
-            r = (probe_timestamp, ttl, reply.src, hostname, asn)
+            r = (probe_timestamp, ttl, reply.src, hostname, asn,rtt_ms)
             results.append(r)
 
             if (
@@ -76,4 +75,3 @@ def traceroute(target, protocol, asndb):
                 break
             ttl += 1
     return results
-
