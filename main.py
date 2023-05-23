@@ -46,6 +46,7 @@ def run_traceroute(filename,type):
     #         writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
     #     writer.writerows(results)
 
+
 with open(args.region_file, "r") as csvfile:
     next(csvfile)  # skipping the header
     reader = csv.reader(csvfile)
