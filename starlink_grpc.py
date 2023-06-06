@@ -85,7 +85,7 @@ This group holds information about the current state of the user terminal.
     considers the signal to noise ratio to be above some minimum threshold for
     connectivity, currently 3dB.
 
-Obstruction detail status data
+Obstruct status data
 ------------------------------
 This group holds additional detail regarding the specific areas the user
 terminal has determined to be obstructed.
