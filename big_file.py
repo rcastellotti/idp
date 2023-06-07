@@ -1,64 +1,63 @@
+import psutil
 import time
-import requests
-from csv import writer
-from datetime import datetime
-import os
 from starlink_grpc import status_data
-import socket
-from requests import adapters
-from urllib3.poolmanager import PoolManager
+import warnings
+import logging
+import csv
+import os
+from datetime import datetime
+
+warnings.filterwarnings("ignore")
 
 
-class InterfaceAdapter(adapters.HTTPAdapter):
-    def __init__(self, **kwargs):
-        self.iface = kwargs.pop("iface", None)
-        super(InterfaceAdapter, self).__init__(**kwargs)
-
-    def _socket_options(self):
-        if self.iface is None:
-            return []
-        else:
-            return [(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self.iface)]
-
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager = PoolManager(
-            num_pools=connections,
-            maxsize=maxsize,
-            block=block,
-            socket_options=self._socket_options(),
-        )
+## remember to run rc@gnolmir ~/idp-castellotti (main)> wget -4 https://speed.hetzner.de/10GB.bin --report-speed=bits -O /dev/null
+# and to set appropriately the route!!!!
 
 
-session = requests.Session()
-for prefix in ("http://", "https://"):
-    session.mount(prefix, InterfaceAdapter(iface=b"enp1s0f2"))
+# https://stackoverflow.com/a/62020919
+def net_usage(inf="enp1s0f2"):  # change the inf variable according to the interface
+    net_stat = psutil.net_io_counters(pernic=True, nowrap=True)[inf]
+    net_in_1 = net_stat.bytes_recv
+    net_out_1 = net_stat.bytes_sent
+    time.sleep(1)
+    net_stat = psutil.net_io_counters(pernic=True, nowrap=True)[inf]
+    net_in_2 = net_stat.bytes_recv
+    net_out_2 = net_stat.bytes_sent
 
-url = "https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso"
-r = session.get(url, stream=True)
-file_size = int(r.headers["content-length"])
-print(f"file size: {file_size} bytes")
-downloaded = 0
-start = last_print = time.monotonic()
+    net_in = (net_in_2 - net_in_1) / 1024/1024
+    net_out = (net_out_2 - net_out_1) / 1024 /1024
+
+    logging.info(f"IN: {net_in} MB/s, OUT: {net_out} MB/s")
+    return net_in, net_out
+
+
 file_exists = os.path.exists("large_file_download.csv")
-
 with open("large_file_download.csv", "a+") as f:
-    csv_writer = writer(f)
+    csv_writer = csv.writer(f)
     if not file_exists:
-        csv_writer.writerow(["timestamp", "speed_KBs", "pop_ping_latency_ms"])
-
+        csv_writer.writerow(
+            [
+                "timestamp",
+                "net_in_mbps",
+                "net_out_mbps",
+                "pop_ping_latency_ms",
+                "downlink_troughput_bps",
+            ]
+        )
 while True:
-    r = session.get(url, stream=True)
-    with open("large_file_download.csv", "a+") as f:
-        csv_writer = writer(f)
-        with open("ubuntu-22.04.2-desktop-amd64.iso.iso", "wb") as fp:
-            for chunk in r.iter_content(chunk_size=4096):
-                downloaded += fp.write(chunk)
-                now = time.monotonic()
-                if now - last_print > 1:
-                    pct_done = round(downloaded / file_size * 100)
-                    speed = downloaded / (now - start) /1024/1024
-                    pop_ping_latency_ms = status_data()[0]["pop_ping_latency_ms"]
-                    csv_writer.writerow([datetime.now(), speed, pop_ping_latency_ms])
-                    print(f"Download {pct_done}% done, avg speed {speed} MBps")
-                    last_print = now
-    time.sleep(10)
+    with open("large_file_download.csv", "a") as f:
+        csv_writer = csv.writer(f)
+
+        net_in, net_out = net_usage()
+        pop_ping_latency_ms = status_data()[0]["pop_ping_latency_ms"]
+        downlink_throughput_bps = status_data()[0]["downlink_throughput_bps"] / 1024
+        print(net_in, net_out, pop_ping_latency_ms, downlink_throughput_bps)
+        csv_writer.writerow(
+            [
+                datetime.now(),
+                net_in,
+                net_out,
+                pop_ping_latency_ms,
+                downlink_throughput_bps,
+            ]
+        )
