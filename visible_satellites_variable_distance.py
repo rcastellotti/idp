@@ -27,16 +27,19 @@ with open("visible_satellites_variable_distance.csv", "a+") as f:
             ]
         )
 
-distance=0
+distance = 0
 
 while True:
-    if distance==3000:
+    if distance == 3000:
         break
     with open("visible_satellites_variable_distance.csv", "a+") as f:
         csv_writer = writer(f)
-        
+
         satellites = calculate_visible_satellites(
-            observer_latitude, observer_longitude, observer_elevation, distance_km=distance
+            observer_latitude,
+            observer_longitude,
+            observer_elevation,
+            distance_km=distance,
         )
         for sat, alt, az in satellites:
             pop_ping_latency_ms = status_data()[0]["pop_ping_latency_ms"]
@@ -51,4 +54,4 @@ while True:
             ]
             csv_writer.writerow(row)
             print(row)
-    distance+=100
+    distance += 100

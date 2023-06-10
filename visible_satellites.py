@@ -16,7 +16,14 @@ with open("visible_satellites.csv", "a+") as f:
     csv_writer = writer(f)
     if not file_exists:
         csv_writer.writerow(
-            ["timestamp", "satellite_norad","satellite", "alt", "az", "pop_ping_latency_ms"]
+            [
+                "timestamp",
+                "satellite_norad",
+                "satellite",
+                "alt",
+                "az",
+                "pop_ping_latency_ms",
+            ]
         )
 
 while True:
@@ -27,7 +34,14 @@ while True:
         )
         for sat, alt, az in satellites:
             pop_ping_latency_ms = status_data()[0]["pop_ping_latency_ms"]
-            row=[datetime.now(), sat.model.satnum,sat.name, alt, az, pop_ping_latency_ms]
+            row = [
+                datetime.now(),
+                sat.model.satnum,
+                sat.name,
+                alt,
+                az,
+                pop_ping_latency_ms,
+            ]
             csv_writer.writerow(row)
-            print(row)  
+            print(row)
     time.sleep(60)

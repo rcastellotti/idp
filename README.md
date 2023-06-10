@@ -25,3 +25,5 @@ for i, hop in enumerate(hops):
     for i, hop in enumerate(hops):
         print(f"{i} = {hop} -> {socket.getnameinfo((hop, 0), 0)[0]}")
 ```
+
++ `main.ipynb` ~> a notebook to test stuff implemented in other files

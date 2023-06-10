@@ -1,17 +1,12 @@
 import csv
 import os
-import subprocess
 import time
-import argparse
 from scapy.all import (
     conf,
     ICMP,
     IP,
     sr1,
 )
-from pathlib import Path
-import threading
-import iperf3
 from starlink_grpc import status_data
 
 conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
