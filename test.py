@@ -5,8 +5,9 @@ import requests
 
 def download_file(url):
     local_filename = url.split("/")[-1]
+    # using these headers because I had some problems downloading this specific file without them
     headers = {
-        "User-Agent": "Wget/1.21.4",  # Replace VERSION with the actual version of wget
+        "User-Agent": "Wget/1.21.4",
         "Accept": "*/*",
         "Accept-Encoding": "identity",
         "Connection": "Keep-Alive",
@@ -19,14 +20,12 @@ def download_file(url):
             for chunk in r.iter_content(chunk_size=1024):
                 f.write(chunk)
                 elapsed_time = time.time() - start_time
-                download_speed = len(chunk) / elapsed_time / 1024  # in KB/s
-                print(f"Download speed: {download_speed:.2f} KB/s", end="\r")
-
+                download_speed_kbs = len(chunk) / elapsed_time / 1024
+                print(f"Download speed: {download_speed_kbs:.2f} KB/s", end="\r")
                 f.write(chunk)
     return local_filename
 
 
 url = "http://speed.hetzner.de/10GB.bin"
-output_file = "output_file_name"
 
 download_file(url)

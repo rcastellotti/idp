@@ -28,12 +28,12 @@ if args.verbose:
 else:
     logging.getLogger().setLevel(logging.INFO)
 
-def run_traceroute(filename,type):
+
+def run_traceroute(filename, type):
     logging.debug(f"traceroute {filename}")
     file_exists = os.path.isfile(filename)
 
     with open(filename, "a") as f:
-
         writer = csv.writer(f)
         if not file_exists:
             writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
@@ -54,17 +54,16 @@ with open(args.region_file, "r") as csvfile:
     for row in reader:
         provider, region, ip = row
         dir = args.directory
-        Path(dir+"/"+provider).mkdir(parents=True, exist_ok=True)
+        Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
 
-        for p in ["ICMP", "UDP", "TCP"]:            
-            dt=datetime.now().isoformat()
-            results=[]
+        for p in ["ICMP", "UDP", "TCP"]:
+            dt = datetime.now().isoformat()
+            results = []
 
             filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-normal.csv"
-            run_traceroute(filename,"normal")
-            
+            run_traceroute(filename, "normal")
+
             conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
             filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-starlink.csv"
-            run_traceroute(filename,"starlink")
+            run_traceroute(filename, "starlink")
             conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
-    

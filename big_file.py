@@ -24,8 +24,8 @@ def net_usage(inf="enp1s0f2"):  # change the inf variable according to the inter
     net_in_2 = net_stat.bytes_recv
     net_out_2 = net_stat.bytes_sent
 
-    net_in = (net_in_2 - net_in_1) / 1024/1024
-    net_out = (net_out_2 - net_out_1) / 1024 /1024
+    net_in = (net_in_2 - net_in_1) / 1024 / 1024
+    net_out = (net_out_2 - net_out_1) / 1024 / 1024
 
     logging.info(f"IN: {net_in} MB/s, OUT: {net_out} MB/s")
     return net_in, net_out

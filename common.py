@@ -129,10 +129,8 @@ def cloud_traceroutes(region_file, output_directory, asndb):
                 conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
 
 
-
-
 def calculate_visible_satellites(
-    observer_latitude, observer_longitude, observer_elevation,distance_km
+    observer_latitude, observer_longitude, observer_elevation, distance_km
 ):
     stations_url = (
         "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
