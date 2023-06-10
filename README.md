@@ -1,7 +1,4 @@
-## todo
-+ script `common.py` has some optimization (only using ttls from 4 to 6). maybe we should change this when producing
-final results to be sure we are indeed checking all the hops
-
+# IDP Castellotti
 
 ## sample usage for `common.traceroute`
 !! make sure to configure the correct interface!!
