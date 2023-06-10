@@ -28,6 +28,10 @@ for i, hop in enumerate(hops):
 
 + `main.ipynb` ~> a notebook to test stuff implemented in other files
 
+
+## `starlink_grpc.py`
+This is adapted from <https://github.com/sparky8512/starlink-grpc-tools/blob/main/starlink_grpc.py>, because I needed just a subset of that, in case you need more use [`starlink-grpc-tools`](https://github.com/sparky8512/starlink-grpc-tools)
+
 ## `visible-satellites.py`
 
 Get all visible satellites, where "visible" is defined as above the horizon and within the distance passed as parameter, following are garching's coordinates
