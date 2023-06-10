@@ -14,11 +14,6 @@ import argparse
 #     -d 800 \
 #     -o /home/rc/idp-castellotti-data/visible_satellites_garching.csv
 
-# garching coordinates
-observer_latitude = 48.2489
-observer_longitude = 11.6532
-observer_elevation = 0
-
 parser = argparse.ArgumentParser(prog="visible_satellites")
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
@@ -35,7 +30,7 @@ args = parser.parse_args()
 file_exists = os.path.exists(args.output)
 
 while True:
-    with open("visible_satellites.csv", "a+") as f:
+    with open(args.output, "a+") as f:
         csv_writer = writer(f)
         if not file_exists:
             csv_writer.writerow(
