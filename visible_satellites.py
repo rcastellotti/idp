@@ -6,14 +6,6 @@ from starlink_grpc import status_data
 from common import calculate_visible_satellites
 import argparse
 
-
-# python3 visible_satellites.py \
-#     -lat 48.2489 \
-#     -lon 11.6532 \
-#     -el 0 \
-#     -d 800 \
-#     -o /home/rc/idp-castellotti-data/visible_satellites_garching.csv
-
 parser = argparse.ArgumentParser(prog="visible_satellites")
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
