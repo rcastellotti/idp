@@ -27,3 +27,16 @@ for i, hop in enumerate(hops):
 ```
 
 + `main.ipynb` ~> a notebook to test stuff implemented in other files
+
+## `visible-satellites.py`
+
+Get all visible satellites, where "visible" is defined as above the horizon and within the distance passed as parameter, following are garching's coordinates
+
+```bash
+python3 visible_satellites.py \
+    -lat 48.2489 \
+    -lon 11.6532 \
+    -el 0 \
+    -d 800 \
+    -o /home/rc/idp-castellotti-data/visible_satellites_garching.csv
+```

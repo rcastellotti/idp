@@ -137,9 +137,7 @@ def calculate_visible_satellites(
     )
 
     satellites = load.tle_file(stations_url)
-    observer = Topos(
-        observer_latitude, observer_longitude, elevation_m=observer_elevation
-    )
+    observer = Topos(observer_latitude, observer_longitude, observer_elevation)
     ts = load.timescale()
     t = ts.now()
 
