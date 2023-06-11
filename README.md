@@ -24,7 +24,9 @@ for i, hop in enumerate(hops):
 ```
 
 
-+ `main.ipynb` ~> a notebook to test stuff implemented in other files
+## `main.ipynb`
+
+A simple notebook to test stuff implemented in other files
 
 
 ## `pop_ping_latency.py`
