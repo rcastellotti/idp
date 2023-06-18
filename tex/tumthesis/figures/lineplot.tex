@@ -1,0 +1,42 @@
+\documentclass[beamer,multi=true,preview]{standalone}
+\usepackage{beamerpackages}
+\usepackage{tumcolor}
+
+\newlength{\upt}
+\setlength{\upt}{0.0666667\beamertextwidth}
+
+\setbeamertemplate{headline}{}
+
+\let\myshipout\shipout
+\begin{document}%
+\let\shipout\myshipout
+\begin{standaloneframe}[plain]%
+\begin{tikzpicture}
+\begin{axis}[
+	ylabel={Throughput [\si{\giga\bit\per\second}]},
+	xlabel={Processing Steps},
+	ymin=0,
+	width=10cm,height=7cm,
+    	legend pos={south east}
+]
+\addplot[color=TUMOrange,mark=x] coordinates {
+	(100, 9.9)
+	(200, 9.7)
+	(300, 9.8)
+	(400, 9.3)
+	(500, 10.0)
+	(600, 9.0)
+};
+\addplot[color=TUMGreen,mark=*] coordinates {
+	(100, 9)
+	(200, 8.9)
+	(300, 8.7)
+	(400, 8.1)
+	(500, 6.9)
+	(600, 5.0)
+};
+\legend{LoadGen, DuT}
+\end{axis}
+\end{tikzpicture}
+\end{standaloneframe}
+\end{document}
