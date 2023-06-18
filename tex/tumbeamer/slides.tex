@@ -1,63 +1,54 @@
 \documentclass[NET,english,beameralt]{tumbeamer}
-
-% If you load additional packages, do so in packages.sty as figures are build
-% as standalone documents and you may want to have effect on them, too.
-
-% Folder structure:
-% .
-% ├── beamermods.sty                  % depricated an will be removed soon
-% ├── compile                         % remotely compile slides
-% ├── figures                         % all figures go here
-% │   └── schichtenmodelle_osi.tikz   % each .tikz or .tex is a target
-% ├── include                         % create your document here
-% │   ├── example.tex                 % example document
-% │   └── slides.tex                  % make document wide changes here
-% ├── lit.bib                         % literature
-% ├── Makefile
-% ├── moeptikz.sty                    % fancy networking symbols
-% ├── packages.sty                    % load additional packages there
-% ├── pics                            % binary pcitures go here
-% ├── slides.tex                      % main document (may be more than one)
-% ├── tumbeamer.cls
-% ├── tumcolor.sty                    % TUM color definitions
-% ├── tumcontact.sty                  % TUM headers and footers
-% ├── tumlang.sty                     % TUM names and language settings
-% └── tumlogo.sty                     % TUM logos
-
+\usepackage[options]{minted}
 % Configure author, title, etc. here:
 \input{include/slides}
 
 \begin{document}
 
-% If you are preparing a talk but do not like the default font sizes, you may
-% want to try the class option 'beameralt', which uses smaller default font
-% sizes and integrates subsection/subsubsection names into the headline.
+\begin{frame}{Agenda}
+    \begin{itemize}
+        \item trying to understand routing decisions
+        \item visualize visible satellites
+        \item exploring the GRPC api
+    \end{itemize}
+\end{frame}
 
-% For lecture mode, you may want to build one set of slides per chapter but
-% with common page numbering. If so,
-% 1) create a new .tex file for each chapter, e.g. slides_chapN.tex,
-% 2) set the part counter to N-1 (assuming chapters start at 0), and
-% 3) and name your chapter by using the \part{} command.
-%\setcounter{part}{-1}
-%\part{Organisatorisches und Einleitung}
+\begin{frame}{Understanding routing decisions}
+    \begin{itemize}
+        \item get ip address blocks from major cloud providers (aws,azure,oracle), as we know their position \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a traceroute to that geographic area}
+    \end{itemize}
+\end{frame}
 
-% For 16:9 slides, use the class option 'aspectratio=169'.
+\begin{frame}{Visualize visible satellites}
+    \begin{itemize}
+        \item from \href{celestrak.org}{celestrak.org} we can download a list of Starlink's satellites TLEs
+        \item A two-line element set (TLE) is a data format encoding a list of orbital elements of an Earth-orbiting object for a given point in time, the epoch. Using a suitable prediction formula, the state (position and velocity) at any point in the past or future can be estimated to some accuracy. (from wikipedia.org)
+    \end{itemize}
+\end{frame}
 
-% If class option 'noframenumbers' is given, frame numbers are not printed.
+\begin{frame}[fragile]{\texttt{common.calculate\_visible\_satellites}}
+    \begin{minted}[fontsize=\small]{python3}
+def calculate_visible_satellites(...):
+    # ...
+    satellites = load.tle_file(stations_url)
+    observer = Topos(observer_latitude, observer_longitude, observer_elevation)
+    t = load.timescale().now()
 
-% If class option 'notitleframe' is given, the title frame is not autmatically
-% generated.
+    # Calculate satellite positions
+    positions = [(sat, (sat - observer).at(t)) for sat in satellites]
+    
+    # Filter visible satellites
+    visible_satellites = []
+    for sat, position in positions:
+        alt, az, distance = position.altaz()
+        # Satellite is above the horizon
+        if alt.degrees > 0 and distance.km < distance_km:
+            visible_satellites.append((sat, alt, az))
 
-% Class option 'nocontentframes' suppresses automatic generation of content
-% frames when new parts/sections are started.
+    return visible_satellites
+    \end{minted}
+    \end{frame}
 
-% Include source files from ./include (or ./include/chapN).
-\input{include/example}
-
-% Include markdown source from ./pandoc
-%\input{pandoc/example}
-
-% Comment out if you do not want a bibliography
 \section{Bibliography}
 \begin{frame}[allowframebreaks]
     \bibliographystyle{abbrv}
@@ -65,6 +56,8 @@
     \footnotesize
     \bibliography{lit}
 \end{frame}
+
+
 
 \end{document}
 
