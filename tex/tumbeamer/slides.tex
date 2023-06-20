@@ -15,9 +15,32 @@
 
 \begin{frame}{Understanding routing decisions}
     \begin{itemize}
-        \item get ip address blocks from major cloud providers (aws,azure,oracle), as we know their position \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a traceroute to that geographic area}
+        \item got ip address blocks from major cloud providers (aws,azure,oracle), as we know their position \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a traceroute to that geographic area}
+        \item chose 5 geographically sparse targets around the globe (for aws: ap-northeast-2, us-east-1, ap-south-1, sa-east-1, me-south-1 )
+        \item tracerouted the targets over several days 
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Understanding routing decisions}
+    \begin{figure}
+        \includegraphics[width=0.75\textwidth]{pics/aws_7_icmp.png}
+        \caption[short]{First 7 hops of traceroutes to 5 AWS datacenters using ICMP}
+    \end{figure}
+\end{frame}
+\begin{frame}{Understanding routing decisions}
+    \begin{figure}
+        \includegraphics[width=0.75\textwidth]{pics/aws_7_udp.png}
+        \caption[short]{First 7 hops of traceroutes to 5 AWS datacenters using UDP}
+    \end{figure}
+\end{frame}
+\begin{frame}{Understanding routing decisions}
+    \begin{figure}
+        \includegraphics[width=0.75\textwidth]{pics/aws_7_tcp.png}
+        \caption[short]{First 7 hops of traceroutes to 5 AWS datacenters using TCP}
+    \end{figure}
+\end{frame}
+
+
 
 \begin{frame}{Visualize visible satellites}
     \begin{itemize}
@@ -47,7 +70,7 @@ def calculate_visible_satellites(...):
 
     return visible_satellites
     \end{minted}
-    \end{frame}
+\end{frame}
 
 \section{Bibliography}
 \begin{frame}[allowframebreaks]
