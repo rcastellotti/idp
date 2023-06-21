@@ -22,6 +22,17 @@ import datetime
 from pathlib import Path
 from skyfield.api import Topos, load
 
+def calculate_bandwidth(previous_bytes, current_bytes, elapsed_time):
+    bytes_per_second = (current_bytes - previous_bytes) / elapsed_time
+    bits_per_second = bytes_per_second * 8
+    return bits_per_second /8
+
+def read_rx_bytes(interface):
+    with open(f'/sys/class/net/{interface}/statistics/rx_bytes', 'r') as file:
+        rx_bytes = int(file.read())
+    return rx_bytes
+
+
 
 def reach_target(target, filename, asndb):
     """

@@ -29,20 +29,18 @@ parser.add_argument(
 # parser.add_argument("--output", "-o", help="output file", required=True)
 args = parser.parse_args()
 
-db_url = "sqlite:///satellites.db"
+db_url = "sqlite:///satellites.sqlite"
 engine = create_engine(db_url)
 Base = declarative_base()
 
-
 class Satellite(Base):
     __tablename__ = "satellites"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer,primary_key=True)
+    relative_ts=Column(Integer)
+    ts = Column(Integer)
     satname = Column(String)
     alt = Column(String)
     az = Column(String)
-    start_timestamp = Column(String)
-    end_timestamp = Column(String)
-    visible = Column(Boolean, default=False, nullable=False)
 
     def __eq__(self, other):
         return self.satname == other.satname
@@ -54,46 +52,22 @@ class Satellite(Base):
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-
+count=0
 while True:
-    visible_satellites_db = (
-        session.query(Satellite).filter(Satellite.visible.is_(True)).all()
-    )
-    start_time = datetime.now()
+    count+=1
+    timestamp = time.time()
     vis_sat = calculate_visible_satellites(
         args.latitude, args.longitude, args.elevation, args.distance
     )
-    visible_satellites = []
     for sat, alt, az in vis_sat:
         new_satellite = Satellite(
             satname=sat.name,
+            relative_ts=count,
             alt=str(alt),
             az=str(az),
-            start_timestamp=start_time,
-            end_timestamp=start_time,
-            visible=True,
+            ts=timestamp,
         )
-        visible_satellites.append(new_satellite)
-
-    print("satellites visible now:")
-    for s in visible_satellites:
-        print(s)
-    print("satellites that were visible last time:")
-    for s in visible_satellites_db:
-        print(s)
-
-    for sat in visible_satellites_db:
-        if sat in visible_satellites:
-            sat.end_timestamp = start_time
-            sat.visible=True
-            visible_satellites.remove(sat)
-        else:
-            sat.visible = False
-        session.add(sat)
+        print(sat)
+        session.add(new_satellite)
         session.commit()
-    # print(vis_sat)
-    for s in visible_satellites:
-        session.add(s)
-        session.commit()
-    
-    time.sleep(5)
+    time.sleep(15)
