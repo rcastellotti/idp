@@ -13,9 +13,9 @@ warnings.filterwarnings("ignore")
 # sudo ip route add 88.198.248.254  via 192.168.1.1
 
 interface="enp1s0f3"
-
-file_exists = os.path.exists("large_file_download.csv")
-with open("large_file_download.csv", "a+") as f:
+filename="large_file_download_3parallel.csv"
+file_exists = os.path.exists(filename)
+with open(filename, "a+") as f:
     csv_writer = csv.writer(f)
     if not file_exists:
         csv_writer.writerow(
@@ -29,7 +29,7 @@ with open("large_file_download.csv", "a+") as f:
 
 
 previous_bytes = read_rx_bytes(interface)
-with open("large_file_download.csv", "a") as f:
+with open(filename, "a") as f:
     csv_writer = csv.writer(f)
     while True:
         time.sleep(1)
