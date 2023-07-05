@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 # sudo ip route add 88.198.248.254  via 192.168.1.1
 
 interface="enp1s0f3"
-filename="large_file_download_3parallel.csv"
+filename="large_file_download_5parallel.csv"
 file_exists = os.path.exists(filename)
 with open(filename, "a+") as f:
     csv_writer = csv.writer(f)
