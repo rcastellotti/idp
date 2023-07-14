@@ -7,10 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import logging
 import nine981
-from PIL import Image, ImageDraw, ImageFont
-
-
-
+from PIL import Image, ImageDraw
 
 parser = argparse.ArgumentParser(prog="map")
 parser.add_argument(
