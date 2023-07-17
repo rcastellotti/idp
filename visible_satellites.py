@@ -2,7 +2,6 @@ import time
 from csv import writer
 from datetime import datetime
 import os
-from starlink_grpc import status_data
 from common import calculate_visible_satellites
 import argparse
 from sqlalchemy import create_engine, Column, Integer, String, Boolean

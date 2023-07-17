@@ -1,9 +1,10 @@
 import psutil
 import time
-from starlink_grpc import status_data
+from nine981 import get_status
 import warnings
 import logging
 import csv
+import json
 import os
 from datetime import datetime
 from common import read_rx_bytes
@@ -13,7 +14,7 @@ warnings.filterwarnings("ignore")
 # sudo ip route add 88.198.248.254  via 192.168.1.1
 
 interface="enp1s0f3"
-filename="large_file_download_5parallel.csv"
+filename="large_file_download_5parallel_obstruction_map.csv"
 file_exists = os.path.exists(filename)
 with open(filename, "a+") as f:
     csv_writer = csv.writer(f)
@@ -36,11 +37,12 @@ with open(filename, "a") as f:
         current_bytes = read_rx_bytes(interface)
         bandwidth = (current_bytes-previous_bytes)*8
         previous_bytes = current_bytes
-        pop_ping_latency_ms = status_data()[0]["pop_ping_latency_ms"]
-        downlink_throughput_bps = status_data()[0]["downlink_throughput_bps"]
+        status=json.loads(get_status())["dishGetStatus"]
+        pop_ping_latency_ms = status["popPingLatencyMs"]
+        downlink_throughput_bps = status["downlinkThroughputBps"]
         csv_writer.writerow(
             [
-                datetime.now(),
+                int(time.time()),
                 bandwidth,
                 pop_ping_latency_ms,
                 downlink_throughput_bps,

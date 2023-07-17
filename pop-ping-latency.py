@@ -1,5 +1,7 @@
 import csv
 import os
+import json
+from nine981 import get_status
 import time
 from scapy.all import (
     conf,
@@ -7,7 +9,6 @@ from scapy.all import (
     IP,
     sr1,
 )
-from starlink_grpc import status_data
 import argparse
 
 parser = argparse.ArgumentParser(prog="pop_ping_latency with iperf running")
@@ -34,8 +35,10 @@ def ping(bw):
             rtt_ms = (reply.time - pkt.sent_time) * 1000
             time.sleep(1)
             print([probe_timestamp, rtt_ms])
+            status=json.loads(get_status())["dishGetStatus"]
+            pop_ping_latency_ms = status["popPingLatencyMs"]
             writer.writerow(
-                [probe_timestamp, rtt_ms, status_data()[0]["pop_ping_latency_ms"]]
+                [probe_timestamp, rtt_ms, pop_ping_latency_ms]
             )
 
 

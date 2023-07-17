@@ -30,15 +30,15 @@ if args.verbose:
     logging.basicConfig(level="INFO")
 
 # consider using a relative counter :)
-# logging.info("starting to save maps")
-# for i in range(1):
-#     map = nine981.get_obstruction_map()
-#     os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
-#     with open(f"{directory}/map-{int(time.time())}.json", "w+") as f:
-#         f.write(map)
-#     time.sleep(1)
+logging.info("starting to save maps")
+for i in range(args.seconds):
+    map = nine981.get_obstruction_map()
+    os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
+    with open(f"{directory}/map-{int(time.time())}.json", "w+") as f:
+        f.write(map)
+    time.sleep(1)
 
-# os.makedirs(os.path.dirname(f"{directory}-viz/"), exist_ok=True)
+os.makedirs(os.path.dirname(f"{directory}-viz/"), exist_ok=True)
 
 def process_file(filename):
     img = os.path.join(directory, filename)
