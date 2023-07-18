@@ -29,16 +29,16 @@ directory = args.directory
 if args.verbose:
     logging.basicConfig(level="INFO")
 
-# consider using a relative counter :)
-logging.info("starting to save maps")
-for i in range(args.seconds):
-    map = nine981.get_obstruction_map()
-    os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
-    with open(f"{directory}/map-{int(time.time())}.json", "w+") as f:
-        f.write(map)
-    time.sleep(1)
+# # consider using a relative counter :) and adding a dot whenever I retrieve a map
+# logging.info("starting to save maps")
+# for i in range(args.seconds):
+#     map = nine981.get_obstruction_map()
+#     os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
+#     with open(f"{directory}/map-{int(time.time())}.json", "w+") as f:
+#         f.write(map)
+#     time.sleep(1)
 
-os.makedirs(os.path.dirname(f"{directory}-viz/"), exist_ok=True)
+# os.makedirs(os.path.dirname(f"{directory}-viz/"), exist_ok=True)
 
 def process_file(filename):
     img = os.path.join(directory, filename)
@@ -66,13 +66,13 @@ def process_file(filename):
 
 
 files = os.listdir(directory)
-with ThreadPoolExecutor(max_workers=16) as executor:
+with ThreadPoolExecutor(max_workers=4) as executor:
     executor.map(process_file, files)
     print("All files processed.")
 
-ffmpeg.input(f"{directory}-viz/*.png", framerate=60, pattern_type="glob").output(
-    args.output,
-    vcodec="libx264",
-    pix_fmt="yuv420p",
-    vf="pad=ceil(iw/2)*2:ceil(ih/2)*2",
-).run()
+# ffmpeg.input(f"{directory}-viz/*.png", framerate=60, pattern_type="glob").output(
+#     args.output,
+#     vcodec="libx264",
+#     pix_fmt="yuv420p",
+#     vf="pad=ceil(iw/2)*2:ceil(ih/2)*2",
+# ).run()

@@ -48,3 +48,4 @@ with open(filename, "a") as f:
                 downlink_throughput_bps,
             ]
         )
+        f.flush()
