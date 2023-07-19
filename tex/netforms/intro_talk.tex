@@ -1,0 +1,147 @@
+% intro talk in german
+%\documentclass[NET,a4paper,12pt,ngerman]{netforms}
+
+% intro talk in english
+\documentclass[NET,a4paper,12pt,english]{netforms}
+\usepackage{hyperref}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tumlang}
+\usepackage{tumcontact}
+\usepackage{scrlayer-scrpage}
+\usepackage[textsize=scriptsize]{todonotes}
+% Disable todonotes with
+%\setuptodonotes{disable}
+\setuptodonotes{inline}
+\usepackage{pgfgantt}
+\usepackage{float}
+\usepackage{enumitem}
+\newlist{researchquestions}{enumerate}{1}
+\setlist[researchquestions,1]{label=\textbf{\textit{RQ \arabic*}}, resume}
+
+
+\geometry{%
+	top=20mm,
+	bottom=20mm,
+	left=25mm,
+	right=25mm,
+	headsep=1.5cm,
+	includehead,
+}
+\input{studentdefs}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\chead{\TUMheader{1cm}}
+
+\renewcommand{\maketitle}{%
+	\begin{center}
+		\textbf{\introductoryheadline}%
+
+		\Large%
+		\textbf{\thetitle}%
+	\end{center}
+
+	\footnotesize%
+	\hrule
+	\vskip1ex
+	\begin{tabular}{ll}
+		\thenamelabel: & \thevorname{} \textbf{\thenachname}\\
+		\theadvisorlabel: & \hspace*{-.5ex}\thebetreuer\\
+		\thesupervisorlabel: & \chairhead\\
+		\thebeginlabel: & \thebeginnmonat/\thebeginnjahr\\
+		\theendlabel: & \theendmonat/\theendjahr\\
+	\end{tabular}
+	\vskip1ex
+	\hrule
+	\vskip4ex
+}
+
+\linespread{1.2}
+\setlength{\parskip}{.5\baselineskip}
+
+\begin{document}
+\maketitle
+
+\subsection*{Topic}
+
+Starlink is an interesting project because it can provide Internet access to remote areas and could potentially be a revolution in how we connect to the Internet.
+A major part of the reasons why this project is getting so popular is that it is able to provide a satellite-based low latency connection.
+Being able to measure performance of this new technology could be pivotal and we believe that work in this area could prove instrumental for further analysis.
+
+This IDP will investigate Starlink internals. Starlink is a project by SpaceX~\cite{starlink} aiming to provide fast internet connection anywhere in the world.
+Our scope is to understand internal routing decisions, general behavior for handling incoming packets and to comprehend how satellite handovers are performed.
+We plan to fuzz the internal gRPC API of the dish to see if we manage to get access to internal statistics.
+Additional information will be extracted by dissecting the companion Android application.
+Eventually we will develop a toolset to interact with the API, in order to ease performing measurement operations. 
+Additional tooling may be developed to understand how satellite handovers are performed. 
+We will also investigate the Starlink network behavior in order to try to explain sudden ping or bandwidth changes during measurements.
+
+\subsection*{Related Work}
+
+There is not much literature describing internals of the dish and about its API.
+A hardware-level hacking talk given at DEFCON~\cite{defcon} describes the path to getting a shell on the dish, however this hardware-level research won't be part of our research.
+
+We found some papers regarding measurements~\cite{10.1145/3517745.3561416, 10.1145/3517745.3561457}, in the latter study a consistent loss of packages correlated with satellite handovers was observed. We will try to provide some insights regarding the impact of satellite handovers in latency increases.
+
+Additionaly there is a repository on GitHub from the Starlink community containing pre-generated Go gRPC bindings \cite{starlink-grpc-go}.
+
+\subsection*{Research Questions}
+\begin{researchquestions}
+\item Are there any hidden API endpoints?
+\item Can the dish data be used to deduct internal starlink network behavior?
+\item Can we extract some data that helps us verify the data the API is offering?
+\end{researchquestions}
+
+\subsection*{Approach}
+Firstly, we will try to understand and document the API.
+Afterwards we will work on a library to make access to the API easier.
+We will develop such in Python, mainly because of the good support by other libraries and because it seems to be the de-facto standard language
+for data analysis and measurements. This will simplify data gathering for measurements performed by other researchers.
+
+We can intercept API calls made by the Android application in order to gain additional information.
+Such task can be achieved using a proxy such as Burpsuite Community Edition, and we will eventually dissect the APK file
+using tools such as Jadx or Apktool. If needed we can also use Frida to do some dynamic patching.
+
+Finally, we will combine the information from the API and dish with passive measurement data we extract to check the quality of the measurements offered by the API.
+We will need to develop some tooling to extract the data and combine or compare the two data sources.
+
+
+\subsection*{Planned Schedule}
+  \resizebox{\textwidth}{!}{
+  \begin{ganttchart}[
+      x unit=0.7mm,
+      y unit title=0.6cm,
+      title height=1,
+      title label font=\small,
+      newline shortcut=true,
+      bar label font=\scriptsize,
+      milestone label font=\scriptsize,
+      milestone inline label node/.append style={left=2mm},
+      milestone/.append style={fill=orange, shape=rectangle},
+      y unit chart=.4cm,
+      time slot format=isodate,
+      time slot unit=day,
+      bar height=0.7,
+    ]{2023-03-01}{2023-08-31}
+    \gantttitlecalendar{month=name}\\
+    \ganttbar{Explore and document dish API}{2023-03-01}{2023-03-31}\\
+    \ganttbar{Dissect the Android application}{2023-04-01}{2023-04-31}\\
+    \ganttbar{Develop  some tooling to interact with API }{2023-05-01}{2023-05-31}\\
+    \ganttbar{Use the tool to understand internals}{2023-06-01}{2023-08-31}
+  \end{ganttchart}
+  \label{fig:work-plan}
+}
+
+\subsection*{Lecture}
+  
+To complement my IDP, I chose \href{https://www.ce.cit.tum.de/en/lkn/lehre/vorlesungen/analysis-modeling-and-simulation-of-communication-networks}{"Analysis, Modeling and Simulation of Communication Networks"}.
+The IDP project work builds upon the foundations taught in the course.
+The covered topics (e.\,g., packet level simulation and topology models) will help to understand routing decisions potentially taken by the dish.
+Moreover, the practical approach to the arguments will be useful for the implementation of solutions to test performance and behaviour of the dish when using Starlink.
+
+\bibliographystyle{IEEEtran}
+\scriptsize
+\bibliography{IEEEabrv,lit}
+
+\end{document}

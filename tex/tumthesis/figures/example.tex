@@ -1,0 +1,55 @@
+\documentclass[beamer,multi=true,preview]{standalone}
+\usepackage{beamerpackages}
+\usepackage{tumcolor}
+
+\newlength{\upt}
+\setlength{\upt}{0.0666667\beamertextwidth}
+
+\setbeamertemplate{headline}{}
+
+\let\myshipout\shipout
+\begin{document}%
+\let\shipout\myshipout
+
+
+\begin{standaloneframe}[plain]%
+\tikzstyle{port}=[
+rectangle,
+color=TUMDarkerBlue,
+draw=TUMDarkerBlue,
+fill=TUMLightBlue,
+rounded corners=.03cm,
+inner sep = .4ex,
+font=\tiny
+]%
+\tikzstyle{node}=[
+rectangle,
+draw=TUMDarkerBlue,
+fill=TUMLightBlue,
+minimum width=15ex,
+minimum height=5.25ex,
+rounded corners=.03cm
+]%
+\tikzstyle{arrow}=[
+-latex,
+thick,
+draw
+]%
+\tikzstyle{arrowrev}=[
+latex-,
+thick,
+draw
+]%
+\begin{tikzpicture}
+        \node (dut) at ([xshift=-2.5ex] 0,0) [node, anchor=east] {\strut LoadGen};
+        \node (moongen) at ([xshift=5ex] dut.east) [anchor=west, node] {\strut DuT};
+        \node (port1) at ([yshift=1.25ex] moongen.west) [port] {$\blacktriangleright$};
+        \node (port2) at ([yshift=-1.25ex] moongen.west) [port] {$\blacktriangleleft$};
+        \node (port3) at ([yshift=1.25ex] dut.east) [port] {$\blacktriangleright$};
+        \node (port4) at ([yshift=-1.25ex] dut.east) [port] {$\blacktriangleleft$};
+        \draw[arrowrev] (port4.east) -- (port2.west);
+        \draw[arrow] (port3.east) -- (port1.west);
+        \draw[arrow,looseness=3.5] (port1.east) to[in=0,out=0] (port2.east);
+\end{tikzpicture}
+\end{standaloneframe}
+\end{document}
