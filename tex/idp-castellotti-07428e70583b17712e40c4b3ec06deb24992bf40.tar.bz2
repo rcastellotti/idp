@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="devise-layout-html with-system-footer">
+<head>
+<meta charset="utf-8">
+<title>Sign in · GitLab</title>
+<link rel="preload" href="/assets/application_utilities-3bec0ef667aa2d798d0e668d99e91d11b71b60a67b1b0bdef92ecb433390f72c.css" as="style" type="text/css">
+<link rel="preload" href="/assets/application-ad779fabb121ac9d0c594b996d2fddb1fee9ce36c886c73c3d0e6fe10233819b.css" as="style" type="text/css">
+<link rel="preload" href="/assets/highlight/themes/white-8ded44488c9b4c1cbea299cc42721314d16f00a228733ce59c08194a7994a650.css" as="style" type="text/css">
+
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+
+
+
+<link rel="shortcut icon" type="image/png" href="/assets/favicon-72a2cad5025aa931d6ea56c3201d1f18e68a8cd39788c7c80d5b2b82aa5143ef.png" id="favicon" data-original-href="/assets/favicon-72a2cad5025aa931d6ea56c3201d1f18e68a8cd39788c7c80d5b2b82aa5143ef.png" />
+<style>
+@keyframes blinking-dot{0%{opacity:1}25%{opacity:0.4}75%{opacity:0.4}100%{opacity:1}}@keyframes gl-spinner-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}body.ui-light-indigo{--gl-theme-accent: #6666c4}body.ui-light-indigo .navbar-gitlab{background-color:#4b4ba3}body.ui-light-indigo .navbar-gitlab .navbar-collapse{color:#d1d1f0}body.ui-light-indigo .navbar-gitlab .container-fluid .navbar-toggler{border-left:1px solid #8b8bd2;color:#d1d1f0}body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li>a:hover,body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li>a:focus,body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li>button:hover,body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li>button:focus,body.ui-light-indigo .navbar-gitlab .navbar-nav>li>a:hover,body.ui-light-indigo .navbar-gitlab .navbar-nav>li>a:focus,body.ui-light-indigo .navbar-gitlab .navbar-nav>li>button:hover,body.ui-light-indigo .navbar-gitlab .navbar-nav>li>button:focus{background-color:rgba(209,209,240,0.2)}body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li.active>a,body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li.active>button,body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li.dropdown.show>a,body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li.dropdown.show>button,body.ui-light-indigo .navbar-gitlab .navbar-nav>li.active>a,body.ui-light-indigo .navbar-gitlab .navbar-nav>li.active>button,body.ui-light-indigo .navbar-gitlab .navbar-nav>li.dropdown.show>a,body.ui-light-indigo .navbar-gitlab .navbar-nav>li.dropdown.show>button{color:#4b4ba3;background-color:#fff}body.ui-light-indigo .navbar-gitlab .navbar-sub-nav>li.line-separator,body.ui-light-indigo .navbar-gitlab .navbar-nav>li.line-separator{border-left:1px solid rgba(209,209,240,0.2)}body.ui-light-indigo .navbar-gitlab .navbar-sub-nav{color:#d1d1f0}body.ui-light-indigo .navbar-gitlab .nav>li{color:#d1d1f0}body.ui-light-indigo .navbar-gitlab .nav>li.header-search{color:#333238}body.ui-light-indigo .navbar-gitlab .nav>li>a .notification-dot{border:2px solid #4b4ba3}body.ui-light-indigo .navbar-gitlab .nav>li>a.header-help-dropdown-toggle .notification-dot{background-color:#d1d1f0}body.ui-light-indigo .navbar-gitlab .nav>li>a.header-user-dropdown-toggle .header-user-avatar{border-color:#d1d1f0}@media (min-width: 576px){body.ui-light-indigo .navbar-gitlab .nav>li>a:hover,body.ui-light-indigo .navbar-gitlab .nav>li>a:focus{background-color:rgba(209,209,240,0.2)}}body.ui-light-indigo .navbar-gitlab .nav>li>a:hover svg,body.ui-light-indigo .navbar-gitlab .nav>li>a:focus svg{fill:currentColor}body.ui-light-indigo .navbar-gitlab .nav>li>a:hover .notification-dot,body.ui-light-indigo .navbar-gitlab .nav>li>a:focus .notification-dot{will-change:border-color, background-color;border-color:#6c6cc4}body.ui-light-indigo .navbar-gitlab .nav>li>a.header-help-dropdown-toggle:hover .notification-dot,body.ui-light-indigo .navbar-gitlab .nav>li>a.header-help-dropdown-toggle:focus .notification-dot{background-color:#fff}body.ui-light-indigo .navbar-gitlab .nav>li.active>a,body.ui-light-indigo .navbar-gitlab .nav>li.dropdown.show>a{color:#4b4ba3;background-color:#fff}body.ui-light-indigo .navbar-gitlab .nav>li.active>a:hover svg,body.ui-light-indigo .navbar-gitlab .nav>li.dropdown.show>a:hover svg{fill:#4b4ba3}body.ui-light-indigo .navbar-gitlab .nav>li.active>a .notification-dot,body.ui-light-indigo .navbar-gitlab .nav>li.dropdown.show>a .notification-dot{border-color:#fff}body.ui-light-indigo .navbar-gitlab .nav>li.active>a.header-help-dropdown-toggle .notification-dot,body.ui-light-indigo .navbar-gitlab .nav>li.dropdown.show>a.header-help-dropdown-toggle .notification-dot{background-color:#4b4ba3}body.ui-light-indigo .navbar-gitlab .nav>li .impersonated-user svg,body.ui-light-indigo .navbar-gitlab .nav>li .impersonated-user:hover svg{fill:#4b4ba3}body.ui-light-indigo .navbar .title>a:hover,body.ui-light-indigo .navbar .title>a:focus{background-color:rgba(209,209,240,0.2)}body.ui-light-indigo .header-search-form{background-color:rgba(209,209,240,0.2) !important;border-radius:4px}body.ui-light-indigo .header-search-form:hover{background-color:rgba(209,209,240,0.3) !important}body.ui-light-indigo .header-search-form.is-focused input{background-color:#fff;color:#333238 !important;box-shadow:inset 0 0 0 1px #333238}body.ui-light-indigo .header-search-form.is-focused input:focus{box-shadow:inset 0 0 0 1px #333238, 0 0 0 1px #fff, 0 0 0 3px #428fdc}body.ui-light-indigo .header-search-form.is-focused input::placeholder{color:#89888d}body.ui-light-indigo .header-search-form svg.gl-search-box-by-type-search-icon{color:rgba(209,209,240,0.8)}body.ui-light-indigo .header-search-form input{background-color:transparent;color:rgba(209,209,240,0.8);box-shadow:inset 0 0 0 1px rgba(209,209,240,0.4)}body.ui-light-indigo .header-search-form input::placeholder{color:rgba(209,209,240,0.8)}body.ui-light-indigo .header-search-form input:focus::placeholder,body.ui-light-indigo .header-search-form input:active::placeholder{color:#89888d}body.ui-light-indigo .header-search-form .keyboard-shortcut-helper{color:#d1d1f0;background-color:rgba(209,209,240,0.2)}body.ui-light-indigo .search form{background-color:rgba(209,209,240,0.2)}body.ui-light-indigo .search form:hover{background-color:rgba(209,209,240,0.3)}body.ui-light-indigo .search .search-input::placeholder{color:rgba(209,209,240,0.8)}body.ui-light-indigo .search .search-input-wrap .search-icon,body.ui-light-indigo .search .search-input-wrap .clear-icon{fill:rgba(209,209,240,0.8)}body.ui-light-indigo .search.search-active form{background-color:#fff}body.ui-light-indigo .search.search-active .search-input-wrap .search-icon{fill:rgba(209,209,240,0.8)}body.ui-light-indigo .search-sidebar .nav-link.active,body.ui-light-indigo .search-sidebar .nav-link:hover{background-color:rgba(236,236,239,0.8);color:#333238}body.ui-light-indigo .nav-sidebar li.active>a{color:#333238}body.ui-light-indigo .nav-sidebar .fly-out-top-item a,body.ui-light-indigo .nav-sidebar .fly-out-top-item a:hover,body.ui-light-indigo .nav-sidebar .fly-out-top-item.active a,body.ui-light-indigo .nav-sidebar .fly-out-top-item .fly-out-top-item-container{background-color:var(--gray-100, #ececef);color:var(--gray-900, #333238)}body.ui-light-indigo .branch-header-title{color:#6666c4}body.ui-light-indigo .ide-sidebar-link.active{color:#6666c4}body.ui-light-indigo .ide-sidebar-link.active.is-right{box-shadow:inset -3px 0 #6666c4}
+
+:root{--white: #fff}*,*::before,*::after{box-sizing:border-box}html{font-family:sans-serif;line-height:1.15}header{display:block}body{margin:0;font-family:"GitLab Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#333238;text-align:left;background-color:#fff}hr{box-sizing:content-box;height:0;overflow:visible}h1,h3{margin-top:0;margin-bottom:0.25rem}p{margin-top:0;margin-bottom:1rem}a{color:#1f75cb;text-decoration:none;background-color:transparent}a:not([href]):not([class]){color:inherit;text-decoration:none}img{vertical-align:middle;border-style:none}svg{overflow:hidden;vertical-align:middle}label{display:inline-block;margin-bottom:0.5rem}button{border-radius:0}input,button{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,input{overflow:visible}button{text-transform:none}button:not(:disabled),[type="submit"]:not(:disabled){cursor:pointer}button::-moz-focus-inner,[type="submit"]::-moz-focus-inner{padding:0;border-style:none}input[type="checkbox"]{box-sizing:border-box;padding:0}fieldset{min-width:0;padding:0;margin:0;border:0}[hidden]{display:none !important}h1,h3{margin-bottom:0.25rem;font-weight:600;line-height:1.2;color:#333238}h1{font-size:2.1875rem}h3{font-size:1.53125rem}hr{margin-top:0.5rem;margin-bottom:0.5rem;border:0;border-top:1px solid rgba(0,0,0,0.1)}.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width: 576px){.container{max-width:540px}}@media (min-width: 768px){.container{max-width:720px}}@media (min-width: 992px){.container{max-width:960px}}@media (min-width: 1200px){.container{max-width:1140px}}.row{display:flex;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}.col-md-6,.col-sm-12{position:relative;width:100%;padding-right:15px;padding-left:15px}.order-1{order:1}.order-12{order:12}@media (min-width: 576px){.col-sm-12{flex:0 0 100%;max-width:100%}.order-sm-1{order:1}.order-sm-12{order:12}}@media (min-width: 768px){.col-md-6{flex:0 0 50%;max-width:50%}}.form-control{display:block;width:100%;height:32px;padding:0.375rem 0.75rem;font-size:0.875rem;font-weight:400;line-height:1.5;color:#333238;background-color:#fff;background-clip:padding-box;border:1px solid #89888d;border-radius:0.25rem}.form-control::placeholder{color:#626168;opacity:1}.form-control:disabled{background-color:#fbfafd;opacity:1}.form-group{margin-bottom:1rem}.form-text{display:block;margin-top:0.25rem}.btn{display:inline-block;font-weight:400;color:#333238;text-align:center;vertical-align:middle;-webkit-user-select:none;user-select:none;background-color:transparent;border:1px solid transparent;padding:0.375rem 0.75rem;font-size:1rem;line-height:20px;border-radius:0.25rem}.btn:disabled{opacity:0.65}.btn:not(:disabled):not(.disabled){cursor:pointer}fieldset:disabled a.btn{pointer-events:none}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:0.5rem}input.btn-block[type="submit"]{width:100%}.custom-control{position:relative;z-index:1;display:block;min-height:1.5rem;padding-left:1.5rem;print-color-adjust:exact}.custom-control-input{position:absolute;left:0;z-index:-1;width:1rem;height:1.25rem;opacity:0}.custom-control-input:checked~.custom-control-label::before{color:#fff;border-color:#007bff;background-color:#007bff}.custom-control-input:not(:disabled):active~.custom-control-label::before{color:#fff;background-color:#b3d7ff;border-color:#b3d7ff}.custom-control-input:disabled~.custom-control-label{color:#626168}.custom-control-input:disabled~.custom-control-label::before{background-color:#fbfafd}.custom-control-label{position:relative;margin-bottom:0;vertical-align:top}.custom-control-label::before{position:absolute;top:0.25rem;left:-1.5rem;display:block;width:1rem;height:1rem;pointer-events:none;content:"";background-color:#fff;border:1px solid #737278}.custom-control-label::after{position:absolute;top:0.25rem;left:-1.5rem;display:block;width:1rem;height:1rem;content:"";background:50% / 50% 50% no-repeat}.custom-checkbox .custom-control-label::before{border-radius:0.25rem}.custom-checkbox .custom-control-input:checked~.custom-control-label::after{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e")}.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::before{border-color:#007bff;background-color:#007bff}.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::after{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3e%3cpath stroke='%23fff' d='M0 2h4'/%3e%3c/svg%3e")}.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before{background-color:rgba(0,123,255,0.5)}.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before{background-color:rgba(0,123,255,0.5)}.tab-content>.tab-pane{display:none}.tab-content>.active{display:block}.navbar{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:0.25rem 0.5rem}.navbar .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between}.fixed-top{position:fixed;top:0;right:0;left:0;z-index:1030}.mt-3{margin-top:1rem !important}.mb-3{margin-bottom:1rem !important}.text-nowrap{white-space:nowrap !important}.font-weight-normal{font-weight:400 !important}.gl-form-input,.gl-form-input.form-control{background-color:#fff;font-family:"GitLab Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-size:0.875rem;line-height:1rem;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.75rem;padding-right:0.75rem;height:auto;color:#333238;box-shadow:inset 0 0 0 1px #89888d;border-style:none;-webkit-appearance:none;appearance:none;-moz-appearance:none}.gl-form-input:disabled,.gl-form-input:not(.form-control-plaintext):not([type="color"]):read-only,.gl-form-input.form-control:disabled,.gl-form-input.form-control:not(.form-control-plaintext):not([type="color"]):read-only{background-color:#fbfafd;box-shadow:inset 0 0 0 1px #dcdcde}.gl-form-input:disabled,.gl-form-input.form-control:disabled{cursor:not-allowed;color:#737278}.gl-form-input::placeholder,.gl-form-input.form-control::placeholder{color:#89888d}.gl-form-checkbox{font-size:0.875rem;line-height:1rem;color:#333238}.gl-form-checkbox .custom-control-input:disabled,.gl-form-checkbox .custom-control-input:disabled~.custom-control-label{cursor:not-allowed;color:#89888d}.gl-form-checkbox.custom-control{padding-left:1rem}.gl-form-checkbox.custom-control .custom-control-input~.custom-control-label{cursor:pointer;padding-left:0.5rem;margin-bottom:0.5rem}.gl-form-checkbox.custom-control .custom-control-input~.custom-control-label::before,.gl-form-checkbox.custom-control .custom-control-input~.custom-control-label::after{top:0;left:-1rem}.gl-form-checkbox.custom-control .custom-control-input~.custom-control-label::before{background-color:#fff;border-color:#89888d}.gl-form-checkbox.custom-control .custom-control-input:checked~.custom-control-label::before{background-color:#1f75cb;border-color:#1f75cb}.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:checked~.custom-control-label::after,.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate~.custom-control-label::after{background:none;background-color:#fff;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center center;mask-position:center center}.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:checked~.custom-control-label::after{-webkit-mask-image:url('data:image/svg+xml,%3Csvg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M1 3.05299L2.99123 5L7 1" stroke="white" stroke-width="2"/%3E%3C/svg%3E%0A');mask-image:url('data:image/svg+xml,%3Csvg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M1 3.05299L2.99123 5L7 1" stroke="white" stroke-width="2"/%3E%3C/svg%3E%0A')}.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate~.custom-control-label::after{-webkit-mask-image:url('data:image/svg+xml,%3Csvg width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 1L8 1" stroke="white" stroke-width="2"/%3E%3C/svg%3E%0A');mask-image:url('data:image/svg+xml,%3Csvg width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 1L8 1" stroke="white" stroke-width="2"/%3E%3C/svg%3E%0A')}.gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::before{background-color:#1f75cb;border-color:#1f75cb}.gl-form-checkbox.custom-control .custom-control-input:disabled~.custom-control-label{cursor:not-allowed}.gl-form-checkbox.custom-control .custom-control-input:disabled~.custom-control-label::before{background-color:#ececef;border-color:#dcdcde;pointer-events:auto}.gl-form-checkbox.custom-control .custom-control-input:checked:disabled~.custom-control-label::before,.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled~.custom-control-label::before{background-color:#dcdcde;border-color:#dcdcde}.gl-form-checkbox.custom-control .custom-control-input:checked:disabled~.custom-control-label::after,.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled~.custom-control-label::after{background-color:#737278}.gl-button{display:inline-flex}.gl-button:not(.btn-link):active{text-decoration:none}.gl-button.gl-button,.gl-button.gl-button.btn-block{border-width:0;padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.75rem;padding-right:0.75rem;background-color:transparent;line-height:1rem;color:#333238;fill:currentColor;box-shadow:inset 0 0 0 1px #bfbfc3;justify-content:center;align-items:center;font-size:0.875rem;border-radius:0.25rem}.gl-button.gl-button .gl-button-text,.gl-button.gl-button.btn-block .gl-button-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-top:1px;padding-bottom:1px;margin-top:-1px;margin-bottom:-1px}.gl-button.gl-button .gl-button-icon,.gl-button.gl-button.btn-block .gl-button-icon{height:1rem;width:1rem;flex-shrink:0;margin-right:0.25rem;top:auto}.gl-button.gl-button.btn-default,.gl-button.gl-button.btn-block.btn-default{background-color:#fff}.gl-button.gl-button.btn-default:active,.gl-button.gl-button.btn-default.active,.gl-button.gl-button.btn-block.btn-default:active,.gl-button.gl-button.btn-block.btn-default.active{box-shadow:inset 0 0 0 1px #626168, 0 0 0 1px #fff, 0 0 0 3px #428fdc;outline:none;background-color:#dcdcde}.gl-button.gl-button.btn-confirm,.gl-button.gl-button.btn-block.btn-confirm{color:#fff}.gl-button.gl-button.btn-confirm,.gl-button.gl-button.btn-block.btn-confirm{background-color:#1f75cb;box-shadow:inset 0 0 0 1px #1068bf}.gl-button.gl-button.btn-confirm:active,.gl-button.gl-button.btn-confirm.active,.gl-button.gl-button.btn-block.btn-confirm:active,.gl-button.gl-button.btn-block.btn-confirm.active{box-shadow:inset 0 0 0 1px #033464, 0 0 0 1px #fff, 0 0 0 3px #428fdc;outline:none;background-color:#0b5cad}body{font-size:0.875rem}button,[type="submit"]{cursor:pointer}h1,h3{margin-top:20px;margin-bottom:10px}hr{overflow:hidden}svg{vertical-align:baseline}.form-control{font-size:0.875rem}.hidden{display:none !important;visibility:hidden !important}html{overflow-y:scroll}body.navless{background-color:#fff !important}.container{padding-top:0;z-index:5}.container .content{margin:0}@media (max-width: 575.98px){.container .content{margin-top:20px}}.navless-container{margin-top:var(--header-height, 48px);padding-top:32px}.btn{border-radius:4px;font-size:0.875rem;font-weight:400;padding:6px 10px;background-color:#fff;border-color:#dcdcde;color:#333238;color:#333238;white-space:nowrap}.btn:active{background-color:#ececef;box-shadow:none}.btn:active,.btn.active{background-color:#e6e6ea;border-color:#dedee3;color:#333238}.btn svg{height:15px;width:15px}.btn svg:not(:last-child){margin-right:5px}.btn-block{width:100%;margin:0}.btn-block.btn{padding:6px 0}:root{--performance-bar-height: 0px;--system-header-height: 0px;--top-bar-height: 0px;--system-footer-height: 0px;--mr-review-bar-height: 0px;--breakpoint-xs: 0;--breakpoint-sm: 576px;--breakpoint-md: 768px;--breakpoint-lg: 992px;--breakpoint-xl: 1200px}.tab-content{overflow:visible}@media (max-width: 767.98px){.tab-content{isolation:isolate}}hr{margin:1.5rem 0;border-top:1px solid #ececef}.footer-links{margin-bottom:20px}.footer-links a{margin-right:15px}.flash-container{margin:0;margin-bottom:16px;font-size:14px;position:relative;z-index:1}.flash-container.sticky{position:sticky;top:calc( var(--header-height, 48px) + calc(var(--system-header-height) + var(--performance-bar-height)) + var(--top-bar-height));z-index:251}.flash-container.flash-container-page{margin-bottom:0}.flash-container:empty{margin:0}input{border-radius:0.25rem;color:#333238;background-color:#fff}label{font-weight:600}label.custom-control-label{font-weight:400}.form-control{border-radius:4px;padding:6px 10px}.form-control::placeholder{color:#89888d}.gl-show-field-errors .form-control:not(textarea){height:32px}.navbar-empty{justify-content:center;height:var(--header-height, 48px);background:#fff;border-bottom:1px solid #dcdcde}.navbar-empty .tanuki-logo,.navbar-empty .brand-header-logo{max-height:100%}.tanuki-logo .tanuki{fill:#e24329}.tanuki-logo .left-cheek,.tanuki-logo .right-cheek{fill:#fc6d26}.tanuki-logo .chin{fill:#fca326}input::-moz-placeholder{color:#89888d;opacity:1}input::-ms-input-placeholder{color:#89888d}input:-ms-input-placeholder{color:#89888d}svg{fill:currentColor}.fixed-top{top:calc(var(--system-header-height) + var(--performance-bar-height))}.gl-display-flex{display:flex}.gl-align-items-center{align-items:center}.gl-justify-content-space-between{justify-content:space-between}.gl-w-10{width:3.5rem}.gl-w-half{width:50%}.gl-w-full{width:100%}@media (max-width: 575.98px){.gl-xs-w-full{width:100%}}.gl-p-5{padding:1rem}.gl-px-5{padding-left:1rem;padding-right:1rem}.gl-py-5{padding-top:1rem;padding-bottom:1rem}.gl-mt-3{margin-top:0.5rem}.gl-mt-5{margin-top:1rem}.gl-mr-auto{margin-right:auto}.gl-mb-2{margin-bottom:0.25rem}.gl-mb-3{margin-bottom:0.5rem}.gl-ml-auto{margin-left:auto}@media (min-width: 576px){.gl-sm-mt-0{margin-top:0}}.gl-text-center{text-align:center}.gl-text-right{text-align:right}.gl-font-size-h2{font-size:1.1875rem}.gl-font-weight-bold{font-weight:600}.cloak-startup,.content-wrapper>.alert-wrapper,#content-body,.modal-dialog{display:none}
+
+</style>
+
+
+<link rel="stylesheet" media="print" href="/assets/application-ad779fabb121ac9d0c594b996d2fddb1fee9ce36c886c73c3d0e6fe10233819b.css" />
+<link rel="stylesheet" media="print" href="/assets/page_bundles/login-3f5e50670c0ed629d49b80389fd38f57323b7aacd3eb0e5b7a9120dcea675b26.css" />
+<link rel="stylesheet" media="print" href="/assets/application_utilities-3bec0ef667aa2d798d0e668d99e91d11b71b60a67b1b0bdef92ecb433390f72c.css" />
+
+
+<link rel="stylesheet" media="print" href="/assets/fonts-33e47afb978961ec1c985ca8e1384d98d7edd9c0e5c5e6df83f8ccaceb9837ff.css" />
+<link rel="stylesheet" media="print" href="/assets/highlight/themes/white-8ded44488c9b4c1cbea299cc42721314d16f00a228733ce59c08194a7994a650.css" />
+<script>
+//<![CDATA[
+document.querySelectorAll('link[media="print"]').forEach(linkTag => {
+  linkTag.setAttribute('data-startupcss', 'loading');
+  const startupLinkLoadedEvent = new CustomEvent('CSSStartupLinkLoaded');
+  linkTag.addEventListener('load',function(){this.media='all';this.setAttribute('data-startupcss', 'loaded');document.dispatchEvent(startupLinkLoadedEvent);},{once: true});
+})
+
+//]]>
+</script>
+
+
+<script>
+//<![CDATA[
+window.gon={};gon.features={"arkoseLabsLoginChallenge":false};
+//]]>
+</script>
+
+
+
+
+
+
+
+<script src="/assets/webpack/runtime.97d3a1c8.bundle.js" defer="defer"></script>
+<script src="/assets/webpack/main.ba3ed84d.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.admin.sessions-pages.sessions-pages.sessions.new-pages.subscriptions.trials-pages.subs-ab41d346.0d20b2f6.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.registrations.new-pages.sessions.new.07b2f463.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/pages.sessions.new.3ebe2c2b.chunk.js" defer="defer"></script>
+
+<meta content="LRZ GitLab" name="description">
+<link href="/-/manifest.json" rel="manifest">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+<meta content="#4b4ba3" name="theme-color">
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="EPeMk_v8grw8YwXbMm-oPF1huebLvJwbY6VLhViHfNaOK1CqWHTQ9T0pobZobG6HKMEErOGYpSIb54vZ6UjkWg" />
+<meta name="csp-nonce" />
+<meta name="action-cable-url" content="/-/cable" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/assets/apple-touch-icon-b049d4bc0dd9626f31db825d61880737befc7835982586d015bded10b4435460.png" />
+<link href="/search/opensearch.xml" rel="search" title="Search GitLab" type="application/opensearchdescription+xml">
+
+
+
+
+</head>
+
+<body class="login-page application navless ui-light-indigo gl-browser-generic gl-platform-other" data-page="sessions:new" data-qa-selector="login_page">
+
+<script>
+//<![CDATA[
+gl = window.gl || {};
+gl.client = {"isGeneric":true,"isOther":true};
+
+
+//]]>
+</script>
+<div class="page-wrap">
+<header class="navbar fixed-top navbar-empty">
+<img class="brand-header-logo lazy" data-src="/uploads/-/system/appearance/header_logo/1/logo-lrz.png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</header>
+
+<div class="container navless-container">
+<div class="content">
+<div class="flash-container flash-container-page sticky" data-qa-selector="flash_container">
+<div class="gl-alert flash-alert gl-alert-danger" data-testid="alert-danger" role="alert">
+<svg class="s16 gl-alert-icon gl-alert-icon-no-title" data-testid="error-icon"><use href="/assets/icons-b8c5a9711f73b1de3c81754da0aca72f43b0e6844aa06dd03092b601a493f45b.svg#error"></use></svg>
+<button class="gl-button btn btn-icon btn-sm btn-default btn-default-tertiary js-close gl-dismiss-btn " aria-label="Dismiss" type="button"><svg class="s16 gl-icon gl-button-icon " data-testid="close-icon"><use href="/assets/icons-b8c5a9711f73b1de3c81754da0aca72f43b0e6844aa06dd03092b601a493f45b.svg#close"></use></svg>
+
+</button>
+<div class="gl-alert-content" role="alert">
+<div class="gl-alert-body">
+You need to sign in or sign up before continuing.
+</div>
+</div>
+</div>
+</div>
+
+<div class="row mt-3">
+<div class="col-sm-12">
+<h1 class="mb-3 font-weight-normal">
+LRZ GitLab
+</h1>
+</div>
+</div>
+<div class="row mb-3">
+<div class="col-md-6 order-12 order-sm-1 brand-holder">
+<img alt="LRZ GitLab" class="gl-w-10 lazy" data-src="/uploads/-/system/appearance/logo/1/logo-lrz.png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+<h2 data-sourcepos="1:1-1:32" dir="auto">&#x000A;<a id="user-content-how-can-i-use-the-lrz-gitlab" class="anchor" href="#how-can-i-use-the-lrz-gitlab" aria-hidden="true"></a>How can I use the LRZ GitLab?</h2>&#x000A;<p data-sourcepos="3:1-3:95" dir="auto">You need a user ID from LRZ or one of the participating universities with GitLab access rights.</p>&#x000A;<p data-sourcepos="5:1-5:150" dir="auto">Please use the <strong>LDAP (User ID)</strong> tab, your user ID (e.g. "ab123xy") and your password to log in. Logging in with your email address is not supported.</p>&#x000A;<p data-sourcepos="7:1-7:231" dir="auto">If you are a member of TUM/LMU/HM/HSWT and don't know which user ID you can use for GitLab, please contact your user administration for help. You can also contact the <strong><a href="https://servicedesk.lrz.de/ql/create/107" rel="nofollow noreferrer noopener" target="_blank">LRZ Servicedesk</a></strong>.</p>&#x000A;<h2 data-sourcepos="9:1-9:17" dir="auto">&#x000A;<a id="user-content-external-users" class="anchor" href="#external-users" aria-hidden="true"></a>External Users</h2>&#x000A;<p data-sourcepos="11:1-11:348" dir="auto">For external cooperation, we are offering <strong><a href="https://gitinvited.gitlab.lrz.de" rel="nofollow noreferrer noopener" target="_blank">GitInvited</a></strong> (<a href="https://doku.lrz.de/x/IQB-AQ#GitLab-FAQ-GitInvited" rel="nofollow noreferrer noopener" target="_blank">Description</a>) as a service to invite external users to the LRZ GitLab. This way should only be used if you or your cooperation partners can't get access to GitLab with an own LRZ or University account.</p>&#x000A;<p data-sourcepos="13:1-13:42" dir="auto">Please use the <strong>Standard</strong> tab to log in.</p>&#x000A;<hr data-sourcepos="15:1-16:0">&#x000A;<p data-sourcepos="17:1-20:103" dir="auto">By logging into LRZ GitLab you accept our&#x000A;<a href="https://www.lrz.de/datenschutzerklaerungen/datenschutzerklaerung_gitlab/" rel="nofollow noreferrer noopener" target="_blank">data privacy statement</a>&#x000A;and our&#x000A;<a href="https://doku.lrz.de/display/PUBLIC/GitLab?showLanguage=en_GB#GitLab-Termsofservice" rel="nofollow noreferrer noopener" target="_blank">terms of service</a>.</p>
+</div>
+<div class="col-md-6 order-1 new-session-forms-container order-sm-12">
+
+<div id="signin-container">
+<ul class="nav-links new-session-tabs nav-tabs nav custom-provider-tabs">
+
+<li class="nav-item">
+<a class="nav-link active" data-toggle="tab" data-qa-selector="ldap_tab" data-testid="ldap-tab" role="tab" href="#ldapmain">LDAP (User ID)</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" data-toggle="tab" data-qa-selector="standard_tab" role="tab" href="#login-pane">Standard</a>
+</li>
+</ul>
+
+<div class="tab-content">
+<div class="login-box tab-pane active" id="ldapmain" role="tabpanel">
+<div class="login-body">
+<form class="gl-p-5 gl-show-field-errors" aria-live="assertive" data-testid="new_ldap_user" action="/users/auth/ldapmain/callback" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="wQBiBEVHAIPybCp2KXgSdj3dNInvGpeW6v5Xr9eG1fVf3L495s9SyvMmjhtze9TNSH2Jw8U-rq-SvJfzZklNeQ" autocomplete="off" /><div class="form-group">
+<label for="ldapmain_username">Username</label>
+<input name="username" autocomplete="username" class="form-control gl-form-input" title="This field is required." autofocus="autofocus" data-qa-selector="username_field" required="required" type="text" id="ldapmain_username" />
+</div>
+<div class="form-group">
+<label for="ldapmain_password">Password</label>
+<input class="form-control gl-form-input js-password" data-id="ldapmain_password" data-name="password" data-qa-selector="password_field" type="text" name="ldapmain[vue_password_placeholder]" id="ldapmain_vue_password_placeholder" />
+</div>
+<div class="gl-form-checkbox custom-control custom-checkbox">
+<input name="remember_me" type="hidden" value="0" autocomplete="off" /><input name="remember_me" autocomplete="off" class="custom-control-input" type="checkbox" value="1" id="ldapmain_remember_me" />
+<label class="custom-control-label" for="ldapmain_remember_me"><span>Remember me</span></label>
+</div>
+
+<button data-qa-selector="sign_in_button" type="submit" class="gl-button btn btn-block btn-md btn-confirm "><span class="gl-button-text">
+Sign in
+
+</span>
+
+</button></form>
+
+
+</div>
+</div>
+
+<div class="login-box tab-pane" id="login-pane" role="tabpanel">
+<div class="login-body">
+<form class="gl-p-5 gl-show-field-errors js-arkose-labs-form" id="new_user" aria-live="assertive" data-testid="sign-in-form" action="/users/sign_in" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="XapiQwOQ0EZWDyZUpIt_nnitvvnbXbvzFMbCWCyM5eTDdr56oBiCD1dFgjn-iLklDQ0Ds_F5gspshAIEnUN9aA" autocomplete="off" /><div class="form-group">
+<label for="user_login">Username or email</label>
+<input class="form-control gl-form-input js-username-field" autocomplete="username" autofocus="autofocus" autocapitalize="off" autocorrect="off" required="required" title="This field is required." data-qa-selector="login_field" data-testid="username-field" type="text" name="user[login]" id="user_login" />
+</div>
+<div class="form-group">
+<label for="user_password">Password</label>
+<input class="form-control gl-form-input js-password" data-id="user_password" data-qa-selector="password_field" data-testid="password-field" data-name="user[password]" type="password" name="user[password]" id="user_password" />
+<div class="form-text gl-text-right">
+<a href="/users/password/new">Forgot your password?</a>
+</div>
+</div>
+<div class="form-group">
+</div>
+<div class="gl-form-checkbox custom-control custom-checkbox">
+<input name="user[remember_me]" type="hidden" value="0" autocomplete="off" /><input autocomplete="off" class="custom-control-input" type="checkbox" value="1" name="user[remember_me]" id="user_remember_me" />
+<label class="custom-control-label" for="user_remember_me"><span>Remember me</span></label>
+</div>
+
+<button class="gl-button btn btn-block btn-md btn-confirm js-sign-in-button " data-qa-selector="sign_in_button" data-testid="sign-in-button" type="submit"><span class="gl-button-text">
+Sign in
+
+</span>
+
+</button></form>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<hr class="footer-fixed">
+<div class="container footer-container gl-display-flex gl-justify-content-space-between">
+<div class="footer-links">
+<a href="https://about.gitlab.com">About GitLab</a>
+<a target="_blank" class="text-nowrap" rel="noopener noreferrer" href="https://forum.gitlab.com">Community forum</a>
+</div>
+<div class="js-language-switcher" data-locales="[{&quot;value&quot;:&quot;en&quot;,&quot;percentage&quot;:100,&quot;text&quot;:&quot;English&quot;},{&quot;value&quot;:&quot;zh_TW&quot;,&quot;percentage&quot;:99,&quot;text&quot;:&quot;繁體中文 (台灣)&quot;},{&quot;value&quot;:&quot;zh_CN&quot;,&quot;percentage&quot;:98,&quot;text&quot;:&quot;简体中文&quot;},{&quot;value&quot;:&quot;ja&quot;,&quot;percentage&quot;:98,&quot;text&quot;:&quot;日本語&quot;},{&quot;value&quot;:&quot;fr&quot;,&quot;percentage&quot;:98,&quot;text&quot;:&quot;français&quot;},{&quot;value&quot;:&quot;de&quot;,&quot;percentage&quot;:97,&quot;text&quot;:&quot;Deutsch&quot;}]"></div>
+
+</div>
+<div class="footer-message" style="background-color: #ffffff;color: #000000"><p><strong><a href="https://www.lrz.de" rel="nofollow noreferrer noopener" target="_blank">LRZ Homepage</a></strong> |&#x000A;<strong><a href="https://www.lrz.de/datenschutzerklaerungen/datenschutzerklaerung_gitlab/" rel="nofollow noreferrer noopener" target="_blank">Datenschutz</a></strong> |&#x000A;<strong><a href="https://doku.lrz.de/x/bQAOAQ" rel="nofollow noreferrer noopener" target="_blank">Dokumentation und Betriebsbedingungen</a></strong> |&#x000A;<strong><a href="https://www.lrz.de/impressum/" rel="nofollow noreferrer noopener" target="_blank">Impressum</a></strong></p></div>
+
+</div>
+</body>
+</html>
