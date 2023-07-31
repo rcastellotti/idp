@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# a simple tool to interact with the gRPC dish
+
 import argparse
 import nine981
 import json
@@ -20,8 +22,3 @@ elif args.status:
     pprint(json.loads(nine981.get_status()))
 else:
     parser.print_help()
-
-
-
-
-327769280.0

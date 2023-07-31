@@ -10,12 +10,8 @@ import time
 import re
 import pyasn
 from scapy.all import (
-    RandShort,
-    sr,
     IP,
     TCP,
-    RandInt,
-    TracerouteResult,
     conf,
     ICMP,
     sr1,
@@ -188,7 +184,7 @@ def detect_handovers(dir):
         f1 = os.path.join(dir, l[i])
         f2 = os.path.join(dir, l[i + 1])
         fv1 = os.path.join(dir + "-viz", l[i]) + ".png"
-        fv2 = os.path.join(dir + "-viz", l[i + 1]) + ".png"
+        os.path.join(dir + "-viz", l[i + 1]) + ".png"
 
         map1 = json.load(open(f1))
         map1 = map1["dishGetObstructionMap"]["snr"]
@@ -203,11 +199,7 @@ def detect_handovers(dir):
             x, y = np.where(new_map == 0)
             for hx in x:
                 for hy in y:
-                    # print(f"eccoci qua {hx}{hy}")
-                    # print(f"\n\t{x,y}\n")
                     pot = new_map[hx - 1 : hx + 2, hy - 1 : hy + 2]
-                    # print(pot)
-                    # print(2 in pot)
                     if 2 not in pot:
                         new_t=extract_between_dash_and_json(fv1)
                         print(
