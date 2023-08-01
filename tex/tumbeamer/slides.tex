@@ -107,13 +107,13 @@ def calculate_visible_satellites(...):
     \item the dish exposes a gRPC api with server reflection, "runtime construction of requests without having stub information precompiled into the client." \footnote{\href{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
     \item 55 "methods" are available, most of them don't work, we have 2 categories of errors: \texttt{Uninmplemented}, \texttt{PermissionDenied} and a couple of some other specific errors 
     \item working methods: \texttt{reboot}, \texttt{get\_status}, \texttt{start\_dish\_self\_test}, \texttt{get\_history}, \texttt{get\_device\_info}, \texttt{dish\_power\_save}, \texttt{dish\_get\_config}, \texttt{get\_obstruction\_map}
-    \item to see all methods: \href{https://hedgedoc.net.in.tum.de/N7nACD1OSk2x2e7biPHJTA}{https://hedgedoc.net.in.tum.de/N7nACD1OSk2x2e7biPHJTA}
+    \item to see all methods: \href{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{next actions}
 \begin{itemize}
-    \item investigate satellite handovers following the method described in \cite{izhikevich2023democratizing} (we have a script working)
+    \item investigate satellite handovers following the method described in \cite{izhikevich2023democratizing} (we have a working script)
     \item try to correlate satellite handovers with sudden drops in bandwidth
     \item sneak peak: \href{https://youtu.be/PjfMPr20suw}{https://youtu.be/PjfMPr20suw}
 \end{itemize}
