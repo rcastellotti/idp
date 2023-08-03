@@ -8,6 +8,7 @@ import socket
 import numpy as np
 import time
 import re
+from nine981 import get_status
 import pyasn
 from scapy.all import (
     IP,
@@ -202,10 +203,51 @@ def detect_handovers(dir):
                     pot = new_map[hx - 1 : hx + 2, hy - 1 : hy + 2]
                     if 2 not in pot:
                         new_t=extract_between_dash_and_json(fv1)
-                        print(
-                                f"[-] handover detected: {new_t} rel: {(datetime.fromtimestamp(float(new_t))-datetime.fromtimestamp(float(last))).total_seconds()} "
+                        # print(
+                        #         f"[-] handover detected: {new_t} rel: {(datetime.fromtimestamp(float(new_t))-datetime.fromtimestamp(float(last))).total_seconds()} "
                     
-                        )
-                        suspected_handovers.append((f1, f2))
+                        # )
+                        suspected_handovers.append(new_t)
             last=extract_between_dash_and_json(fv1)
-    return suspected_handovers
+    return suspected_handovers 
+
+
+# remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin --report-speed=bits -O /dev/null; done
+# sudo ip route add 88.198.248.254  via 192.168.1.1
+def measure_bw(filename):
+    interface="enp1s0f3"
+    file_exists = os.path.exists(filename)
+    with open(filename, "a+") as f:
+        csv_writer = csv.writer(f)
+        if not file_exists:
+            csv_writer.writerow(
+                [
+                    "timestamp",
+                    "bandwidth_bps",
+                    "pop_ping_latency_ms",
+                    "downlink_troughput_bps",
+                ]
+            )
+
+
+    previous_bytes = read_rx_bytes(interface)
+    with open(filename, "a") as f:
+        csv_writer = csv.writer(f)
+        while True:
+            time.sleep(1)
+            current_bytes = read_rx_bytes(interface)
+            bandwidth = (current_bytes-previous_bytes)*8
+            previous_bytes = current_bytes
+            status=json.loads(get_status())["dishGetStatus"]
+            # print(status)
+            pop_ping_latency_ms = status["popPingLatencyMs"]
+            downlink_throughput_bps = status["downlinkThroughputBps"]
+            csv_writer.writerow(
+                [
+                    int(time.time()),
+                    bandwidth,
+                    pop_ping_latency_ms,
+                    downlink_throughput_bps,
+                ]
+            )
+            f.flush()
