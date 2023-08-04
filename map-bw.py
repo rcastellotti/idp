@@ -23,30 +23,29 @@ args = parser.parse_args()
 directory = args.directory
 
 
-def function1():
+def get_obstruction_maps():
     print("starting to save maps")
     for i in range(args.seconds):
         map = nine981.get_obstruction_map()
         os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
-        with open(f"{directory}/map-{int(time.time())}.json", "w+") as f:
+        with open(f"{directory}/{int(time.time())}.json", "w+") as f:
             f.write(map)
         time.sleep(1)
     os.exit(0)
 
 
 def function2():
-    common.measure_bw("bw.csv")
+    common.measure_bw(directory+".csv")
 
 
 def function3():
     subprocess.run(
         [
-            "wget",
-            "-4",
+            "curl",
+            "-interface",
+            "enp1s0f3",
             "http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso",
-            "--bind-address",
-            "192.168.1.0",
-            "-O",
+            "--output",
             "/dev/null",
         ]
     )
@@ -60,7 +59,11 @@ urls = [
 
 if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        future1 = executor.submit(function1)
-        future2 = executor.submit(function2)
-        future3 = executor.submit(function3)
+        future1 = executor.submit(get_obstruction_maps)
+        # future2 = executor.submit(function2)
+        # future3 = executor.submit(function3)
         concurrent.futures.wait([future1, future2, future3])
+
+
+
+# not sure if this is the right but we should delete all the empty ones

@@ -177,7 +177,7 @@ def detect_handovers(dir):
     l = sorted(os.listdir(dir))
     last=0
     print(
-        f"[*] examining obstruction maps in interval: {extract_between_dash_and_json(l[0])} and {extract_between_dash_and_json(l[-1])}"
+        f"[*] examining obstruction maps in interval: {l[0][:-4]} and {extract_between_dash_and_json(l[-1][:-4])}"
     )
     suspected_handovers = []
     for i in range(0, len(l) - 1, 2):
