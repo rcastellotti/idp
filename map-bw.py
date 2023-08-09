@@ -40,9 +40,9 @@ def function2():
 
 def function3():
     subprocess.run(
-        [
+            [
             "curl",
-            "-interface",
+            "--interface",
             "enp1s0f3",
             "http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso",
             "--output",
@@ -60,8 +60,8 @@ urls = [
 if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future1 = executor.submit(get_obstruction_maps)
-        # future2 = executor.submit(function2)
-        # future3 = executor.submit(function3)
+        future2 = executor.submit(function2)
+        future3 = executor.submit(function3)
         concurrent.futures.wait([future1, future2, future3])
 
 
