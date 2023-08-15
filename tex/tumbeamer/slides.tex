@@ -2,29 +2,29 @@
 \usepackage[options]{minted}
 \usepackage[options]{hyperref}
 \input{include/slides}
-\beamerdefaultoverlayspecification{<+->}
+% \beamerdefaultoverlayspecification{<+->}
 
 \begin{document}
 
-\begin{frame}{Agenda}
-    \begin{itemize}[<.->]
-        \item Starlink 101
-        \item trying to understand routing decisions
-        \item visualize visible satellites
-        \item exploring the GRPC api
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Agenda}
+%     \begin{itemize}[<.->]
+%         \item Starlink 101
+%         \item trying to understand routing decisions
+%         \item visualize visible satellites
+%         \item exploring the GRPC api
+%     \end{itemize}
+% \end{frame}
 
 \begin{frame}{Starlink 101}
 \begin{figure}
     \includegraphics[width=0.75\textwidth]{pics/starlink-101.png}
-    \caption[short]{Basic Starlink working (ignoring ISL), from \cite{izhikevich2023democratizing}}
+    \caption[short]{starlink in a nutshell (ignoring ISL), from \cite{izhikevich2023democratizing}}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Understanding routing decisions}
 \begin{itemize}
-    \item got ip address blocks from major cloud providers (aws,azure,oracle), as we know their position \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a traceroute to that geographic area}
+    \item retrieved ip address blocks from major cloud providers (aws,azure,oracle), as we know their position \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a traceroute to that geographic area}
     \item chose 5 geographically sparse targets around the globe (for aws: ap-northeast-2, us-east-1, ap-south-1, sa-east-1, me-south-1 )
     \item tracerouted the targets over several days 
 \end{itemize}
