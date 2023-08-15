@@ -8,6 +8,8 @@ import socket
 import numpy as np
 import time
 import re
+import matplotlib.pyplot as plt
+
 from nine981 import get_status
 import pyasn
 from scapy.all import (
@@ -251,3 +253,17 @@ def measure_bw(filename):
                 ]
             )
             f.flush()
+
+
+def visualize_handover(f1,f2):
+    fig, ax = plt.subplots(1, 2,figsize=(12,7))
+    map1 = json.load(open(f1))
+    map1 = map1["dishGetObstructionMap"]["snr"]
+    map1 = np.array(map1).reshape(123, 123)
+    map2 = json.load(open(f2))
+    map2 = map2["dishGetObstructionMap"]["snr"]
+    map2 = np.array(map2).reshape(123, 123)
+    ax[0].imshow(map1)
+    ax[1].imshow(map2)
+    plt.title(f"{f1} ~> {f2}")
+    plt.plot()

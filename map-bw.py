@@ -51,19 +51,9 @@ def function3():
     )
 
 
-urls = [
-    "http://mirror.de.leaseweb.net/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso",
-    "http://mirror.nl.datapacket.com/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso",
-    "http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso",
-]
-
 if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future1 = executor.submit(get_obstruction_maps)
         future2 = executor.submit(function2)
         future3 = executor.submit(function3)
         concurrent.futures.wait([future1, future2, future3])
-
-
-
-# not sure if this is the right but we should delete all the empty ones
