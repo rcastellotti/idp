@@ -24,3 +24,42 @@ and send some data with `iperf3 -c <YOUR_IP> -u -b  <YOUR_BW> -t  300`, make sur
     iperf3 -c "$server_ip" -u -b "$bandwidth" -t "$duration"
   done
   ```
+
+
+
+in the report: list all the external tools we are using
+
+--------------------
+
+keep this to explain how we are detecting handovers
+
+  # import json
+# import numpy as np
+# f1 = "map-bw-stuff2/1691158076.json"
+# f2 = "map-bw-stuff2/1691158077.json"
+# map1 = json.load(open(f1))
+# map1 = map1["dishGetObstructionMap"]["snr"]
+# map1 = np.array(map1).reshape(123, 123)
+# map2 = json.load(open(f2))
+# map2 = map2["dishGetObstructionMap"]["snr"]
+# map2 = np.array(map2).reshape(123, 123)
+
+# # visualize_handover(f1,f2)
+# new=map1+map2
+# rows, cols = np.where(new == 0)
+# zero_coordinates = list(zip(rows, cols))
+
+# for coord in zero_coordinates:
+#     hx=coord[0]
+#     hy=coord[1]
+#     pot = new[hx - 1 : hx + 2, hy - 1 : hy + 2]
+#     print(pot)
+#     if not 2 in pot:
+#         print("detected handover")
+
+# plt.figure()
+# plt.imshow(new)
+
+
+
+----------------
