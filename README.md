@@ -11,7 +11,9 @@
 + `main.ipynb` ~> scratchpad
 + `big-file.py` ~> a script to measure 
 + `pop-ping-latency.py` ~> can be used to extract pop ping latency from the dish, it is meant to be used while creating some traffic with iperf, to do so: start iperf in server mode on an host with `iper3 -s` 
-and send some data with `iperf3 -c <YOUR_IP> -u -b  <YOUR_BW> -t  300`, make sure to set a route for your ip to send traffic trhough the right interface, in our case `ip route add 138.246.253.20 via 192.168.1.1`. Additionally here is a script I used to run iperf with different bandwidths:
+and send some data with `iperf3 -c <YOUR_IP> -u -b  <YOUR_BW> -t  300`, make sure to set a route for your ip to send traffic trhough the right interface, in our case `ip route add 138.246.253.20 via 192.168.1.1`. 
+
+Additionally here is a script I used to run iperf with different bandwidths:
   ```bash
   #!/bin/bash
   set -xe

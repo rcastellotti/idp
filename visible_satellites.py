@@ -4,15 +4,11 @@ from datetime import datetime
 import os
 from common import calculate_visible_satellites
 import argparse
-from sqlalchemy import create_engine, Column, Integer, String, Boolean
+from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
-from pprint import pprint
 
+parser = argparse.ArgumentParser(prog="retrieve visible satellites (you get to define what visible means)")
 
-parser = argparse.ArgumentParser(prog="visible_satellites")
-parser.add_argument(
-    "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
-)
 parser.add_argument(
     "--latitude", "-lat", help="observer latitude", required=True, type=float
 )
@@ -25,7 +21,6 @@ parser.add_argument(
 parser.add_argument(
     "--distance", "-d", help="max distance for satellites (km)", required=True, type=int
 )
-# parser.add_argument("--output", "-o", help="output file", required=True)
 args = parser.parse_args()
 
 db_url = "sqlite:///satellites.sqlite"

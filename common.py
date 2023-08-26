@@ -267,3 +267,27 @@ def visualize_handover(f1,f2):
     ax[1].imshow(map2)
     plt.title(f"{f1} ~> {f2}")
     plt.plot()
+
+
+def detect_handovers(f1,f2,lista):
+    map1 = json.load(open(f1))
+    map1 = map1["dishGetObstructionMap"]["snr"]
+    map1 = np.array(map1).reshape(123, 123)
+
+    map2 = json.load(open(f2))
+    map2 = map2["dishGetObstructionMap"]["snr"]
+    map2 = np.array(map2).reshape(123, 123)
+    
+    new=map1+map2
+
+    rows, cols = np.where(new == 0)
+    zero_coordinates = list(zip(rows, cols))
+    for coord in zero_coordinates:
+        #     print(coord)
+        hx=coord[0]
+        hy=coord[1]
+        pot = new[hx - 2 : hx + 2, hy - 2 : hy + 2]
+        if not 2 in pot:
+            head, tail = os.path.split(f1)
+            lista.append(int(tail[:-5]))
+            # logging.info(f"detected handover between {f1} and {f2}")

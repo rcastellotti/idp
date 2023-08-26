@@ -1,12 +1,10 @@
 import json
 import os
 import argparse
-# import ffmpeg
+import ffmpeg
 import matplotlib.pyplot as plt
 import numpy as np
 import logging
-from concurrent.futures import ThreadPoolExecutor
-# from common import extract_between_dash_and_json
 
 parser = argparse.ArgumentParser(prog="map")
 parser.add_argument(
