@@ -9,12 +9,14 @@ import numpy as np
 import time
 import re
 import matplotlib.pyplot as plt
+from ipaddress import ip_address, IPv4Address, IPv6Address
 
 from nine981 import get_status
 import pyasn
 from scapy.all import (
     IP,
     TCP,
+    IPv6,
     conf,
     ICMP,
     sr1,
@@ -23,6 +25,15 @@ from scapy.all import (
 from pathlib import Path
 from skyfield.api import Topos, load
 
+import re
+
+def is_ipv4(address):
+    ipv4_pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
+    return re.match(ipv4_pattern, address) is not None
+
+def is_ipv6(address):
+    ipv6_pattern = r'^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$'
+    return re.match(ipv6_pattern, address) is not None
 
 def read_rx_bytes(interface):
     with open(f"/sys/class/net/{interface}/statistics/rx_bytes", "r") as file:
@@ -62,7 +73,11 @@ def traceroute(target, protocol, asndb):
     probe_timestamp = int(time.time())
     results = []
     while ttl < 30:
-        pkt_base = IP(dst=target, ttl=ttl)
+        if  is_ipv6(target):
+            pkt_base = IPv6(dst=target, hlim=ttl)
+        elif is_ipv4(target):
+            pkt_base = IP(dst=target, ttl=ttl)
+
 
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
