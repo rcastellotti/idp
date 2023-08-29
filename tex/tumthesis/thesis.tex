@@ -1,9 +1,6 @@
 \documentclass[IN,11pt,twoside,openright,bachelor,english]{tumthesis}
 
-% Include common packages
 \usepackage{packages}
-
-% IEEE tools for tweaking bib style
 \usepackage{IEEEtrantools}
 
 \newcommand\toc{\relax}
@@ -11,6 +8,8 @@
 \usepackage[backend=bibtex,style=ieee]{biblatex}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{listings}% http://ctan.org/pkg/listings
+
 \usepackage{longtable}
 \usepackage{tabu}
 \usepackage{ltxtable}
@@ -38,10 +37,6 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{example}{Example}
 \newtheorem{lemma}{Lemma}
-
-
-% hyphenation
-\hyphenation{op-ti-cal net-work net-works semi-con-duc-tor tech-nique tech-niques}
 
 
 \usepackage{mdframed}
@@ -73,11 +68,14 @@
 }%
 \makeatother
 
+
+% \betreuer{Leander Seidlitz, Johannes Zirngibl}
 % Needed for Bachelor's theses, Master's theses and IDP
-\titleenglish{Link Layer Network Coding in Wireless Networks}
-\titlegerman{Link Layer Network Coding in kabellosen Netzwerken}
-\author{Stephan~Matthias~G\"unther}
+\titleenglish{Development of a Framework for Retrieval of Parameters of the Starlink Dish}
+\titlegerman{Entwurf eines Frameworks zur Informationsgewinnung von Parametern der Starlink Dish}
+\author{Roberto Castellotti}
 \supervisor{\chairhead}
+% I am not sure what I should add here
 \assistants{Dr.-Ing.~Stephan~M.~G\"unther\tlc{},%
 Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
@@ -85,15 +83,7 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 \chairman{\makebox[7cm]{\dotfill}}
 \advisor{Prof.~Dr.-Ing.~Wolfgang~Utschick}
 
-% in case of bachelor's/master's thesis use your own field of study
-%\courseofstudy{Informatik}
-\courseofstudy{Informatics}
-%\courseofstudy{Informatik: Games Engineering}
-%\courseofstudy{Informatics: Games Engineering}
-
-% in case of idp use electrical engineering as your field of study
-%\courseofstudy{Elektrotechnik}
-%\courseofstudy{Electrical Engineering}
+\courseofstudy{Electrical Engineering}
 
 \date{September 15, 2016}
 
@@ -118,34 +108,24 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
 \begin{document}%
 
-% Makes sure that same author names are not replaced by dahes
 \bstctlcite{IEEEexample:BSTcontrol}
 
-\pagenumbering{gobble}
+\pagenumbering{gobble}	
 \maketitle%
 \cleardoublepage
 
 
-\begin{abstract}
-	\input{include/abstract-en}
+\begin{abstract} 
+In this report we want to document our work and findings on Starlink based connections. 
+
+We investigate whether Starlink-based connections result in a different routing of packets when reaching some geographically sparse targets, after that we move on analyzing whether the dish performs some buffering before relaying packets to satellite.
+
+Lastly we analyzed satellites visible from a dish and, after developing a script to detect satellite handovers, we moved on trying to correlate  drops in bandwidth and satellite handovers.
 \end{abstract}
 
-\begin{otherlanguage}{ngerman}
-	\begin{abstract}
-		\input{include/abstract-de}
-	\end{abstract}
-\end{otherlanguage}
 
-% Reset acronyms used in abstract
-\acresetall
-
-%\begin{thanks}
-%%\input{/home/moepi/.thanks}
-%\end{thanks}
-
-%\begin{preface}
-%foo bar
-%\end{preface}
+\begin{thanks}
+\end{thanks}
 
 \tableofcontents
 \listoffigures
@@ -153,14 +133,66 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
 \startcontent
 
-\input{include/chapter1}
-\input{include/chapter2}
+\chapter{Satellites}
+\label{chap:sats}
+In this chapter we will focus on Satellites
+\section{Two-line Element Sets}
+Two-line Element Sets (hereinafter TLEs) are a widely used data format to encode the postion of orbital elements for a given point in time (WIKIPEDIA). This data format is ASCII based and it will allow us to understand patterns in satellite appearances and to plot the number of visible satellites at any given time. This may be a good substitute for the originally working solution, which was to make a query to retrieve the satellite the dish was connected to. Unfortunately in an earlier phase it might have been possible to call the \texttt{dish\_get\_context} or similar methods that currently either return a \texttt{PermissionDenied} error, or are deprecated.
+
+\begin{lstlisting}[caption={TLE for satellite STARLINK-1007 },captionpos=b]
+STARLINK-1007           
+1 44713U 19074A   23239.65120160  .00022666  00000+0  15354-2 0  9991
+2 44713  53.0553  19.2809 0001296  68.3392 291.7735 15.06406564209327
+\end{lstlisting}
+
+	
+\section{Skyfield Library}
+\subsection*{Retrieving Satellites}
+\subsection*{Visible Satellites}
+\section{Patterns in Satellites Appearances}
+\section{Detecting Satellite Handovers}
+
+\chapter{Routing}
+\section{Cloud Traceroutes}
+\section{Tooling}
+\section{Visualizing Traceroutes}
+
+
+\chapter{Exploring the gRPC api}
+
+grcpurl
+query all methods
+in appendix probably? insert working methods and stuff
+
+
+\section{Tooling}
+\section{Getting Obstruction Maps}
+
+cite durumeric
+
+\begin{table}
+	\centering
+	\begin{tabular}{c r r}
+		\toprule
+		Column A & Column B & Column C \\
+		\midrule
+		Munich   &    1.000 &        2 \\
+		Garching &  100.000 &       30 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Example of a table created with booktabs}
+	\label{tab:tabular}
+\end{table}
+
+
+\chapter{/dev/random}
+
+\section{Introducing some latency measurements}
+\section{Does the dish buffer packets?}
+mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso > /dev/null
 
 \appendix
 \input{include/appendix}
-
-\clearpage
-\input{include/acronym}
 
 \clearpage
 \pagestyle{thesischapter}
