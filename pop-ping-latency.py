@@ -35,11 +35,9 @@ def ping(bw):
             rtt_ms = (reply.time - pkt.sent_time) * 1000
             time.sleep(1)
             print([probe_timestamp, rtt_ms])
-            status=json.loads(get_status())["dishGetStatus"]
+            status = json.loads(get_status())["dishGetStatus"]
             pop_ping_latency_ms = status["popPingLatencyMs"]
-            writer.writerow(
-                [probe_timestamp, rtt_ms, pop_ping_latency_ms]
-            )
+            writer.writerow([probe_timestamp, rtt_ms, pop_ping_latency_ms])
 
 
 t_end = time.time() + 60 * 5

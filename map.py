@@ -3,6 +3,7 @@ import time
 import argparse
 import logging
 import nine981
+
 parser = argparse.ArgumentParser(prog="map")
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction

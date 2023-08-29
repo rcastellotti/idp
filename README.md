@@ -1365,3 +1365,9 @@ while true; do wget -4  http://mirror.netcologne.de/debian-cd/current/amd64/iso-
 while true; do wget -4  http://mirror.23media.com//debian-cd/current/amd64/iso-dvd/debian-12.0.0-amd64-DVD-1.iso --report-speed=bits -O /dev/null; done
 http://mirror.23media.com//debian-cd/current/amd64/iso-dvd/debian-12.0.0-amd
 `````
+
+
+
+
+
+sudo python3 cloud-traceroutes.py -d prova6 -a ../idp-castellotti-data/ipasn_20230315.dat -r ../idp-castellotti-data/targets6.csv

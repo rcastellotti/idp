@@ -9,6 +9,7 @@ import numpy as np
 import time
 import re
 import matplotlib.pyplot as plt
+from ipaddress import ip_address, IPv4Address, IPv6Address
 
 from nine981 import get_status
 import pyasn
@@ -16,6 +17,7 @@ from scapy.all import (
     IP,
     IPv6,
     TCP,
+    IPv6,
     conf,
     ICMP,
     sr1,
@@ -24,6 +26,15 @@ from scapy.all import (
 from pathlib import Path
 from skyfield.api import Topos, load
 
+import re
+
+def is_ipv4(address):
+    ipv4_pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
+    return re.match(ipv4_pattern, address) is not None
+
+def is_ipv6(address):
+    ipv6_pattern = r'^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$'
+    return re.match(ipv6_pattern, address) is not None
 
 def read_rx_bytes(interface):
     with open(f"/sys/class/net/{interface}/statistics/rx_bytes", "r") as file:
@@ -63,7 +74,11 @@ def traceroute(target, protocol, asndb):
     probe_timestamp = int(time.time())
     results = []
     while ttl < 30:
-        pkt_base = IPv6(dst=target, hlim=ttl)
+        if  is_ipv6(target):
+            pkt_base = IPv6(dst=target, hlim=ttl)
+        elif is_ipv4(target):
+            pkt_base = IP(dst=target, ttl=ttl)
+
 
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
@@ -112,29 +127,29 @@ def run_traceroute_and_save_to_file(filename, ip, protocol, asndb):
         writer.writerows(results)
 
 
-def cloud_traceroutes(region_file, output_directory, asndb):
-    with open(region_file, "r") as csvfile:
-        next(csvfile)  # skipping the header
-        reader = csv.reader(csvfile)
+# def cloud_traceroutes(region_file, output_directory, asndb):
+#     with open(region_file, "r") as csvfile:
+#         next(csvfile)  # skipping the header
+#         reader = csv.reader(csvfile)
 
-        for row in reader:
-            provider, region, ip = row
-            dir = output_directory
-            Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
+#         for row in reader:
+#             provider, region, ip = row
+#             dir = output_directory
+#             Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
 
-            # for protocol in ["ICMP", "UDP", "TCP"]:
-            for protocol in ["ICMP"]:
-                dt = datetime.datetime.now().isoformat()
-                # normal
-                filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-normal.csv"
-                run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
-                # starlink
-                conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-                filename = (
-                    f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-starlink.csv"
-                )
-                run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
-                conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
+#             # for protocol in ["ICMP", "UDP", "TCP"]:
+#             for protocol in ["ICMP"]:
+#                 dt = datetime.datetime.now().isoformat()
+#                 # normal
+#                 filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-normal.csv"
+#                 run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
+#                 # starlink
+#                 conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+#                 filename = (
+#                     f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-starlink.csv"
+#                 )
+#                 run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
+#                 conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
 
 
 def calculate_visible_satellites(
