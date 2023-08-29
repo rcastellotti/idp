@@ -8,7 +8,7 @@
 \usepackage[backend=bibtex,style=ieee]{biblatex}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{listings}% http://ctan.org/pkg/listings
+\usepackage{listings}
 
 \usepackage{longtable}
 \usepackage{tabu}
@@ -147,8 +147,33 @@ STARLINK-1007
 
 	
 \section{Skyfield Library}
-\subsection*{Retrieving Satellites}
-\subsection*{Visible Satellites}
+
+In order to work with TLEs from the Starlink constellation with Python we are using https://rhodesmill.org/skyfield/, an elegant astronomy library for Python. Retrieving TLEs for every single satellite in the LEO constellation is just a matter of running the following script:
+
+\begin{lstlisting}[language=python,caption={retrieving a Satellite's position using the Satname},captionpos=b]
+from skyfield.api import load, wgs84
+
+stations_url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
+satellites = load.tle_file(stations_url)
+print("Loaded", len(satellites), "satellites")
+by_name = {sat.name: sat for sat in satellites}
+satellite = by_name["STARLINK-1007"]
+
+# year, month, day, hour, minute, second
+ts = load.timescale()
+t = ts.now()
+a = satellite.at(t)
+lat, lon = wgs84.latlon_of(a)
+print("Latitude:", lat)
+print("Longitude:", lon)
+\end{lstlisting}
+
+This is a very powerful mechanism, because it allows us to retrieve the satellites we might reasonably assume the dish sees at any given moment.
+\subsection{Visible Satellites}
+It is up to us to define what "visible" means, in our evaluations we decided that, knowing the satellites orbit around the earth at around 550 kms in height it is reasonable to assume a satellite is visible when it is above the horizon and it is (point to point) not further than 800 kms. The ground truth might be different, but this approximation allows us to approximately have an idea about what is going on in space. 
+
+The first measurement we are setting up is the following: every 15 seconds we run a script that gets all the "visible" satellites and we store them in a SQLite database, if we saw the same satellite in the iteration before we simply update the \texttt{end\_timestamp}, otherwise we create a new row in the db. We use a \texttt{relative\_ts} (relative timestamp) to count the 15s intervals To measure visible satellites we are running the following command: \texttt{python3 visible-satellites.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation.
+
 \section{Patterns in Satellites Appearances}
 \section{Detecting Satellite Handovers}
 
@@ -192,7 +217,45 @@ cite durumeric
 mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso > /dev/null
 
 \appendix
-\input{include/appendix}
+\chapter{Appendix}
+\label{chap:appendix}
+
+Remove the appendix if it is empty.
+
+\section{Appendix section}
+
+\begin{lstlisting}[language=python,caption={the \texttt{calculate\_visible\_satellites} function},captionpos=b]
+def calculate_visible_satellites(
+    observer_latitude, observer_longitude, observer_elevation, distance_km
+):
+    stations_url = (
+        "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
+    )
+
+    satellites = load.tle_file(stations_url)
+    observer = Topos(observer_latitude, observer_longitude, observer_elevation)
+    ts = load.timescale()
+    t = ts.now()
+
+    # Calculate satellite positions
+    positions = []
+    for sat in satellites:
+        satellite = sat
+        position = (satellite - observer).at(t)
+        positions.append((sat, position))
+
+    # Filter visible satellites
+    visible_satellites = []
+    for sat, position in positions:
+        alt, az, distance = position.altaz()
+        # Satellite is above the horizon
+        if alt.degrees > 0 and distance.km < distance_km:
+            visible_satellites.append((sat, alt, az))
+
+    return visible_satellites
+\end{lstlisting}
+
+The appendix can contain different sections.
 
 \clearpage
 \pagestyle{thesischapter}

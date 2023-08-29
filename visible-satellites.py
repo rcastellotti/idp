@@ -1,13 +1,13 @@
 import time
-from csv import writer
-from datetime import datetime
-import os
 from common import calculate_visible_satellites
 import argparse
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
+import logging
 
-parser = argparse.ArgumentParser(prog="retrieve visible satellites (you get to define what visible means)")
+parser = argparse.ArgumentParser(
+    prog="retrieve visible satellites (you get to define what visible means)"
+)
 
 parser.add_argument(
     "--latitude", "-lat", help="observer latitude", required=True, type=float
@@ -21,16 +21,23 @@ parser.add_argument(
 parser.add_argument(
     "--distance", "-d", help="max distance for satellites (km)", required=True, type=int
 )
+parser.add_argument(
+    "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
+)
 args = parser.parse_args()
+
+if args.verbose:
+    logging.basicConfig(level="INFO")
 
 db_url = "sqlite:///satellites.sqlite"
 engine = create_engine(db_url)
 Base = declarative_base()
 
+
 class Satellite(Base):
     __tablename__ = "satellites"
-    id = Column(Integer,primary_key=True)
-    relative_ts=Column(Integer)
+    id = Column(Integer, primary_key=True)
+    relative_ts = Column(Integer)
     ts = Column(Integer)
     satname = Column(String)
     alt = Column(String)
@@ -46,9 +53,9 @@ class Satellite(Base):
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-count=0
+count = 0
 while True:
-    count+=1
+    count += 1
     timestamp = time.time()
     vis_sat = calculate_visible_satellites(
         args.latitude, args.longitude, args.elevation, args.distance
@@ -61,7 +68,7 @@ while True:
             az=str(az),
             ts=timestamp,
         )
-        print(sat)
+        logging.info(sat)
         session.add(new_satellite)
         session.commit()
     time.sleep(15)

@@ -14,6 +14,7 @@ from nine981 import get_status
 import pyasn
 from scapy.all import (
     IP,
+    IPv6,
     TCP,
     conf,
     ICMP,
@@ -62,7 +63,7 @@ def traceroute(target, protocol, asndb):
     probe_timestamp = int(time.time())
     results = []
     while ttl < 30:
-        pkt_base = IP(dst=target, ttl=ttl)
+        pkt_base = IPv6(dst=target, hlim=ttl)
 
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
