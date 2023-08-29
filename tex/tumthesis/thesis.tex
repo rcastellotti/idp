@@ -172,7 +172,8 @@ This is a very powerful mechanism, because it allows us to retrieve the satellit
 \subsection{Visible Satellites}
 It is up to us to define what "visible" means, in our evaluations we decided that, knowing the satellites orbit around the earth at around 550 kms in height it is reasonable to assume a satellite is visible when it is above the horizon and it is (point to point) not further than 800 kms. The ground truth might be different, but this approximation allows us to approximately have an idea about what is going on in space. 
 
-The first measurement we are setting up is the following: every 15 seconds we run a script that gets all the "visible" satellites and we store them in a SQLite database, if we saw the same satellite in the iteration before we simply update the \texttt{end\_timestamp}, otherwise we create a new row in the db. We use a \texttt{relative\_ts} (relative timestamp) to count the 15s intervals To measure visible satellites we are running the following command: \texttt{python3 visible-satellites.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation.
+The first measurement we are setting up is the following: every 15 seconds we run a script that gets all the "visible" satellites and we store them in a SQLite database, if we saw the same satellite in the iteration before we simply update the \texttt{timestamp}, otherwise we create a new row in the db. We use a \texttt{relative\_ts} (relative timestamp) to enumerate every measurement (a probe every 15 seconds). To measure visible satellites we are running the following command: \texttt{python3 visible-satellites.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation.
+
 
 \section{Patterns in Satellites Appearances}
 \section{Detecting Satellite Handovers}
@@ -192,7 +193,7 @@ in appendix probably? insert working methods and stuff
 
 \section{Tooling}
 \section{Getting Obstruction Maps}
-
+Following the approach sketched in \cite{izhikevich2023democratizing} we started retrieving obstruction maps from the dish using the \texttt{dish\_get\_obstruction\_map} method exposed by the gRPC api on the dish.
 cite durumeric
 
 \begin{table}
