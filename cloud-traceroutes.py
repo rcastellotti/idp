@@ -63,7 +63,7 @@ with open(args.region_file, "r") as csvfile:
             filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-normal.csv"
             run_traceroute(filename, "normal")
 
-            conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+            conf.route.add(net="0.0.0.0/0", gw="192.168.200.11")
             filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-starlink.csv"
             run_traceroute(filename, "starlink")
-            conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
+            conf.route.delt(net="0.0.0.0/0", gw="192.168.200.11")

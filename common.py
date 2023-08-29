@@ -126,29 +126,29 @@ def run_traceroute_and_save_to_file(filename, ip, protocol, asndb):
         writer.writerows(results)
 
 
-def cloud_traceroutes(region_file, output_directory, asndb):
-    with open(region_file, "r") as csvfile:
-        next(csvfile)  # skipping the header
-        reader = csv.reader(csvfile)
+# def cloud_traceroutes(region_file, output_directory, asndb):
+#     with open(region_file, "r") as csvfile:
+#         next(csvfile)  # skipping the header
+#         reader = csv.reader(csvfile)
 
-        for row in reader:
-            provider, region, ip = row
-            dir = output_directory
-            Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
+#         for row in reader:
+#             provider, region, ip = row
+#             dir = output_directory
+#             Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
 
-            # for protocol in ["ICMP", "UDP", "TCP"]:
-            for protocol in ["ICMP"]:
-                dt = datetime.datetime.now().isoformat()
-                # normal
-                filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-normal.csv"
-                run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
-                # starlink
-                conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-                filename = (
-                    f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-starlink.csv"
-                )
-                run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
-                conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
+#             # for protocol in ["ICMP", "UDP", "TCP"]:
+#             for protocol in ["ICMP"]:
+#                 dt = datetime.datetime.now().isoformat()
+#                 # normal
+#                 filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-normal.csv"
+#                 run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
+#                 # starlink
+#                 conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+#                 filename = (
+#                     f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-starlink.csv"
+#                 )
+#                 run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
+#                 conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
 
 
 def calculate_visible_satellites(

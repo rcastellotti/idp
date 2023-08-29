@@ -65,3 +65,14 @@ keep this to explain how we are detecting handovers
 
 
 ----------------
+
+
+
+
+
+
+
+
+
+
+sudo python3 cloud-traceroutes.py -d prova6 -a ../idp-castellotti-data/ipasn_20230315.dat -r ../idp-castellotti-data/targets6.csv
