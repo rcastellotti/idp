@@ -285,7 +285,7 @@ def visualize_handover(f1,f2):
     plt.plot()
 
 
-def detect_handovers(f1,f2,lista):
+def detect_handovers(f1,f2,list):
     map1 = json.load(open(f1))
     map1 = map1["dishGetObstructionMap"]["snr"]
     map1 = np.array(map1).reshape(123, 123)
@@ -305,5 +305,5 @@ def detect_handovers(f1,f2,lista):
         pot = new[hx - 2 : hx + 2, hy - 2 : hy + 2]
         if not 2 in pot:
             head, tail = os.path.split(f1)
-            lista.append(int(tail[:-5]))
+            list.append(int(tail[:-5]))
             # logging.info(f"detected handover between {f1} and {f2}")

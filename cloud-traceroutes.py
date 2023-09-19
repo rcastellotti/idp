@@ -1,6 +1,4 @@
 from scapy.all import *
-from scapy.layers.inet import UDP
-import time
 import argparse
 from common import traceroute
 import csv
@@ -39,13 +37,6 @@ def run_traceroute(filename, type):
             writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
         results = traceroute(ip, p, asndb=args.asndb)
         writer.writerows(results)
-
-    # with open(f"{dir}/{provider}-{type}-summary.csv", "a+") as f:
-    #     writer = csv.writer(f)
-    #     if not file_exists:
-    #         writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
-    #     writer.writerows(results)
-
 
 with open(args.region_file, "r") as csvfile:
     next(csvfile)  # skipping the header
