@@ -94,21 +94,12 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
 \setcounter{tocdepth}{2}
 
-\addbibresource{bib/IEEEfull.bib}
 \addbibresource{bib/litnew.bib}
-
-
-%\renewcommand{\andothersdelim}{}
-%bib.sty does not work older bibtex versions (works on TexLive 2016 or newer)
-%\usepackage{bib}
-
 % Load late to avoid same identifier warning
 \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
 
 
-\begin{document}%
-
-\bstctlcite{IEEEexample:BSTcontrol}
+\begin{document}
 
 \pagenumbering{gobble}	
 \maketitle%
@@ -133,6 +124,45 @@ Lastly we analyzed satellites visible from a dish and, after developing a script
 
 \startcontent
 
+\chapter{Introduction}
+
+Starlink is the largest Low Earth Orbiting, hereinafter LEO, satellite constellation managed by SpaceX aimed at providing internet broadband connection in the most remote and rural areas in the world while also issuing the service to people living in residential areas. LEO satellites orbit at around 550 Kms from earth, this leads to a low latency, SpaceX claims latency is around ~25 ms, from our experiments it is higher (~45ms) but it is still order of magnitudes lower than other satellite based solutions.  For the latter Starlink might not be the best solution, as probably their place is covered by a default connection which probably is way cheaper as the infrastructure is simpler to maintain and the fixed costs one has to substain are way less. This technology however makes night-and-day difference for people living in the most isolated places in the world. 
+Satellite based internet connections have been around for several years, those are based on geostationary satellites,hereinafter GEOSAT, orbiting at around 35.000 kms, it is thus natural to expect high latency for a normal internet connection.
+A generic GEOSAT connection averages around 600 ms for latency, this means in average Starlink does ~70 RTTs in the time a GEOSAT satellite does 1 RTT.
+
+From a customer perspective using Starlink is straightforward, after the customer orders his hardware package he only needs to plug the satellite dish he receives (see Figure \ref{fig:dish}) and position it in a place where the dish has clear access to the sky, after that plugging in the router is enough to start browsing the internet.
+
+On a more technical note what is happening is packets from a local device go through the dish and they are relayed to a nearby satellite and they are sent to a ground station in view, from that point onwards packets are routed normally through the internet.
+
+SpaceX is also experimenting with Inter Satellite Links, this would allow satellites to comunicate between each other without resorting to ground local stations. This is crucial for the maritime version of the Starlink kit, moreover it might be possible that using laser links is faster than fiber on Earth, thus providing lower latencies connection to everyone, as reported by Elon Musk himself \cite{tweet}.
+
+\begin{figure}
+	\label{fig:gs}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/ground-station.jpeg}
+	\caption{A sample ground station, from \href{https://www.reddit.com/r/SpaceXLounge/comments/hcf4t5/prototype_starlink_terminal_closeups_merrillan_wi/}{u/darkpenguin22, posted on r/SpaceXLounge}}
+\end{figure}
+
+\begin{figure}
+	\label{fig:dish}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/dish.jpeg}
+	\caption{the dish, from Starlink webite Starlink working, from \cite{izhikevich2023democratizing}}
+\end{figure}
+
+\begin{figure}
+	\label{fig:starlink-101}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/starlink-101.png}
+	\caption{Basic Starlink working, from \cite{izhikevich2023democratizing}}
+\end{figure}
+
+SpaceX is currently the most popular LEO-based Internet Service Provider, but other similar projects exist, such as OneWeb \footnote{https://oneweb.net/} and Amazon Project Kuiper \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, the former one is more enterprise and government focused, while Project Kuiper aims to compete with Starlink.
+
+\chapter{Related work}
+
+durumeric
+
 
 \chapter{Measurements}
 
@@ -152,11 +182,9 @@ To get the "real" bandwidth we are simply getting data from \texttt{/sys/class/n
 We repeated the experiments shifting the red vertical lines and changing the intervals for collected data, and in the majority of cases we can see that whenever we draw a vertical red line we have some drop in the immediate milliseconds before or after, however drops also happen in different intervals, further investigation might be needed.
 
 
-maybe setup a script to monitor bandwidth and latency over a period of time
-
-
 \chapter{Satellites}
 \label{chap:sats}
+
 In this chapter we will focus on Satellites
 \section{Two-line Element Sets}
 Two-line Element Sets (hereinafter TLEs) are a widely used data format to encode the postion of orbital elements for a given point in time (WIKIPEDIA). This data format is ASCII based and it will allow us to understand patterns in satellite appearances and to plot the number of visible satellites at any given time. This may be a good substitute for the originally working solution, which was to make a query to retrieve the satellite the dish was connected to. Unfortunately in an earlier phase it might have been possible to call the \texttt{dish\_get\_context} or similar methods that currently either return a \texttt{PermissionDenied} error, or are deprecated.
@@ -237,6 +265,7 @@ The Starlink gRPC api exposes a \texttt{dish\_get\_obstruction\_map} method, fol
 -2 & -2 & -2 & -2 & -2 \\
 \end{bmatrix}
 \]
+
 \captionof{figure}{Let's assume these matrices come from the endpoints at $t_x$ and $t_{x+1}$ respectively, in the first matrix we have ones in $(0,2)$ and $(1,3)$, in the second one we have ones in $(0,2)$, $(1,3)$, $(2,4)$, this means the new satellite we saw at $t_{x+1}$ is on the same path as the satellites before, thus NO handover was not performed.}
 
 
@@ -276,7 +305,7 @@ We can observe it is pretty easy to detect whether an handover was performed, it
 
 First of all we need to write a script to extract obstruction maps from the dish, to achieve this goal we can use the \texttt{nine981.get\_obstruction\_map} function, this returns a json file similar to this:
 
-\begin{lstlisting}[language=json,caption={data from the \texttt{dish\_get\_obstruction\_map} function},captionpos=b]
+\begin{lstlisting}[caption={data from the \texttt{dish\_get\_obstruction\_map} function},captionpos=b]
 
 {'apiVersion': '9',
  'dishGetObstructionMap': {'minElevationDeg': 10.0,
@@ -389,8 +418,6 @@ mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-l
 \chapter{Appendix}
 \label{chap:appendix}
 
-Remove the appendix if it is empty.
-
 \section{Appendix section}
 
 \begin{lstlisting}[language=python,caption={the \texttt{calculate\_visible\_satellites} function},captionpos=b]
@@ -431,8 +458,8 @@ The appendix can contain different sections.
 
 \cleardoublepage
 \selectlanguage{english}
-\printbibliography[heading=bibintoc]
 
+\printbibliography[heading=bibintoc]
 %\cleardoublepage
 \clearpage
 \pagestyle{empty}
@@ -440,6 +467,4 @@ The appendix can contain different sections.
 %\clearpage
 
 \end{document}
-
-
-maybe add drawing page 5 https://web.archive.org/web/20220320174537/https://ecfsapi.fcc.gov/file/1020316268311/Starlink%20Services%20LLC%20Application%20for%20ETC%20Designation.pdf to explain starlink
+ 
