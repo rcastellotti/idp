@@ -157,16 +157,77 @@ SpaceX is also experimenting with Inter Satellite Links, this would allow satell
 	\caption{Basic Starlink working, from \cite{izhikevich2023democratizing}}
 \end{figure}
 
-SpaceX is currently the most popular LEO-based Internet Service Provider, but other similar projects exist, such as OneWeb \footnote{https://oneweb.net/} and Amazon Project Kuiper \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, the former one is more enterprise and government focused, while Project Kuiper aims to compete with Starlink.
+SpaceX is currently the most popular LEO-based Internet Service Provider, but other similar projects exist, such as OneWeb \footnote{https://oneweb.net/} and Amazon Project Kuiper \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, the former one is more enterprise and government focused, while Project Kuiper aims to compete with Starlink, effectively commercializing a similar product. Future is bright for LEO based ISPs!
 
-\chapter{Related work}
+\section{Related work}
 
-durumeric
+Being Starlink a novel technology the existing body of research is somewhat limited, but papers and tools \footnote{https://github.com/danopstech/starlink\	_exporter}, \footnote{https://github.com/sparky8512/starlink-grpc-tools} are in development, we created some scripts to work with the dish and to perform some measurements, you can find them in the very same repository that contains this report \footnote{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}.
 
 
-\chapter{Measurements}
+From a research perspective different works provide more information on Starlink, papers like \cite{pan2023measuring} focus on describing the infrastructure Starlink uses, while \cite{izhikevich2023democratizing} illustrates a novel approach to make measurements simpler and cheaper and \cite{browser-side} focuses on running some client-side measurements with a browser extension.
+
+Some work is done on the hardware perspective, like \cite{glitching} while \cite{quarkslab} focuses on the firmware perspective and gives some insides on the gRPC api.
 
 \section{Routing}
+
+One of the first experiments we performed was running traceroutes to several different geographically sparse targets, we retrieved a list of targets from major cloud vendors, \footnote{\url{ https://www.gstatic.com/ipranges/cloud.json}}, \footnote{\url{https://ip-ranges.amazonaws.com/ip-ranges.json}}, \footnote{\url{https://www.microsoft.com/en-us/download/details.aspx?id=53601}},\footnote{\url{https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json }}, since we approximately know the location of the hosts \footnote{we can never be sure the last target we reach with a traceroute in complex networks reflects the position of the target we were trying to reach, it is completely possible we hit a load balancer of we enter a private network and loose track of our packets afterwards.}
+
+We ran the traceroutes using ICMP, UDP and TCP using both the Starlink and the default network interface over several days to see whether we can spot some differences when visualizing them using NetworkX,a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks. \footnote{\url{https://networkx.org/}}, we are limiting ourselves to the first 7 hops because we don't receive answers for any further hops. 
+
+We didn't find any significant differences comparing traceroutes over different days, we see hops in the same Autonomous Systems, the only difference we were able to observe is we reach different hosts inside AS 14593, the Autonomous System SpaceX operates, \footnote{\url{https://bgp.he.net/AS14593}}, the following is a table of hosts reached toghether along witha count of how many times we reached the target.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ r r }
+		\toprule
+		host           & count \\ 
+		\midrule
+		206.224.65.204 & 595   \\
+		206.224.65.200 & 595   \\
+		206.224.65.208 & 549   \\ 
+		206.224.65.182 & 444   \\
+		206.224.65.196 & 440   \\ 
+		206.224.65.188 & 360   \\ 
+		206.224.65.129 & 358   \\ 
+		206.224.65.178 & 274   \\ 
+		206.224.65.180 & 235   \\ 
+		206.224.65.184 & 189   \\ 
+		206.224.65.186 & 159   \\ 
+		206.224.65.190 & 151   \\
+		\bottomrule
+	\end{tabular}
+	\caption{Targets reached inside AS14593 toghether with the count}
+	\end{table}
+
+
+\begin{figure}
+	\label{fig:tr_aws_icmp}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/tr_aws_icmp.png}
+	\caption{Visualizing traceroutes to 4 different hosts from AWS using ICMP, left figure refers to Starlink traceroutes, right one is default network interface.}
+\end{figure}
+
+
+\begin{figure}
+	\label{fig:tr_aws_udp}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/tr_aws_udp.png}
+	\caption{Visualizing traceroutes to 4 different hosts from AWS using UDP, left figure refers to Starlink traceroutes, right one is default network interface.}
+\end{figure}
+
+\begin{figure}
+	\label{fig:tr_aws_tcp}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/tr_aws_tcp.png}
+	\caption{Visualizing traceroutes to 4 different hosts from AWS using TCP, left figure refers to Starlink traceroutes, right one is default network interface.}
+\end{figure}
+
+\begin{figure}
+	\label{fig:tr_azure_icmp}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/tr_azure_icmp.png}
+	\caption{Visualizing traceroutes to 4 different hosts from Azure using ICMP, left figure refers to Starlink traceroutes, right one is default network interface.}
+\end{figure}
 
 \section{Bandwidth analysis}
 During our investigations we decided to analyze bandwidth for two reasons: the first one is we wanted to check wheter the data from the API was correct and later to investigate whether we could detect any patterns in bandwidth drops. From \cite{llc-application} we know the dish is seeking for better connections as satellites move constantly each 15 seconds. We plotted the data and tried to verify whether we saw something.
@@ -187,7 +248,7 @@ We repeated the experiments shifting the red vertical lines and changing the int
 
 In this chapter we will focus on Satellites
 \section{Two-line Element Sets}
-Two-line Element Sets (hereinafter TLEs) are a widely used data format to encode the postion of orbital elements for a given point in time (WIKIPEDIA). This data format is ASCII based and it will allow us to understand patterns in satellite appearances and to plot the number of visible satellites at any given time. This may be a good substitute for the originally working solution, which was to make a query to retrieve the satellite the dish was connected to. Unfortunately in an earlier phase it might have been possible to call the \texttt{dish\_get\_context} or similar methods that currently either return a \texttt{PermissionDenied} error, or are deprecated.
+Two-line Element Sets (hereinafter TLEs) are a widely used data format to encode the postion of orbital elements for a given point in time \footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. This data format is ASCII based and it will allow us to understand patterns in satellite appearances and to plot the number of visible satellites at any given time. This may be a good substitute for the originally working solution, which was to make a query to retrieve the satellite the dish was connected to. Unfortunately in an earlier phase it might have been possible to call the \texttt{dish\_get\_context} or similar methods that currently either return a \texttt{PermissionDenied} error, or are deprecated.
 
 \begin{lstlisting}[caption={TLE for satellite STARLINK-1007 },captionpos=b]
 STARLINK-1007           
@@ -198,25 +259,25 @@ STARLINK-1007
 	
 \section{Skyfield Library}
 
-In order to work with TLEs from the Starlink constellation with Python we are using https://rhodesmill.org/skyfield/, an elegant astronomy library for Python. Retrieving TLEs for every single satellite in the LEO constellation is just a matter of running the following script:
+In order to work with TLEs from the Starlink constellation with Python we are using https://rhodesmill.org/skyfield/, an elegant astronomy library for Python.
 
-\begin{lstlisting}[language=python,caption={retrieving a Satellite's position using the Satname},captionpos=b]
-from skyfield.api import load, wgs84
+% \begin{lstlisting}[language=python,caption={retrieving a Satellite's position using the Satname},captionpos=b]
+% from skyfield.api import load, wgs84
 
-stations_url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
-satellites = load.tle_file(stations_url)
-print("Loaded", len(satellites), "satellites")
-by_name = {sat.name: sat for sat in satellites}
-satellite = by_name["STARLINK-1007"]
+% stations_url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
+% satellites = load.tle_file(stations_url)
+% print("Loaded", len(satellites), "satellites")
+% by_name = {sat.name: sat for sat in satellites}
+% satellite = by_name["STARLINK-1007"]
 
-# year, month, day, hour, minute, second
-ts = load.timescale()
-t = ts.now()
-a = satellite.at(t)
-lat, lon = wgs84.latlon_of(a)
-print("Latitude:", lat)
-print("Longitude:", lon)
-\end{lstlisting}
+% # year, month, day, hour, minute, second
+% ts = load.timescale()
+% t = ts.now()
+% a = satellite.at(t)
+% lat, lon = wgs84.latlon_of(a)
+% print("Latitude:", lat)
+% print("Longitude:", lon)
+% \end{lstlisting}
 
 This is a very powerful mechanism, because it allows us to retrieve the satellites we might reasonably assume the dish sees at any given moment.
 \subsection{Visible Satellites}
@@ -460,11 +521,8 @@ The appendix can contain different sections.
 \selectlanguage{english}
 
 \printbibliography[heading=bibintoc]
-%\cleardoublepage
 \clearpage
 \pagestyle{empty}
-%\mbox{}
-%\clearpage
 
 \end{document}
  
