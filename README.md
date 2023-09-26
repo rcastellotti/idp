@@ -33,60 +33,10 @@ Additionally here is a script I used to run iperf with different bandwidths:
 
 in the report: list all the external tools we are using
 
---------------------
 
-keep this to explain how we are detecting handovers
-
-  # import json
-# import numpy as np
-# f1 = "map-bw-stuff2/1691158076.json"
-# f2 = "map-bw-stuff2/1691158077.json"
-# map1 = json.load(open(f1))
-# map1 = map1["dishGetObstructionMap"]["snr"]
-# map1 = np.array(map1).reshape(123, 123)
-# map2 = json.load(open(f2))
-# map2 = map2["dishGetObstructionMap"]["snr"]
-# map2 = np.array(map2).reshape(123, 123)
-
-# # visualize_handover(f1,f2)
-# new=map1+map2
-# rows, cols = np.where(new == 0)
-# zero_coordinates = list(zip(rows, cols))
-
-# for coord in zero_coordinates:
-#     hx=coord[0]
-#     hy=coord[1]
-#     pot = new[hx - 1 : hx + 2, hy - 1 : hy + 2]
-#     print(pot)
-#     if not 2 in pot:
-#         print("detected handover")
-
-# plt.figure()
-# plt.imshow(new)
-
-
-
-----------------
-
-
-
-
-
-# # https://web.archive.org/web/20220320174537/https://ecfsapi.fcc.gov/file/1020316268311/Starlink%20Services%20LLC%20Application%20for%20ETC%20Designation.pdf
-
-
-https://en.wikipedia.org/wiki/Two-line_element_set
-https://rhodesmill.org/skyfield/
 https://www.space-track.org/documentation#/tle
 
 
-
-
-
-
-``---
-tags: student
----
 
 
 # IDP Castellotti
@@ -101,14 +51,6 @@ tags: student
 * A user `test` currently exists, in whose home some tooling resides
     * Feel free to add a new user for working on the machine
 
-## 2023-03-08
-* We will provide remote access to the dish
-    * No static IP yet
-* Tools you can look at for now:
-    * https://github.com/danopstech/starlink_exporter
-    * https://github.com/sparky8512/starlink-grpc-tools
-
-
 ## Misc
 
 `ssh -D 9981 -J <USERNAME>@sshgw.net.in.tum.de root@starlink.net.in.tum.de -p 10022` allows to access the web UI, -D option also allows to use a SOCKS proxy
@@ -118,51 +60,7 @@ use `export http_proxy=socks5://localhost:9981` to run commands in a terminal us
 Can we find which satellite are we connected to?
 [This](https://www.reddit.com/r/Starlink/comments/p84o5i/comment/h9o1elp/) pal suggests this might not be possible anymore, the reason I was interested in understanding which satellite we are connected to is to correlate sudden latency spikes and satellite handovers.
 
-Every satellite has a NORAD number, using this number we can retrieve the position of a starlink satellite using this api: https://www.n2yo.com/api/#positions, maybe it is simpler to just check for the position of satellites "above" Garching and see if the moment a satellite gets "too far" is the same moment we have an increase in latency.
-What is the metric? Point to point distance?
 
-Here is an API key for an account I created (with a fictitious username): `Z8QNAU-UH9ZP6-28P9MU-507X`
-token for ipinfo.io (random username) `18e09b19d7ee9e`
-
-This is the satellite position:
-
-```javascript=
-{
-  "satlatitude": -39.90318514,
-  "satlongitude": 158.28897924,
-  "sataltitude": 417.85,
-  "azimuth": 254.31,
-  "elevation": -69.09,
-  "ra": 44.77078138,
-  "dec": -43.99279118,
-  "timestamp": 1521354418
-}
-```
-
-I think this could be a good approximation of a point to point distance, used values come from the example api call
-
-```python=
-from geopy.distance import distance
-from geopy.point import Point
-from math import sqrt,pow
-
-altitude=417.85
-satlat=-39.90318514
-satlong=158.28897924
-
-groundlat=41.702
-groundlong=-76.014
-
-a = Point(groundlat,groundlong, 0)
-b = Point(satlat,satlong , 0)
-ground_distance=distance(a, b)
-real_distance=sqrt(pow(alt,2)+pow(ground_distance.km,2))
-
-print(f"ground_distance:{ground_distance}")
-print(f"real_distance:{real_distance}")
-```
-
-This might be completely wrong, here is the documentation for the distance function  [geopy.distance](https://geopy.readthedocs.io/en/stable/#module-geopy.distance)
 
 Can we understand something more about the hops a packet goes through?
 
@@ -179,42 +77,6 @@ Can we understand something more about the hops a packet goes through?
 
 
 
-## 03-16 -> 03-23
-
-+ now running traceroutes using the `run_traceroutes.sh` script
-
-tricky way for now: `watch -n0.5 python3 dish_grpc_sqlite.py sqlite.db ping_latency`, reading the data in the python notebook  
-```sql=
-sqlite> .schema ping_stats --indent
-CREATE TABLE IF NOT EXISTS "ping_stats"(
-  "time" INTEGER NOT NULL,
-  "id" TEXT NOT NULL,
-  "samples" INTEGER,
-  "end_counter" INTEGER,
-  "total_ping_drop" REAL,
-  "count_full_ping_drop" INTEGER,
-  "count_obstructed" INTEGER,
-  "total_obstructed_ping_drop" REAL,
-  "count_full_obstructed_ping_drop" INTEGER,
-  "count_unscheduled" INTEGER,
-  "total_unscheduled_ping_drop" REAL,
-  "count_full_unscheduled_ping_drop" INTEGER,
-  "init_run_fragment" INTEGER,
-  "final_run_fragment" INTEGER,
-  "run_seconds" INTEGER,
-  "run_minutes" INTEGER,
-  "mean_all_ping_latency" REAL,
-  "deciles_all_ping_latency" REAL,
-  "mean_full_ping_latency" REAL,
-  "deciles_full_ping_latency" REAL,
-  "stdev_full_ping_latency" REAL,
-  "load_bucket_samples" INTEGER,
-  "load_bucket_min_latency" REAL,
-  "load_bucket_median_latency" REAL,
-  "load_bucket_max_latency" REAL,
-  PRIMARY KEY("time","id")
-);
-```
 
 ## run a python notebook
 ```bash=
@@ -225,32 +87,6 @@ jupyter notebook --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=
 ```bash=
 python3 -m http.server http://0.0.0.0:8000/ 
 ```
-
-
-## asns
-
-+ 137 -> Consortium GARR
-+ 195 -> San Diego Supercomputing Center
-+ 680 ->  Verein zur Foerderung eines Deutschen Forschungsnetzes e.V.
-+ 1299 -> Arelion Sweden AB (twelve99.net)
-+ 1741 -> AS1741 CSC - Tieteen tietotekniikan keskus Oy
-+ 1909 -> San Diego Supercomputing Center
-+ 2152 -> California State University, Office of the Chancellor
-+ 2603 -> NORDUNet
-+ 3356 -> Level 3 Parent, LLC
-+ 6453 -> TATA COMMUNICATIONS (AMERICA) INC
-+ 6762 -> TELECOM ITALIA SPARKLE S.p.A.
-+ 12816 -> Leibniz-Rechenzentrum
-+ 14593 -> Space Exploration Technologies Corporation
-+ 16625 -> Akamai Technologies, Inc.
-+ 20940 -> Akamai International B.V. (netherlands)
-+ 34984 -> Superonline Iletisim Hizmetleri A.S. (turkey)
-+ 201011 -> Core-Backbone GmbH
-
-
-Seems like SpaceX only owns AS14593, announces <https://bgp.he.net/AS14593#_prefixes>
-but it seems we are only reaching 206.224.65.0/24 ips
-
 
     
 `check_ground_station.sh` is a simple script to perform some traceroutes, we are using them to find the first hop after the starlink network, this should be indicative of the exit point.
@@ -264,7 +100,6 @@ now running:
 ````
 
 # new stuff
-+ direct peerings with as15593: <https://bgp.he.net/AS14593#_peers>
 
 + `locate_satellite.ipynb` ([skyfield](https://rhodesmill.org/skyfield/earth-satellites.html)) with data directly from [celestrak](https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle)
 
@@ -411,23 +246,6 @@ NOTE: we did not meet on 25/04, so i extended this section for 1 week more
     + i guess we can use the addresses from `cloud-ips.json` to do whatever we need to do.
     + i am afraid maxmind cannot help us locating starlink-related stuff, as every (?) address is located in Ross,Manitoba,Canada, North America https://imgur.com/xeDKVL8.png
 
-### some additional stuff, visualize all the routers inside starlink as14593
-```
-root@gnolmir ~/i/regions (main)# cut -d, -f3 *.csv | sort | uniq -c | sort -rn
-    595 206.224.65.204
-    595 206.224.65.200
-    549 206.224.65.208
-    444 206.224.65.182
-    440 206.224.65.196
-    360 206.224.65.188
-    358 206.224.65.129
-    274 206.224.65.178
-    235 206.224.65.180
-    189 206.224.65.184
-    159 206.224.65.186
-    151 206.224.65.190
-     40 ip
-```
 
 Apparently all traffic goes through North America (me1 included), does this happen for "regular connections?" -> run `watch -n 60 python3 reach-regions.py -d /root/idp-castellotti-data/regions-nostarlink --asndb /root/idp-castellotti-data/ipasn_20230315.dat -r cloud-ips.json` removing the line configuring starlink usage
 
@@ -437,23 +255,6 @@ Apparently all traffic goes through North America (me1 included), does this happ
 + I messed up, doing traceroutes i noticed we are doing one more hop inside as14593, so i changed the ttl parameters in `common.reach_target`, i am pretty sure we were not hitting anything inside as14593 after the 5th hop before, and [these](https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti-data/-/tree/main/traceroutes_cgs) traceroutes seem to confirm my hypothesis, maybe they changed something internally?
 + ran some more traceroutes and saw this (around thursday last week)
 
-```bash
-(venv) root@gnolmir ~/i/regions (main)# cut -d, -f3 *.csv | sort | uniq -c | sort -rn
-    683 206.224.65.200
-    682 206.224.65.204
-    629 206.224.65.208
-    508 206.224.65.182
-    504 206.224.65.196
-    416 206.224.65.188
-    414 206.224.65.192
-    314 206.224.65.178
-    267 206.224.65.180
-    213 206.224.65.184
-    183 206.224.65.186
-    175 206.224.65.190
-    128 149.19.109.49
-    120 149.19.109.47
-     40 ip
 ```
 
 ```text
@@ -490,9 +291,10 @@ traceroute to 149.19.109.47 (149.19.109.47), 30 hops max, 60 byte packets
 30  * * *
 ```
 
-We see some spacex stuff, now (Tuesday) I cannot see that hop anymore, am I getting crazy?
-
 09/05 13:00
+
+We see some SpaceX stuff, now (Tuesday) I cannot see that hop anymore, am I getting crazy?
+
 ```
 root@gnolmir ~/i/regions (main)# traceroute -i enp1s0f2 34.81.202.211
 traceroute to 34.81.202.211 (34.81.202.211), 30 hops max, 60 byte packets
@@ -864,133 +666,6 @@ Created a box plot to visualize what happens
 
 
 
-```
-1 (git)-[master] % ./grpc_cli ls 192.168.100.1:9200 SpaceX.API.Device.Device -l                                                                                                    87 2 pts/5 ~/grpc/cmake/build rc@gnolmir 23-05-25 20:57:33
-filename: spacex/api/device/device.proto
-package: SpaceX.API.Device;
-service Device {
-  rpc Stream(stream SpaceX.API.Device.ToDevice) returns (stream SpaceX.API.Device.FromDevice) {}
-  rpc Handle(SpaceX.API.Device.Request) returns (SpaceX.API.Device.Response) {}
-}
-```
-
-```
-(git)-[master] % ./grpc_cli type 192.168.100.1:9200 SpaceX.API.Device.Response                                                                                                   89 2 pts/5 ~/grpc/cmake/build rc@gnolmir 23-05-25 20:59:59
-message Response {
-  uint64 id = 1 [json_name = "id"];
-  .SpaceX.API.Status.Status status = 2 [json_name = "status"];
-  uint64 api_version = 3 [json_name = "apiVersion"];
-  oneof response {
-    .SpaceX.API.Device.GetNextIdResponse get_next_id = 1006 [json_name = "getNextId"];
-    .SpaceX.API.Device.EnableDebugTelemResponse enable_debug_telem = 1034 [json_name = "enableDebugTelem"];
-    .SpaceX.API.Device.FactoryResetResponse factory_reset = 1011 [json_name = "factoryReset"];
-    .SpaceX.API.Device.GetDeviceInfoResponse get_device_info = 1004 [json_name = "getDeviceInfo"];
-    .SpaceX.API.Device.GetLogResponse get_log = 1012 [json_name = "getLog"];
-    .SpaceX.API.Device.GetNetworkInterfacesResponse get_network_interfaces = 1015 [json_name = "getNetworkInterfaces"];
-    .SpaceX.API.Device.GetPingResponse get_ping = 1009 [json_name = "getPing"];
-    .SpaceX.API.Device.PingHostResponse ping_host = 1016 [json_name = "pingHost"];
-    .SpaceX.API.Device.RebootResponse reboot = 1001 [json_name = "reboot"];
-    .SpaceX.API.Device.SpeedTestResponse speed_test = 1003 [json_name = "speedTest"];
-    .SpaceX.API.Device.SetSkuResponse set_sku = 1013 [json_name = "setSku"];
-    .SpaceX.API.Device.SetTrustedKeysResponse set_trusted_keys = 1010 [json_name = "setTrustedKeys"];
-    .SpaceX.API.Device.UpdateResponse update = 1014 [json_name = "update"];
-    .SpaceX.API.Device.GetLocationResponse get_location = 1017 [json_name = "getLocation"];
-    .SpaceX.API.Device.GetHeapDumpResponse get_heap_dump = 1019 [json_name = "getHeapDump"];
-    .SpaceX.API.Device.RestartControlResponse restart_control = 1020 [json_name = "restartControl"];
-    .SpaceX.API.Device.FuseResponse fuse = 1021 [json_name = "fuse"];
-    .SpaceX.API.Device.GetConnectionsResponse get_connections = 1023 [json_name = "getConnections"];
-    .SpaceX.API.Device.StartSpeedtestResponse start_speedtest = 1027 [json_name = "startSpeedtest"];
-    .SpaceX.API.Device.GetSpeedtestStatusResponse get_speedtest_status = 1028 [json_name = "getSpeedtestStatus"];
-    .SpaceX.API.Device.ReportClientSpeedtestResponse report_client_speedtest = 1029 [json_name = "reportClientSpeedtest"];
-    .SpaceX.API.Device.InitiateRemoteSshResponse initiate_remote_ssh = 1030 [json_name = "initiateRemoteSsh", deprecated = true];
-    .SpaceX.API.Device.SelfTestResponse self_test = 1031 [json_name = "selfTest"];
-    .SpaceX.API.Device.SetTestModeResponse set_test_mode = 1032 [json_name = "setTestMode"];
-    .SpaceX.API.Device.SoftwareUpdateResponse software_update = 1033 [json_name = "softwareUpdate"];
-    .SpaceX.API.Device.DishAuthenticateResponse dish_authenticate = 2005 [json_name = "dishAuthenticate"];
-    .SpaceX.API.Device.DishGetContextResponse dish_get_context = 2003 [json_name = "dishGetContext"];
-    .SpaceX.API.Device.DishGetHistoryResponse dish_get_history = 2006 [json_name = "dishGetHistory"];
-    .SpaceX.API.Device.DishGetStatusResponse dish_get_status = 2004 [json_name = "dishGetStatus"];
-    .SpaceX.API.Device.DishGetObstructionMapResponse dish_get_obstruction_map = 2008 [json_name = "dishGetObstructionMap"];
-    .SpaceX.API.Device.DishStowResponse dish_stow = 2002 [json_name = "dishStow"];
-    .SpaceX.API.Device.StartDishSelfTestResponse start_dish_self_test = 2012 [json_name = "startDishSelfTest"];
-    .SpaceX.API.Device.DishSetEmcResponse dish_set_emc = 2007 [json_name = "dishSetEmc"];
-    .SpaceX.API.Device.DishGetEmcResponse dish_get_emc = 2009 [json_name = "dishGetEmc"];
-    .SpaceX.API.Device.DishSetConfigResponse dish_set_config = 2010 [json_name = "dishSetConfig"];
-    .SpaceX.API.Device.DishGetConfigResponse dish_get_config = 2011 [json_name = "dishGetConfig"];
-    .SpaceX.API.Device.DishInhibitGpsResponse dish_inhibit_gps = 2013 [json_name = "dishInhibitGps"];
-    .SpaceX.API.Device.TransceiverIFLoopbackTestResponse transceiver_if_loopback_test = 4001 [json_name = "transceiverIfLoopbackTest"];
-    .SpaceX.API.Device.TransceiverGetStatusResponse transceiver_get_status = 4003 [json_name = "transceiverGetStatus"];
-    .SpaceX.API.Device.TransceiverGetTelemetryResponse transceiver_get_telemetry = 4004 [json_name = "transceiverGetTelemetry"];
-    .SpaceX.API.Device.WifiAuthenticateResponse wifi_authenticate = 3005 [json_name = "wifiAuthenticate"];
-    .SpaceX.API.Device.WifiGetClientsResponse wifi_get_clients = 3002 [json_name = "wifiGetClients"];
-    .SpaceX.API.Device.WifiGetDiagnosticsResponse wifi_get_diagnostics = 3008 [json_name = "wifiGetDiagnostics"];
-    .SpaceX.API.Device.WifiGetHistoryResponse wifi_get_history = 3006 [json_name = "wifiGetHistory"];
-    .SpaceX.API.Device.WifiGetPingMetricsResponse wifi_get_ping_metrics = 3007 [json_name = "wifiGetPingMetrics"];
-    .SpaceX.API.Device.WifiGetStatusResponse wifi_get_status = 3004 [json_name = "wifiGetStatus"];
-    .SpaceX.API.Device.WifiSetConfigResponse wifi_set_config = 3001 [json_name = "wifiSetConfig"];
-    .SpaceX.API.Device.WifiGetConfigResponse wifi_get_config = 3009 [json_name = "wifiGetConfig"];
-    .SpaceX.API.Device.WifiSetupResponse wifi_setup = 3003 [json_name = "wifiSetup"];
-    .SpaceX.API.Device.WifiGetPersistentStatsResponse wifi_get_persistent_stats = 3022 [json_name = "wifiGetPersistentStats"];
-    .SpaceX.API.Device.WifiSetMeshDeviceTrustResponse wifi_set_mesh_device_trust = 3012 [json_name = "wifiSetMeshDeviceTrust"];
-    .SpaceX.API.Device.WifiSetMeshConfigResponse wifi_set_mesh_config = 3013 [json_name = "wifiSetMeshConfig", deprecated = true];
-    .SpaceX.API.Device.WifiGetClientHistoryResponse wifi_get_client_history = 3015 [json_name = "wifiGetClientHistory"];
-    .SpaceX.API.Device.WifiSelfTestResponse wifi_self_test = 3016 [json_name = "wifiSelfTest"];
-  }
-  reserved 1018, 1026, 2025, 3011, 3014;
-}
-```
-
-
-```javascript=
- proto.SpaceX.API.Device.DishGetContextResponse.serializeBinaryToWriter = function (e, t) {
-        var o = void 0;
-        null != (o = e.getDeviceInfo()) && t.writeMessage(1, o, n.DeviceInfo.serializeBinaryToWriter),
-        null != (o = e.getDeviceState()) && t.writeMessage(7, o, n.DeviceState.serializeBinaryToWriter),
-        0 !== (o = e.getObstructionFraction()) && t.writeFloat(2, o),
-        0 !== (o = e.getObstructionValidS()) && t.writeFloat(3, o),
-        (o = e.getObstructionCurrent()) && t.writeBool(12, o),
-        0 !== (o = e.getCellId()) && t.writeUint32(4, o),
-        0 !== (o = e.getPopRackId()) && t.writeUint32(5, o),
-        0 !== (o = e.getInitialSatelliteId()) && t.writeUint32(8, o),
-        0 !== (o = e.getInitialGatewayId()) && t.writeUint32(9, o),
-        (o = e.getOnBackupBeam()) && t.writeBool(10, o),
-        0 !== (o = e.getSecondsToSlotEnd()) && t.writeFloat(6, o),
-        (o = e.getDebugTelemetryEnabled()) && t.writeBool(11, o),
-        0 !== (o = e.getPopPingDropRate15sMean()) && t.writeFloat(13, o),
-        0 !== (o = e.getPopPingLatencyMs15sMean()) && t.writeFloat(14, o),
-        0 !== (o = e.getSecondsSinceLast1sOutage()) && t.writeFloat(15, o),
-        0 !== (o = e.getSecondsSinceLast2sOutage()) && t.writeFloat(16, o),
-        0 !== (o = e.getSecondsSinceLast5sOutage()) && t.writeFloat(17, o),
-        0 !== (o = e.getSecondsSinceLast15sOutage()) && t.writeFloat(18, o),
-        0 !== (o = e.getSecondsSinceLast60sOutage()) && t.writeFloat(19, o)
-      },
-```
-
-
-grpcurl -plaintext  -d '{"dishGetConfig":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
-{
-  "apiVersion": "7",
-  "dishGetConfig": {
-    "dishConfig": {
-      "applySnowMeltMode": true,
-      "applyLocationRequestMode": true,
-      "applyLevelDishMode": true,
-      "applyPowerSaveStartMinutes": true,
-      "applyPowerSaveDurationMinutes": true,
-      "applyPowerSaveMode": true
-    }
-  }
-}
-
-
-
-
-rc@gnolmir ~/idp-castellotti (main) [127]> grpcurl -plaintext  -d '{"dishGetContext":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
-ERROR:
-  Code: PermissionDenied
-  Message: Permission denied
-  
-  
  grpcurl -plaintext  -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
   
   
@@ -1012,41 +687,6 @@ grpc.reflection.v1alpha.ServerReflection
 grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle | jq ".dishGetStatus.downlinkThroughputBps"
 
 grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle | jq ".dishGetStatus.popPingLatencyMs"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## setup something to download a large file to measure latency
 
@@ -1154,17 +794,13 @@ ended: 2023-06-18 10:58:55.304417
 
 
 
-
-
-
-
 # grpc api
 
 ### first of all let's document the starlink api
 
 ####  grpcurl -plaintext 192.168.100.1:9200 describe
 
-```bash=
+```bash
 rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe
 SpaceX.API.Device.Device is a service:
 service Device {
@@ -1178,104 +814,8 @@ service ServerReflection {
 ```
 #### grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Request
 
-```bash=
-rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Request
-SpaceX.API.Device.Request is a message:
-message Request {
-  uint64 id = 1;
-  string target_id = 13;
-  uint64 epoch_id = 14;
-  oneof request {
-    .SpaceX.API.Device.SignedData signed_request = 15;
-    .SpaceX.API.Device.RebootRequest reboot = 1001;
-    .SpaceX.API.Device.SpeedTestRequest speed_test = 1003;
-    .SpaceX.API.Device.GetStatusRequest get_status = 1004;
-    .SpaceX.API.Device.AuthenticateRequest authenticate = 1005;
-    .SpaceX.API.Device.GetNextIdRequest get_next_id = 1006;
-    .SpaceX.API.Device.GetHistoryRequest get_history = 1007;
-    .SpaceX.API.Device.GetDeviceInfoRequest get_device_info = 1008;
-    .SpaceX.API.Device.GetPingRequest get_ping = 1009;
-    .SpaceX.API.Device.SetTrustedKeysRequest set_trusted_keys = 1010;
-    .SpaceX.API.Device.FactoryResetRequest factory_reset = 1011;
-    .SpaceX.API.Device.GetLogRequest get_log = 1012;
-    .SpaceX.API.Device.SetSkuRequest set_sku = 1013;
-    .SpaceX.API.Device.UpdateRequest update = 1014;
-    .SpaceX.API.Device.GetNetworkInterfacesRequest get_network_interfaces = 1015;
-    .SpaceX.API.Device.PingHostRequest ping_host = 1016;
-    .SpaceX.API.Device.GetLocationRequest get_location = 1017;
-    .SpaceX.API.Device.GetHeapDumpRequest get_heap_dump = 1019;
-    .SpaceX.API.Device.RestartControlRequest restart_control = 1020;
-    .SpaceX.API.Device.FuseRequest fuse = 1021;
-    .SpaceX.API.Device.GetPersistentStatsRequest get_persistent_stats = 1022;
-    .SpaceX.API.Device.GetConnectionsRequest get_connections = 1023;
-    .SpaceX.API.Device.StartSpeedtestRequest start_speedtest = 1027;
-    .SpaceX.API.Device.GetSpeedtestStatusRequest get_speedtest_status = 1028;
-    .SpaceX.API.Device.ReportClientSpeedtestRequest report_client_speedtest = 1029;
-    .SpaceX.API.Device.InitiateRemoteSshRequest initiate_remote_ssh = 1030 [deprecated = true];
-    .SpaceX.API.Device.SelfTestRequest self_test = 1031;
-    .SpaceX.API.Device.SetTestModeRequest set_test_mode = 1032;
-    .SpaceX.API.Device.SoftwareUpdateRequest software_update = 1033;
-    .SpaceX.API.Device.EnableDebugTelemRequest enable_debug_telem = 1034;
-    .SpaceX.API.Device.DishStowRequest dish_stow = 2002;
-    .SpaceX.API.Device.DishGetContextRequest dish_get_context = 2003;
-    .SpaceX.API.Device.DishSetEmcRequest dish_set_emc = 2007;
-    .SpaceX.API.Device.DishGetObstructionMapRequest dish_get_obstruction_map = 2008;
-    .SpaceX.API.Device.DishGetEmcRequest dish_get_emc = 2009;
-    .SpaceX.API.Device.DishSetConfigRequest dish_set_config = 2010;
-    .SpaceX.API.Device.DishGetConfigRequest dish_get_config = 2011;
-    .SpaceX.API.Device.StartDishSelfTestRequest start_dish_self_test = 2012;
-    .SpaceX.API.Device.DishPowerSaveRequest dish_power_save = 2013;
-    .SpaceX.API.Device.DishInhibitGpsRequest dish_inhibit_gps = 2014;
-    .SpaceX.API.Device.WifiSetConfigRequest wifi_set_config = 3001;
-    .SpaceX.API.Device.WifiGetClientsRequest wifi_get_clients = 3002;
-    .SpaceX.API.Device.WifiSetupRequest wifi_setup = 3003;
-    .SpaceX.API.Device.WifiGetPingMetricsRequest wifi_get_ping_metrics = 3007;
-    .SpaceX.API.Device.WifiGetDiagnosticsRequest wifi_get_diagnostics = 3008;
-    .SpaceX.API.Device.WifiGetConfigRequest wifi_get_config = 3009;
-    .SpaceX.API.Device.WifiSetMeshDeviceTrustRequest wifi_set_mesh_device_trust = 3012;
-    .SpaceX.API.Device.WifiSetMeshConfigRequest wifi_set_mesh_config = 3013 [deprecated = true];
-    .SpaceX.API.Device.WifiGetClientHistoryRequest wifi_get_client_history = 3015;
-    .SpaceX.API.Device.WifiSetAviationConformedRequest wifi_set_aviation_conformed = 3016;
-    .SpaceX.API.Device.WifiSetClientGivenNameRequest wifi_set_client_given_name = 3017;
-    .SpaceX.API.Device.WifiSelfTestRequest wifi_self_test = 3018;
-    .SpaceX.API.Device.TransceiverIFLoopbackTestRequest transceiver_if_loopback_test = 4001;
-    .SpaceX.API.Device.TransceiverGetStatusRequest transceiver_get_status = 4003;
-    .SpaceX.API.Device.TransceiverGetTelemetryRequest transceiver_get_telemetry = 4004;
-  }
-  reserved 1018, 1025, 1026, 3011, 3014;
-}
+```bash
 ```
-
-#### grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Response
-
-```bash=
-rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Response
-SpaceX.API.Device.Response is a message:
-message Response {
-  uint64 id = 1;
-  .SpaceX.API.Status.Status status = 2;
-  uint64 api_version = 3;
-  oneof response {
-    .SpaceX.API.Device.RebootResponse reboot = 1001;
-    .SpaceX.API.Device.SpeedTestResponse speed_test = 1003;
-    .SpaceX.API.Device.GetDeviceInfoResponse get_device_info = 1004;
-    .SpaceX.API.Device.GetNextIdResponse get_next_id = 1006;
-    .SpaceX.API.Device.GetPingResponse get_ping = 1009;
-    .SpaceX.API.Device.SetTrustedKeysResponse set_trusted_keys = 1010;
-    .SpaceX.API.Device.FactoryResetResponse factory_reset = 1011;
-    .SpaceX.API.Device.GetLogResponse get_log = 1012;
-    .SpaceX.API.Device.SetSkuResponse set_sku = 1013;
-    .SpaceX.API.Device.UpdateResponse update = 1014;
-    .SpaceX.API.Device.GetNetworkInterfacesResponse get_network_interfaces = 1015;
-    .SpaceX.API.Device.PingHostResponse ping_host = 1016;
-    .SpaceX.API.Device.GetLocationResponse get_location = 1017;
-    .SpaceX.API.Device.GetHeapDumpResponse get_heap_dump = 1019;
-```bash=
-rc@gnolmir:~$ grpcurl -plaintext -d '{"set_test_mode":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
-ERROR:
-  Code: PermissionDenied
-  Message: Permission denied
-  ```
 
 
 
@@ -1336,10 +876,6 @@ ireallylovebear@proton.me
 hXqAx923GbrUq3
 
 
-api id: 
-api secret: 
-
-
 
 
 curl -g -X 'GET' \
@@ -1366,8 +902,21 @@ while true; do wget -4  http://mirror.23media.com//debian-cd/current/amd64/iso-d
 http://mirror.23media.com//debian-cd/current/amd64/iso-dvd/debian-12.0.0-amd
 `````
 
-
+<!--  -->
 
 
 
 sudo python3 cloud-traceroutes.py -d prova6 -a ../idp-castellotti-data/ipasn_20230315.dat -r ../idp-castellotti-data/targets6.csv
+
+
+
+
+
+
+
+
+# new
+
+
+http://geoip.starlinkisp.net/feed.csv
+    
