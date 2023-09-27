@@ -1,0 +1,18 @@
+hi, I am Roberto, Welcome to my IDP intermediate talk.
+
+Today I am gonna present you my work on a starlink investigation we started w/ Leander and Johannes this semester.
+First of all let's clearly spell out what Starlink is and which problems does it solve.
+
+Startlink is essentially a LEO (Low Earth Orbiting) Satellite Constellation we can use to connect to the internet using a dish (you can see the dish the chair operates on the third floor's balcony.
+
+LEO constellations orbit the earth at around 550 kms, it is way less that normal geostationary satellites, orbiting at around 35K kms , this naturally leads to a significantly lower latency (25 ms vs 600 ms), or, to understand better: Starlink does ~70 RTTs in the time a GEOSAT satellite does 1 RTT
+
+The way Starlink works can be seen in this figure, essentially whenever we want to send our packets to the internet it goes through our dish, the packet is reflected to a ground station, it then reaches a POP (inside ASN 14593) and it continues on its normal path to the server we want to reach.
+
+First topic we investigated was package routing, we ran quite a lot of traceroutes (ipv4 only currently) to different geographically sparse endpoints using ICMP, UDP, TCP, we used as targets cloud datacenters because we roughly know the locations by parsing the IP blocks they publish (we have no idea what happens inside their datacenters, so the last hop we see on traceroutes might not be geographically located where we think it is, but it should approximate it somewhat.
+
+Then we moved to understand whether the dish is doing buffering our packets, what I mean is we tried to understand whether the dish was waiting to have a certain packet size before sending our packet. If this is the case we should have the lowest RTT whenever the dish is waiting exactly for one more packet and we send it, to test this we used iperf3 to send some constant background packets with varying payload sizes but we found no differences in RTTs.
+
+We then tried to identifiy visible satellites at any given moment, we never have less than two and we usually have around 8, we then moved to visualizing some patterns and we can see some regular patterns in satellites appearing.
+
+

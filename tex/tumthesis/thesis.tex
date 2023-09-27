@@ -307,7 +307,7 @@ After having collected data for several hours we decided to plot satellite appea
 
 \section{Detecting Satellite Handovers}
 
-Unfortunately it is not anymore possu
+Unfortunately it is not anymore possible to know from the gRPC API which satellite the dish is connected, it used to be possible during the pre-beta phase \footnote{\url{https://www.reddit.com/r/Starlink/comments/p84o5i/comment/h9o1elp/}}
 The Starlink gRPC api exposes a \texttt{dish\_get\_obstruction\_map} method, following the approach described in \cite{izhikevich2023democratizing} we use the information gathered from polling the endpointeach second to extract the current obstruction map and visualize satellite handovers. The reason this works is the dish is adding a dot (setting a value to 1) in a 123*123 matrix whenever it sees a satellite in that position, whenever the dish is rebooted (using i.e \texttt{nine981.reboot}) the matrix is cleared by setting every entry to -1, whenever a satellite is detected the entry is set. By polling the endpoint frequently enough we can observe satellites traces, by comparing values in the matrices we obtain we can detect whether a satellite handover was performed.
 
 \[
