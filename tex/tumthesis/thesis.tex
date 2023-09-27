@@ -307,6 +307,7 @@ After having collected data for several hours we decided to plot satellite appea
 
 \section{Detecting Satellite Handovers}
 
+Unfortunately it is not anymore possu
 The Starlink gRPC api exposes a \texttt{dish\_get\_obstruction\_map} method, following the approach described in \cite{izhikevich2023democratizing} we use the information gathered from polling the endpointeach second to extract the current obstruction map and visualize satellite handovers. The reason this works is the dish is adding a dot (setting a value to 1) in a 123*123 matrix whenever it sees a satellite in that position, whenever the dish is rebooted (using i.e \texttt{nine981.reboot}) the matrix is cleared by setting every entry to -1, whenever a satellite is detected the entry is set. By polling the endpoint frequently enough we can observe satellites traces, by comparing values in the matrices we obtain we can detect whether a satellite handover was performed.
 
 \[
@@ -484,8 +485,6 @@ To verify whether this hypotesis was true we tried to send some payload with iPe
 	\caption{Latency variation while sending traffic on the uplink using iPerf}
 \end{figure}
 
-
-
 % why is this here?
 
 \begin{figure}
@@ -494,7 +493,6 @@ To verify whether this hypotesis was true we tried to send some payload with iPe
 	\caption{An obstruction map retrieved by the dish, check <CITE APPENDIX> to understand how it was generated}
 \end{figure}
 
-now we want to assess whether the dish buffers packets relayed to satellites, our intuition is that if this is the case we will see a decrease in RTT if we start creating some traffic with a tool like iperf3 on the very same interface
 
 mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso > /dev/null
 
