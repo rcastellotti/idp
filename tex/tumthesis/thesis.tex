@@ -7,6 +7,8 @@
 
 \usepackage[backend=bibtex,style=ieee]{biblatex}
 \usepackage{booktabs}
+\usepackage{todonotes}
+\usepackage{csquotes}
 \usepackage{tabularx}
 \usepackage{listings}
 
@@ -23,7 +25,7 @@
 	font={rm,footnotesize},
 	labelfont={rm},
 }
-\usepackage{subcaption}
+% \usepackage{subcaption}
 \usepackage{nicefrac}
 \usepackage{longtable}
 \usepackage[hang]{footmisc}
@@ -96,7 +98,7 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
 \addbibresource{bib/litnew.bib}
 % Load late to avoid same identifier warning
-\usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
+% \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
 
 
 \begin{document}
@@ -121,6 +123,7 @@ Lastly we analyzed satellites visible from a dish and, after developing a script
 \tableofcontents
 \listoffigures
 \listoftables
+\listoftodos
 
 \startcontent
 
@@ -140,7 +143,7 @@ SpaceX is also experimenting with Inter Satellite Links, this would allow satell
 	\label{fig:gs}
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/ground-station.jpeg}
-	\caption{A sample ground station, from \href{https://www.reddit.com/r/SpaceXLounge/comments/hcf4t5/prototype_starlink_terminal_closeups_merrillan_wi/}{u/darkpenguin22, posted on r/SpaceXLounge}}
+	\caption{A sample ground station, from \url{https://www.reddit.com/r/SpaceXLounge/comments/hcf4t5/prototype_starlink_terminal_closeups_merrillan_wi/}}
 \end{figure}
 
 \begin{figure}
@@ -161,7 +164,7 @@ SpaceX is currently the most popular LEO-based Internet Service Provider, but ot
 
 \section{Related work}
 
-Being Starlink a novel technology the existing body of research is somewhat limited, but papers and tools \footnote{https://github.com/danopstech/starlink\	_exporter}, \footnote{https://github.com/sparky8512/starlink-grpc-tools} are in development, we created some scripts to work with the dish and to perform some measurements, you can find them in the very same repository that contains this report \footnote{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}.
+Being Starlink a novel technology the existing body of research is somewhat limited, but papers and tools \footnote{https://github.com/danopstech/starlink\_exporter}, \footnote{https://github.com/sparky8512/starlink-grpc-tools} are in development, we created some scripts to work with the dish and to perform some measurements, you can find them in the very same repository that contains this report \footnote{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}.
 
 
 From a research perspective different works provide more information on Starlink, papers like \cite{pan2023measuring} focus on describing the infrastructure Starlink uses, while \cite{izhikevich2023democratizing} illustrates a novel approach to make measurements simpler and cheaper and \cite{browser-side} focuses on running some client-side measurements with a browser extension.
@@ -174,30 +177,6 @@ One of the first experiments we performed was running traceroutes to several dif
 
 We ran the traceroutes using ICMP, UDP and TCP using both the Starlink and the default network interface over several days to see whether we can spot some differences when visualizing them using NetworkX,a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks. \footnote{\url{https://networkx.org/}}, we are limiting ourselves to the first 7 hops because we don't receive answers for any further hops. 
 
-We didn't find any significant differences comparing traceroutes over different days, we see hops in the same Autonomous Systems, the only difference we were able to observe is we reach different hosts inside AS 14593, the Autonomous System SpaceX operates, \footnote{\url{https://bgp.he.net/AS14593}}, the following is a table of hosts reached toghether along witha count of how many times we reached the target.
-
-\begin{table}[]
-	\centering
-	\begin{tabular}{ r r }
-		\toprule
-		host           & count \\ 
-		\midrule
-		206.224.65.204 & 595   \\
-		206.224.65.200 & 595   \\
-		206.224.65.208 & 549   \\ 
-		206.224.65.182 & 444   \\
-		206.224.65.196 & 440   \\ 
-		206.224.65.188 & 360   \\ 
-		206.224.65.129 & 358   \\ 
-		206.224.65.178 & 274   \\ 
-		206.224.65.180 & 235   \\ 
-		206.224.65.184 & 189   \\ 
-		206.224.65.186 & 159   \\ 
-		206.224.65.190 & 151   \\
-		\bottomrule
-	\end{tabular}
-	\caption{Targets reached inside AS14593 toghether with the count}
-	\end{table}
 
 
 \begin{figure}
@@ -229,7 +208,37 @@ We didn't find any significant differences comparing traceroutes over different 
 	\caption{Visualizing traceroutes to 4 different hosts from Azure using ICMP, left figure refers to Starlink traceroutes, right one is default network interface.}
 \end{figure}
 
+Traceroutes don't tell us a lot, with a minor exception: we note that routing in Starlink is way more complex, in the "default" traceroutes we see traffic going to 4 different main directions, while it is much more garbled in the Starlink case. We are only reporting traceroutes to AWS using the three most common methods and a traceroute to Azure, more data to visualize can be found in the accompanying repository. \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti-data}}
+
+We didn't find any significant differences comparing traceroutes over different days, we see hops in the same Autonomous Systems, the only difference we were able to observe is we reach different hosts inside AS 14593, the Autonomous System SpaceX operates, \footnote{\url{https://bgp.he.net/AS14593}}, the following is a table of hosts reached toghether along witha count of how many times we reached the target.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ r r }
+		\toprule
+		host           & count \\ 
+		\midrule
+		206.224.65.204 & 595   \\
+		206.224.65.200 & 595   \\
+		206.224.65.208 & 549   \\ 
+		206.224.65.182 & 444   \\
+		206.224.65.196 & 440   \\ 
+		206.224.65.188 & 360   \\ 
+		206.224.65.129 & 358   \\ 
+		206.224.65.178 & 274   \\ 
+		206.224.65.180 & 235   \\ 
+		206.224.65.184 & 189   \\ 
+		206.224.65.186 & 159   \\ 
+		206.224.65.190 & 151   \\
+		\bottomrule
+	\end{tabular}
+	\caption{Targets reached inside AS14593 toghether with the count}
+	\end{table}
+
+It is worth noting we also see some different prefixes in later traceroutes, AS14593 advertises a lot of them, the previous table is just a snapshot at a given moment.
+
 \section{Bandwidth analysis}
+\label{sec:bw}
 During our investigations we decided to analyze bandwidth for two reasons: the first one is we wanted to check wheter the data from the API was correct and later to investigate whether we could detect any patterns in bandwidth drops. From \cite{llc-application} we know the dish is seeking for better connections as satellites move constantly each 15 seconds. We plotted the data and tried to verify whether we saw something.
 To get the "real" bandwidth we are simply getting data from \texttt{/sys/class/net/{interface}/statistics/rx\_bytes} and dividing it by a factor to get bandwidth in bits per second.
 
@@ -301,7 +310,6 @@ After having collected data for several hours we decided to plot satellite appea
 The Starlink gRPC api exposes a \texttt{dish\_get\_obstruction\_map} method, following the approach described in \cite{izhikevich2023democratizing} we use the information gathered from polling the endpointeach second to extract the current obstruction map and visualize satellite handovers. The reason this works is the dish is adding a dot (setting a value to 1) in a 123*123 matrix whenever it sees a satellite in that position, whenever the dish is rebooted (using i.e \texttt{nine981.reboot}) the matrix is cleared by setting every entry to -1, whenever a satellite is detected the entry is set. By polling the endpoint frequently enough we can observe satellites traces, by comparing values in the matrices we obtain we can detect whether a satellite handover was performed.
 
 \[
-
 \begin{bmatrix}
 -1 & -1 & 1 & -1 & -1 \\
 -1 & -1 & -1 & 1 & -1 \\
@@ -452,7 +460,7 @@ Following the approach sketched in \cite{izhikevich2023democratizing} we started
 
 
 
-\begin{figure}
+\begin{figure}	
 	\centering
 	\includegraphics[]{img/obstruction_map_finale.png}
 	\caption{An obstruction map retrieved by the dish, check <CITE APPENDIX> to understand how it was generated}
@@ -463,7 +471,22 @@ Following the approach sketched in \cite{izhikevich2023democratizing} we started
 \section{Introducing some latency measurements}
 \section{Does the dish buffer packets?}
 
-After measuring latency and bandwidth we noticed some patterns in bandwidth drops, as per Figure <CITE> 
+\todo{mention that drops in bw -> sat handovers or maybe}
+
+After measuring latency and bandwidth in \ref{sec:bw} and noticing some drops in semi-regular intervals we decided to investigate whether the dish was buffering packets in some way, our intuition is that if this is the case we can approximately detect the buffer size, this means in the best-case scenario we send the packet we want to reach the internet exactly, it fills the buffer and it is sent immediately.
+
+To verify whether this hypotesis was true we tried to send some payload with iPerf \footnote{\url{https://iperf.fr/}} on the network interface used by Starlink, we sent payload of increasing sizes (10k, 20k, 50k, 100k, 1M, 10M)) and we measured the RTT, the following is a visualization, as we can notice sending some traffic does not have an impact.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{img/latency_iperf.png}
+	\caption{Latency variation while sending traffic on the uplink using iPerf}
+\end{figure}
+
+
+
+% why is this here?
 
 \begin{figure}
 	\centering
