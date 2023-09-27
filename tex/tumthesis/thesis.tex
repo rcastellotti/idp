@@ -13,6 +13,8 @@
 \usepackage{listings}
 
 \usepackage{longtable}
+\usepackage{tabu}
+\usepackage{ltxtable}
 \usepackage{url}
 \usepackage[style=base]{caption}
 \captionsetup{%
@@ -32,6 +34,7 @@
 
 \setlength\footnotemargin{5pt}
 
+% Theorem environments
 
 \makeatletter
 \newenvironment{moeplstborder}[2][]{%
@@ -115,6 +118,8 @@ Lastly we analyzed satellites visible from a dish and, after developing a script
 
 \startcontent
 
+
+\todo{question: how should i style names? like grpcurl, starlink, networkx... is there any style convention?}
 \chapter{Introduction}
 
 Starlink is the largest Low Earth Orbiting, hereinafter LEO, satellite constellation managed by SpaceX aimed at providing internet broadband connection in the most remote and rural areas in the world while also issuing the service to people living in residential areas. LEO satellites orbit at around 550 Kms from earth, this leads to a low latency, SpaceX claims latency is around ~25 ms, from our experiments it is higher (~45ms) but it is still order of magnitudes lower than other satellite based solutions.  For the latter Starlink might not be the best solution, as probably their place is covered by a default connection which probably is way cheaper as the infrastructure is simpler to maintain and the fixed costs one has to substain are way less. This technology however makes night-and-day difference for people living in the most isolated places in the world. 
@@ -428,15 +433,17 @@ We now try to correlate satellite handovers (the vertical dashed lines) with the
 we should also mention the 15 second intervals
 here i will insert a simple demo of the handover detection overlapped to the bandwidth measurements, 
 
-
-
-\chapter{Routing}
 \section{Cloud Traceroutes}
 \section{Tooling}
 \section{Visualizing Traceroutes}
 
 
 \chapter{Exploring the gRPC api}
+
+A server-reflected \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}} gRPC \footnote{\url{https://grpc.io}} API is running on the dish, we can access it by querying it at \texttt{192.168.100.1:920} using a tool like grpcurl \footnote{\url{https://github.com/fullstorydev/grpcurl}}
+
+
+grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle | jq ".dishGetStatus.downlinkThroughputBps"
 
 grcpurl
 query all methods
@@ -482,7 +489,7 @@ To verify whether this hypotesis was true we tried to send some payload with iPe
 \end{figure}
 
 
-mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-lxde.iso > /dev/null
+mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-
 
 \appendix
 \chapter{Appendix}
