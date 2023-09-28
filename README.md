@@ -26,10 +26,6 @@ systemctl status traceroute
 journalctl -u traceroute
 ```
 
-* The default gateway for starlink is 192.168.1.1
-* The API is available at 192.168.100.1
-
-
 ## geolocated ips
 
 + https://www.gstatic.com/ipranges/cloud.json
@@ -46,19 +42,18 @@ huge problem with cloud providers -> we loose track of the packet as soon as it 
 
 mettere questo come esempio di come usare la api
 
-```bash
-grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle | jq ".dishGetStatus.downlinkThroughputBps"
-```
-
 + run `iperf3` to create some constant background noise to a target J. will setup
     + server: `iperf -s -u`
     + client: `iperf -c 138.246.253.20 -p 5001 -u -b 5k` 
 + running for some time: `sudo python3 traceroutes_stress.py` (saving results in `~/idp-castellotti/data/traceroutes-iperf-5bks`) (typo)
 
 
-http://geoip.starlinkisp.net/feed.csv
-https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac
 
-mention the bandwidth the dish reports is true
 mettere in appendix blocchi di codice
+
 + ping two hosts in the same geographic area but in different ASes (in particular one AS peering directly with SpaceX and one not peering directly) => meh
+
+
+## additional stuff
+
++ http://geoip.starlinkisp.net/feed.csv

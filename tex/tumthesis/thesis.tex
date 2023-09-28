@@ -11,6 +11,7 @@
 \usepackage{csquotes}
 \usepackage{tabularx}
 \usepackage{listings}
+\lstset{numbers=none,basicstyle=\footnotesize\ttfamily,breaklines=true}
 
 \usepackage{longtable}
 \usepackage{tabu}
@@ -26,7 +27,6 @@
 	labelfont={rm},
 }
 % \usepackage{subcaption}
-\usepackage{nicefrac}
 \usepackage{longtable}
 \usepackage[hang]{footmisc}
 \usepackage{blindtext}
@@ -133,17 +133,17 @@ On a more technical note what is happening is packets from a local device go thr
 SpaceX is also experimenting with Inter Satellite Links, this would allow satellites to comunicate between each other without resorting to ground local stations. This is crucial for the maritime version of the Starlink kit, moreover it might be possible that using laser links is faster than fiber on Earth, thus providing lower latencies connection to everyone, as reported by Elon Musk himself \cite{tweet}.
 
 \begin{figure}
-	\label{fig:gs}
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/ground-station.jpeg}
 	\caption{A sample ground station, from \url{https://www.reddit.com/r/SpaceXLounge/comments/hcf4t5/prototype_starlink_terminal_closeups_merrillan_wi/}}
+	\label{fig:gs}
 \end{figure}
 
 \begin{figure}
-	\label{fig:dish}
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/dish.jpeg}
 	\caption{the dish, from Starlink webite Starlink working, from \cite{izhikevich2023democratizing}}
+	\label{fig:dish}
 \end{figure}
 
 \begin{figure}
@@ -151,6 +151,7 @@ SpaceX is also experimenting with Inter Satellite Links, this would allow satell
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/starlink-101.png}
 	\caption{Basic Starlink working, from \cite{izhikevich2023democratizing}}
+	\label{fig:dish}
 \end{figure}
 
 SpaceX is currently the most popular LEO-based Internet Service Provider, but other similar projects exist, such as OneWeb \footnote{https://oneweb.net/} and Amazon Project Kuiper \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, the former one is more enterprise and government focused, while Project Kuiper aims to compete with Starlink, effectively commercializing a similar product. Future is bright for LEO based ISPs!
@@ -232,14 +233,17 @@ It is worth noting we also see some different prefixes in later traceroutes, AS1
 
 \section{Bandwidth analysis}
 \label{sec:bw}
-During our investigations we decided to analyze bandwidth for two reasons: the first one is we wanted to check wheter the data from the API was correct and later to investigate whether we could detect any patterns in bandwidth drops. From \cite{llc-application} we know the dish is seeking for better connections as satellites move constantly each 15 seconds. We plotted the data and tried to verify whether we saw something.
-To get the "real" bandwidth we are simply getting data from \texttt{/sys/class/net/{interface}/statistics/rx\_bytes} and dividing it by a factor to get bandwidth in bits per second.
+During our investigations we decided to analyze bandwidth for two reasons: the first one is we wanted to check wheter the data from the API was correct and later to investigate whether we could detect any patterns in bandwidth drops.
+
+The first experiment we set up was the following: we started downloading 5 debian ISOs from different mirrors (to neutralize the effect of the single upload speed of a mirror) while running a script to extract downlink throughput from the dish while also measuring it, simply by etting data from \texttt{/sys/class/net/{interface}/statistics/rx\_bytes} and dividing it by a factor to get bandwidth in bits per second. As reported in Figure \ref{fig:vis-bw-15sec} we can see the dish reports throughput correctly.
+
+From \cite{llc-application} we know the dish is seeking for better connections as satellites move constantly each 15 seconds. We plotted the data and tried to verify whether we could notice some phenomenon correlated to these 15 seconds intervals.
 
 \begin{figure}
-	\label{fig:vis-bw-15sec}
 	\centering
 	\includegraphics[width=1\columnwidth]{img/bw-15seconds.png}
 	\caption{Visualizing bandwidth, \texttt{bandwidth\_bps} is the data we obtain from \texttt{/sys/class/net/{interface}/statistics/rx\_bytes}, while \texttt{downlink\_throughput\_bps} is the data reported from the gRPC api. Additionally we are drawing a vertical red line each 15 seconds.}
+	\label{fig:vis-bw-15sec}
 \end{figure}
 
 We repeated the experiments shifting the red vertical lines and changing the intervals for collected data, and in the majority of cases we can see that whenever we draw a vertical red line we have some drop in the immediate milliseconds before or after, however drops also happen in different intervals, further investigation might be needed.
@@ -292,10 +296,10 @@ The first measurement we are setting up is the following: every 15 seconds we ru
 After having collected data for several hours we decided to plot satellite appearances to check whether they were following some patterns, it seems like it is the case, as you can see in Figure \ref{fig:vis-sat-pat}. We see the same satellite each 12 hours roughly, for some satellites we notice something that might seem like a change in the pattern, but this is not really true, the interval between the appearances is the same as in the other cases, we are not sure we understand why we are seeing this artifact.
 
 \begin{figure}
-	\label{fig:vis-sat-pat}
 	\centering
 	\includegraphics[width=1.2\columnwidth]{img/visualizing-how-long-satellites-are-visible-for.png}
 	\caption{Visualizing patterns in satellite appearances, we roughly see the same satellite each 12 hours.}
+	\label{fig:vis-sat-pat}
 \end{figure}
 
 \section{Detecting Satellite Handovers}
@@ -329,7 +333,7 @@ The Starlink gRPC api exposes a \texttt{dish\_get\_obstruction\_map} method, fol
 \end{bmatrix}
 \]
 
-\captionof{figure}{Let's assume these matrices come from the endpoints at $t_x$ and $t_{x+1}$ respectively, in the first matrix we have ones in $(0,2)$ and $(1,3)$, in the second one we have ones in $(0,2)$, $(1,3)$, $(2,4)$, this means the new satellite we saw at $t_{x+1}$ is on the same path as the satellites before, thus NO handover was not performed.}
+% \captionof{figure}{Let's assume these matrices come from the endpoints at $t_x$ and $t_{x+1}$ respectively, in the first matrix we have ones in $(0,2)$ and $(1,3)$, in the second one we have ones in $(0,2)$, $(1,3)$, $(2,4)$, this means the new satellite we saw at $t_{x+1}$ is on the same path as the satellites before, thus NO handover was not performed.}
 
 
 
@@ -358,8 +362,8 @@ The Starlink gRPC api exposes a \texttt{dish\_get\_obstruction\_map} method, fol
 0 & -2 & -2 & -2 & -2 \\
 \end{bmatrix}
 \]
-\captionof{figure}{If instead the new satellite we see at $t_{x+1}$ is in a totally different area an handover must have been performed.
-}
+% \captionof{figure}{If instead the new satellite we see at $t_{x+1}$ is in a totally different area an handover must have been performed.
+% }
 
 
 We can observe it is pretty easy to detect whether an handover was performed, it is sufficient to sum the two matrices and check whether the $0$ value (there was -1 before and we currently have 1) is near an entry whose value is $2$ (at $t_{x}$ value was 1 and at $t_{x+1}$ value is $1$. 
@@ -409,10 +413,10 @@ plt.show()
 
 
 \begin{figure}
-	\label{fig:vis-single-map}
 	\centering
 	\includegraphics[width=0.5\columnwidth]{img/single_map.png}
 	\caption{Visualizing a single obstruction map.}
+	\label{fig:vis-single-map}
 \end{figure}
 
 
@@ -424,10 +428,10 @@ We now try to correlate satellite handovers (the vertical dashed lines) with the
 
 
 \begin{figure}
-	\label{fig:vis-correlation-handovers}
 	\centering
 	\includegraphics[width=1\columnwidth]{img/correlation_handovers_bw.png}
 	\caption{Trying to correlate satellite handovers (red vertical lines) with bandwidth measurements.}
+	\label{fig:vis-correlation-handovers}
 \end{figure}
 
 we should also mention the 15 second intervals
@@ -437,24 +441,39 @@ here i will insert a simple demo of the handover detection overlapped to the ban
 \section{Tooling}
 \section{Visualizing Traceroutes}
 
-
+\todo{remove line nos}
 \chapter{Exploring the gRPC api}
 
-A server-reflected \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}} gRPC \footnote{\url{https://grpc.io}} API is running on the dish, we can access it by querying it at \texttt{192.168.100.1:920} using a tool like grpcurl \footnote{\url{https://github.com/fullstorydev/grpcurl}}
+A server-reflected \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}} gRPC
+\footnote{\url{https://grpc.io}} API is running on the dish, we can access it by querying it at \texttt{192.168.100.1:920} using a tool like grpcurl \footnote{\url{https://github.com/fullstorydev/grpcurl}}, a sample query to retrieve downlink through is:
 
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+\end{lstlisting}
 
-grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle | jq ".dishGetStatus.downlinkThroughputBps"
+It is then possible to use \textt{jq} to extract the needed fields. We can use the following command to describe the available services:
 
-grcpurl
-query all methods
-in appendix probably? insert working methods and stuff
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe
+SpaceX.API.Device.Device is a service:
+service Device {
+	rpc Handle ( .SpaceX.API.Device.Request ) returns ( .SpaceX.API.Device.Response );
+	...
+}
+\end{lstlisting}
 
+And then describe the service using:
 
-\section{Tooling}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Request
+\end{lstlisting}
+
+A complete list of available methods as of September 2023 can be found in the Appendix Section \ref{starlink-grpc}
+
+To simplify scripting we developed a very simple wrapper library around the gRPC api  \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/nine981.py}} and a CLI tool \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/s.py}} to use the library in command line. It should be trivial to add functionality to the library, unlike \texttt{sparky8512/starlink-grpc-tools} we decided to not make any assumption about the format data is saved in.
+
 \section{Getting Obstruction Maps}
 Following the approach sketched in \cite{izhikevich2023democratizing} we started retrieving obstruction maps from the dish using the \texttt{dish\_get\_obstruction\_map} method exposed by the gRPC api on the dish.
-
-
 
 \begin{figure}	
 	\centering
@@ -489,12 +508,677 @@ To verify whether this hypotesis was true we tried to send some payload with iPe
 \end{figure}
 
 
-mesurements with  curl --interface enp1s0f3 http://ftp.uio.no/debian-cd/12.1.0-live/amd64/iso-hybrid/debian-live-12.1.0-amd64-
 
 \appendix
 \chapter{Appendix}
 \label{chap:appendix}
 
+
+\section{Starlink gRPC api}
+\label{starlink-grpc}
+
+\subsubsection{\texttt{grpcurl -plaintext 192.168.100.1:9200 describe}}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe
+SpaceX.API.Device.Device is a service:
+service Device {
+  rpc Handle ( .SpaceX.API.Device.Request ) returns ( .SpaceX.API.Device.Response );
+  rpc Stream ( stream .SpaceX.API.Device.ToDevice ) returns ( stream .SpaceX.API.Device.FromDevice );
+}
+grpc.reflection.v1alpha.ServerReflection is a service:
+service ServerReflection {
+  rpc ServerReflectionInfo ( stream .grpc.reflection.v1alpha.ServerReflectionRequest ) returns ( stream .grpc.reflection.v1alpha.ServerReflectionResponse );
+}
+\end{lstlisting}
+\subsubsection{\texttt{grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Request}}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Request
+SpaceX.API.Device.Request is a message:
+message Request {
+  uint64 id = 1;
+  string target_id = 13;
+  uint64 epoch_id = 14;
+  oneof request {
+    .SpaceX.API.Device.SignedData signed_request = 15;
+    .SpaceX.API.Device.RebootRequest reboot = 1001;
+    .SpaceX.API.Device.SpeedTestRequest speed_test = 1003;
+    .SpaceX.API.Device.GetStatusRequest get_status = 1004;
+    .SpaceX.API.Device.AuthenticateRequest authenticate = 1005;
+    .SpaceX.API.Device.GetNextIdRequest get_next_id = 1006;
+    .SpaceX.API.Device.GetHistoryRequest get_history = 1007;
+    .SpaceX.API.Device.GetDeviceInfoRequest get_device_info = 1008;
+    .SpaceX.API.Device.GetPingRequest get_ping = 1009;
+    .SpaceX.API.Device.SetTrustedKeysRequest set_trusted_keys = 1010;
+    .SpaceX.API.Device.FactoryResetRequest factory_reset = 1011;
+    .SpaceX.API.Device.GetLogRequest get_log = 1012;
+    .SpaceX.API.Device.SetSkuRequest set_sku = 1013;
+    .SpaceX.API.Device.UpdateRequest update = 1014;
+    .SpaceX.API.Device.GetNetworkInterfacesRequest get_network_interfaces = 1015;
+    .SpaceX.API.Device.PingHostRequest ping_host = 1016;
+    .SpaceX.API.Device.GetLocationRequest get_location = 1017;
+    .SpaceX.API.Device.GetHeapDumpRequest get_heap_dump = 1019;
+    .SpaceX.API.Device.RestartControlRequest restart_control = 1020;
+    .SpaceX.API.Device.FuseRequest fuse = 1021;
+    .SpaceX.API.Device.GetPersistentStatsRequest get_persistent_stats = 1022;
+    .SpaceX.API.Device.GetConnectionsRequest get_connections = 1023;
+    .SpaceX.API.Device.StartSpeedtestRequest start_speedtest = 1027;
+    .SpaceX.API.Device.GetSpeedtestStatusRequest get_speedtest_status = 1028;
+    .SpaceX.API.Device.ReportClientSpeedtestRequest report_client_speedtest = 1029;
+    .SpaceX.API.Device.InitiateRemoteSshRequest initiate_remote_ssh = 1030 [deprecated = true];
+    .SpaceX.API.Device.SelfTestRequest self_test = 1031;
+    .SpaceX.API.Device.SetTestModeRequest set_test_mode = 1032;
+    .SpaceX.API.Device.SoftwareUpdateRequest software_update = 1033;
+    .SpaceX.API.Device.EnableDebugTelemRequest enable_debug_telem = 1034;
+    .SpaceX.API.Device.DishStowRequest dish_stow = 2002;
+    .SpaceX.API.Device.DishGetContextRequest dish_get_context = 2003;
+    .SpaceX.API.Device.DishSetEmcRequest dish_set_emc = 2007;
+    .SpaceX.API.Device.DishGetObstructionMapRequest dish_get_obstruction_map = 2008;
+    .SpaceX.API.Device.DishGetEmcRequest dish_get_emc = 2009;
+    .SpaceX.API.Device.DishSetConfigRequest dish_set_config = 2010;
+    .SpaceX.API.Device.DishGetConfigRequest dish_get_config = 2011;
+    .SpaceX.API.Device.StartDishSelfTestRequest start_dish_self_test = 2012;
+    .SpaceX.API.Device.DishPowerSaveRequest dish_power_save = 2013;
+    .SpaceX.API.Device.DishInhibitGpsRequest dish_inhibit_gps = 2014;
+    .SpaceX.API.Device.WifiSetConfigRequest wifi_set_config = 3001;
+    .SpaceX.API.Device.WifiGetClientsRequest wifi_get_clients = 3002;
+    .SpaceX.API.Device.WifiSetupRequest wifi_setup = 3003;
+    .SpaceX.API.Device.WifiGetPingMetricsRequest wifi_get_ping_metrics = 3007;
+    .SpaceX.API.Device.WifiGetDiagnosticsRequest wifi_get_diagnostics = 3008;
+    .SpaceX.API.Device.WifiGetConfigRequest wifi_get_config = 3009;
+    .SpaceX.API.Device.WifiSetMeshDeviceTrustRequest wifi_set_mesh_device_trust = 3012;
+    .SpaceX.API.Device.WifiSetMeshConfigRequest wifi_set_mesh_config = 3013 [deprecated = true];
+    .SpaceX.API.Device.WifiGetClientHistoryRequest wifi_get_client_history = 3015;
+    .SpaceX.API.Device.WifiSetAviationConformedRequest wifi_set_aviation_conformed = 3016;
+    .SpaceX.API.Device.WifiSetClientGivenNameRequest wifi_set_client_given_name = 3017;
+    .SpaceX.API.Device.WifiSelfTestRequest wifi_self_test = 3018;
+    .SpaceX.API.Device.TransceiverIFLoopbackTestRequest transceiver_if_loopback_test = 4001;
+    .SpaceX.API.Device.TransceiverGetStatusRequest transceiver_get_status = 4003;
+    .SpaceX.API.Device.TransceiverGetTelemetryRequest transceiver_get_telemetry = 4004;
+  }
+  reserved 1018, 1025, 1026, 3011, 3014;
+}
+\end{lstlisting}
+
+\subsubsection{\texttt{grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Response}}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.Response
+SpaceX.API.Device.Response is a message:
+message Response {
+  uint64 id = 1;
+  .SpaceX.API.Status.Status status = 2;
+  uint64 api_version = 3;
+  oneof response {
+    .SpaceX.API.Device.RebootResponse reboot = 1001;
+    .SpaceX.API.Device.SpeedTestResponse speed_test = 1003;
+    .SpaceX.API.Device.GetDeviceInfoResponse get_device_info = 1004;
+    .SpaceX.API.Device.GetNextIdResponse get_next_id = 1006;
+    .SpaceX.API.Device.GetPingResponse get_ping = 1009;
+    .SpaceX.API.Device.SetTrustedKeysResponse set_trusted_keys = 1010;
+    .SpaceX.API.Device.FactoryResetResponse factory_reset = 1011;
+    .SpaceX.API.Device.GetLogResponse get_log = 1012;
+    .SpaceX.API.Device.SetSkuResponse set_sku = 1013;
+    .SpaceX.API.Device.UpdateResponse update = 1014;
+    .SpaceX.API.Device.GetNetworkInterfacesResponse get_network_interfaces = 1015;
+    .SpaceX.API.Device.PingHostResponse ping_host = 1016;
+    .SpaceX.API.Device.GetLocationResponse get_location = 1017;
+    .SpaceX.API.Device.GetHeapDumpResponse get_heap_dump = 1019;
+    .SpaceX.API.Device.RestartControlResponse restart_control = 1020;
+    .SpaceX.API.Device.FuseResponse fuse = 1021;
+    .SpaceX.API.Device.GetConnectionsResponse get_connections = 1023;
+    .SpaceX.API.Device.StartSpeedtestResponse start_speedtest = 1027;
+    .SpaceX.API.Device.GetSpeedtestStatusResponse get_speedtest_status = 1028;
+    .SpaceX.API.Device.ReportClientSpeedtestResponse report_client_speedtest = 1029;
+    .SpaceX.API.Device.InitiateRemoteSshResponse initiate_remote_ssh = 1030 [deprecated = true];
+    .SpaceX.API.Device.SelfTestResponse self_test = 1031;
+    .SpaceX.API.Device.SetTestModeResponse set_test_mode = 1032;
+    .SpaceX.API.Device.SoftwareUpdateResponse software_update = 1033;
+    .SpaceX.API.Device.EnableDebugTelemResponse enable_debug_telem = 1034;
+    .SpaceX.API.Device.DishStowResponse dish_stow = 2002;
+    .SpaceX.API.Device.DishGetContextResponse dish_get_context = 2003;
+    .SpaceX.API.Device.DishGetStatusResponse dish_get_status = 2004;
+    .SpaceX.API.Device.DishAuthenticateResponse dish_authenticate = 2005;
+    .SpaceX.API.Device.DishGetHistoryResponse dish_get_history = 2006;
+    .SpaceX.API.Device.DishSetEmcResponse dish_set_emc = 2007;
+    .SpaceX.API.Device.DishGetObstructionMapResponse dish_get_obstruction_map = 2008;
+    .SpaceX.API.Device.DishGetEmcResponse dish_get_emc = 2009;
+    .SpaceX.API.Device.DishSetConfigResponse dish_set_config = 2010;
+    .SpaceX.API.Device.DishGetConfigResponse dish_get_config = 2011;
+    .SpaceX.API.Device.StartDishSelfTestResponse start_dish_self_test = 2012;
+    .SpaceX.API.Device.DishInhibitGpsResponse dish_inhibit_gps = 2013;
+    .SpaceX.API.Device.WifiSetConfigResponse wifi_set_config = 3001;
+    .SpaceX.API.Device.WifiGetClientsResponse wifi_get_clients = 3002;
+    .SpaceX.API.Device.WifiSetupResponse wifi_setup = 3003;
+    .SpaceX.API.Device.WifiGetStatusResponse wifi_get_status = 3004;
+    .SpaceX.API.Device.WifiAuthenticateResponse wifi_authenticate = 3005;
+    .SpaceX.API.Device.WifiGetHistoryResponse wifi_get_history = 3006;
+    .SpaceX.API.Device.WifiGetPingMetricsResponse wifi_get_ping_metrics = 3007;
+    .SpaceX.API.Device.WifiGetDiagnosticsResponse wifi_get_diagnostics = 3008;
+    .SpaceX.API.Device.WifiGetConfigResponse wifi_get_config = 3009;
+    .SpaceX.API.Device.WifiSetMeshDeviceTrustResponse wifi_set_mesh_device_trust = 3012;
+    .SpaceX.API.Device.WifiSetMeshConfigResponse wifi_set_mesh_config = 3013 [deprecated = true];
+    .SpaceX.API.Device.WifiGetClientHistoryResponse wifi_get_client_history = 3015;
+    .SpaceX.API.Device.WifiSelfTestResponse wifi_self_test = 3016;
+    .SpaceX.API.Device.WifiGetPersistentStatsResponse wifi_get_persistent_stats = 3022;
+    .SpaceX.API.Device.TransceiverIFLoopbackTestResponse transceiver_if_loopback_test = 4001;
+    .SpaceX.API.Device.TransceiverGetStatusResponse transceiver_get_status = 4003;
+    .SpaceX.API.Device.TransceiverGetTelemetryResponse transceiver_get_telemetry = 4004;
+  }
+  reserved 1018, 1026, 2025, 3011, 3014;
+}
+\end{lstlisting}
+
+\subsubsection{\texttt{grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.ToDevice}}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir ~ [1]> grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.ToDevice
+SpaceX.API.Device.ToDevice is a message:
+message ToDevice {
+  oneof message {
+    .SpaceX.API.Device.Request request = 1;
+    .SpaceX.API.Device.HealthCheck health_check = 2;
+  }
+}
+
+\end{lstlisting}
+
+\subsubsection{\texttt{grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.FromDevice}}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe SpaceX.API.Device.FromDevice
+SpaceX.API.Device.FromDevice is a message:
+message FromDevice {
+  oneof message {
+    .SpaceX.API.Device.Response response = 1;
+    .SpaceX.API.Device.Event event = 2;
+    .SpaceX.API.Device.HealthCheck health_check = 3;
+  }
+}
+\end{lstlisting}
+
+
+
+\subsection{grpcurl requests not working}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"set_test_mode":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: Permission denied
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_set_config":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: Permission denied
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"transceiver_if_loopback_test":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_set_client_given_name":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiSetClientGivenName
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_set_aviation_conformed":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiSetAviationConformed
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_get_client_history":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiGetClientHistory
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_set_mesh_device_trust":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiSetMeshDeviceTrust
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_get_ping_metrics":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiGetPingMetrics
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_get_diagnostics":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiGetDiagnostics
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"speed_test":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_SpeedTest
+ \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_set_emc":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: 
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_get_emc":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: 
+  \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_persistent_stats":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetPersistentStats
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"fuse":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_Fuse
+ \end{lstlisting}
+ \begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_heat_dump":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+Error invoking method "SpaceX.API.Device.Device/Handle": error getting request data: message type SpaceX.API.Device.Request has no known field named get_heat_dump
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"set_sku":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_SetSku
+ \end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"update":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_Update
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"authenticate":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: Invalid challenge
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_inibit_gps":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+Error invoking method "SpaceX.API.Device.Device/Handle": error getting request data: message type SpaceX.API.Device.Request has no known field named dish_inibit_gps
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_set_config":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiSetConfig
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_get_config":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiGetConfig
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_get_config":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiGetConfig
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+ 
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_ping":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetPing
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext  -d '{"restart_control":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_RestartControl
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_log":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetLog
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_network_interfaces":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetNetworkInterfaces
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"ping_host":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_PingHost
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"enable_debug_telem":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_EnableDebugTelem
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_get_clients":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiGetClients
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"wifi_setup":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_WifiSetup
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"transceiver_get_telemetry":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_connections":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetConnections
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_next_id":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetNextId
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+  
+rc@gnolmir:~$ grpcurl -plaintext -d '{"speed_test":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_SpeedTest
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+  
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_ping":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetPing
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_network_interfaces":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented: *device.Request_GetNetworkInterfaces
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"transceiver_get_telemetry":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"transceiver_get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: Unimplemented
+  Message: Unimplemented
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_location":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: GetLocation requests are not enabled on this device
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_get_context":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: PermissionDenied
+  Message: Permission denied
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"software_update":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+ERROR:
+  Code: FailedPrecondition
+  Message: Software update stream not open
+\end{lstlisting}
+
+
+\section{grpcurl requests  working}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"reboot":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "apiVersion": "8",
+  "reboot": {
+    
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "apiVersion": "8",
+  "dishGetStatus": {
+    "deviceInfo": {
+      "id": "ut01000000-00000000-00270e41",
+      "hardwareVersion": "rev3_proto2",
+      "softwareVersion": "2ce8c16a-67b6-4bbd-a135-a00662a60151.uterm.release",
+      "countryCode": "DE",
+      "utcOffsetS": 1,
+      "bootcount": 69,
+      "generationNumber": "1684883829"
+    },
+    "deviceState": {
+      "uptimeS": "628401"
+    },
+    "obstructionStats": {
+      "validS": 628111,
+      "avgProlongedObstructionIntervalS": "NaN",
+      "timeObstructed": 6.3682954e-08,
+      "patchesValid": 4097
+    },
+    "alerts": {
+      
+    },
+    "downlinkThroughputBps": 20560.479,
+    "uplinkThroughputBps": 9042.919,
+    "popPingLatencyMs": 34.52381,
+    "boresightAzimuthDeg": 1.6949656,
+    "boresightElevationDeg": 63.424454,
+    "gpsStats": {
+      "gpsValid": true,
+      "gpsSats": 10
+    },
+    "ethSpeedMbps": 1000,
+    "mobilityClass": "MOBILE",
+    "isSnrAboveNoiseFloor": true,
+    "readyStates": {
+      "cady": true,
+      "scp": true,
+      "l1l2": true,
+      "xphy": true,
+      "aap": true,
+      "rf": true
+    },
+    "softwareUpdateState": "IDLE",
+    "disablementCode": "OKAY",
+    "softwareUpdateStats": {
+      "softwareUpdateState": "IDLE",
+      "softwareUpdateProgress": 1
+    },
+    "alignmentStats": {
+      "tiltAngleDeg": 26.285408,
+      "boresightAzimuthDeg": 1.6949656,
+      "boresightElevationDeg": 63.424454,
+      "attitudeEstimationState": "FILTER_CONVERGED",
+      "attitudeUncertaintyDeg": 0.53231573
+    },
+    "initializationDurationSeconds": {
+      "attitudeInitialization": 112,
+      "burstDetected": 36,
+      "ekfConverged": 155,
+      "firstCplane": 63,
+      "firstPopPing": 72,
+      "gpsValid": 28,
+      "initialNetworkEntry": 36,
+      "networkSchedule": 68,
+      "rfReady": 34,
+      "stableConnection": 113
+    },
+    "config": {
+      "powerSaveDurationMinutes": 1,
+      "applySnowMeltMode": true,
+      "applyLocationRequestMode": true,
+      "applyLevelDishMode": true,
+      "applyPowerSaveStartMinutes": true,
+      "applyPowerSaveDurationMinutes": true,
+      "applyPowerSaveMode": true
+    }
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"start_dish_self_test":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "apiVersion": "8",
+  "startDishSelfTest": {
+    
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_history":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "apiVersion": "8",
+  "dishGetHistory": {
+    "current": "626676",
+    "popPingDropRate": [0,0,...,0,0],
+    "popPingLatencyMs": [48.333332,47.8,...,46.666668,47.47619],
+    "downlinkThroughputBps": [14705.2295,24805.113,...,6928.99,9714.008],
+    "uplinkThroughputBps": [17733.518,11911.823,...,9042.919,34309.406],
+    "outages": [
+      {
+        "cause": "NO_DOWNLINK",
+        "startTimestampNs": "1371246075160167224",
+        "durationNs": "400011278",
+        "didSwitch": true
+      },
+      {
+        "cause": "NO_PINGS",
+        "startTimestampNs": "1371283269140157964",
+        "durationNs": "999988759",
+        "didSwitch": true
+      }
+    ....
+    ]
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"get_device_info":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "apiVersion": "8",
+  "getDeviceInfo": {
+    "deviceInfo": {
+      "id": "ut01000000-00000000-00270e41",
+      "hardwareVersion": "rev3_proto2",
+      "softwareVersion": "2ce8c16a-67b6-4bbd-a135-a00662a60151.uterm.release",
+      "countryCode": "DE",
+      "utcOffsetS": 1,
+      "bootcount": 69,
+      "generationNumber": "1684883829"
+    }
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext  -d '{"dish_power_save":{"power_save_duration_minutes":1}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "status": {
+    
+  },
+  "apiVersion": "8"
+}
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_get_config":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+{
+  "apiVersion": "8",
+  "dishGetConfig": {
+    "dishConfig": {
+      "powerSaveDurationMinutes": 1,
+      "applySnowMeltMode": true,
+      "applyLocationRequestMode": true,
+      "applyLevelDishMode": true,
+      "applyPowerSaveStartMinutes": true,
+      "applyPowerSaveDurationMinutes": true,
+      "applyPowerSaveMode": true
+    }
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[language=bash,basicstyle=\tiny]
+
+rc@gnolmir:~$ grpcurl -plaintext -d '{"dish_get_obstruction_map":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
+(output omitted)
+\end{lstlisting}
 \section{Appendix section}
 
 \begin{lstlisting}[language=python,caption={the \texttt{calculate\_visible\_satellites} function},captionpos=b]
@@ -527,8 +1211,6 @@ def calculate_visible_satellites(
 
     return visible_satellites
 \end{lstlisting}
-
-The appendix can contain different sections.
 
 \clearpage
 \pagestyle{thesischapter}
