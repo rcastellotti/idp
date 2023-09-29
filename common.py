@@ -28,13 +28,16 @@ from skyfield.api import Topos, load
 
 import re
 
+
 def is_ipv4(address):
-    ipv4_pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
+    ipv4_pattern = r"^(\d{1,3}\.){3}\d{1,3}$"
     return re.match(ipv4_pattern, address) is not None
 
+
 def is_ipv6(address):
-    ipv6_pattern = r'^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$'
+    ipv6_pattern = r"^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"
     return re.match(ipv6_pattern, address) is not None
+
 
 def read_rx_bytes(interface):
     with open(f"/sys/class/net/{interface}/statistics/rx_bytes", "r") as file:
@@ -74,11 +77,10 @@ def traceroute(target, protocol, asndb):
     probe_timestamp = int(time.time())
     results = []
     while ttl < 30:
-        if  is_ipv6(target):
+        if is_ipv6(target):
             pkt_base = IPv6(dst=target, hlim=ttl)
         elif is_ipv4(target):
             pkt_base = IP(dst=target, ttl=ttl)
-
 
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
@@ -127,31 +129,6 @@ def run_traceroute_and_save_to_file(filename, ip, protocol, asndb):
         writer.writerows(results)
 
 
-# def cloud_traceroutes(region_file, output_directory, asndb):
-#     with open(region_file, "r") as csvfile:
-#         next(csvfile)  # skipping the header
-#         reader = csv.reader(csvfile)
-
-#         for row in reader:
-#             provider, region, ip = row
-#             dir = output_directory
-#             Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
-
-#             # for protocol in ["ICMP", "UDP", "TCP"]:
-#             for protocol in ["ICMP"]:
-#                 dt = datetime.datetime.now().isoformat()
-#                 # normal
-#                 filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-normal.csv"
-#                 run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
-#                 # starlink
-#                 conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
-#                 filename = (
-#                     f"{dir}/{provider}/{region}-{ip}-{dt}-{protocol}-starlink.csv"
-#                 )
-#                 run_traceroute_and_save_to_file(filename, ip, protocol, asndb)
-#                 conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
-
-
 def calculate_visible_satellites(
     observer_latitude, observer_longitude, observer_elevation, distance_km
 ):
@@ -193,13 +170,12 @@ def extract_between_dash_and_json(input_string):
 
 def detect_handovers(dir):
     l = sorted(os.listdir(dir))
-    last=0
+    last = 0
     print(
         f"[*] examining obstruction maps in interval: {l[0][:-4]} and {extract_between_dash_and_json(l[-1][:-4])}"
     )
     suspected_handovers = []
     for i in range(0, len(l) - 1, 2):
-        
         f1 = os.path.join(dir, l[i])
         f2 = os.path.join(dir, l[i + 1])
         fv1 = os.path.join(dir + "-viz", l[i]) + ".png"
@@ -220,20 +196,20 @@ def detect_handovers(dir):
                 for hy in y:
                     pot = new_map[hx - 1 : hx + 2, hy - 1 : hy + 2]
                     if 2 not in pot:
-                        new_t=extract_between_dash_and_json(fv1)
+                        new_t = extract_between_dash_and_json(fv1)
                         # print(
                         #         f"[-] handover detected: {new_t} rel: {(datetime.fromtimestamp(float(new_t))-datetime.fromtimestamp(float(last))).total_seconds()} "
-                    
+
                         # )
                         suspected_handovers.append(new_t)
-            last=extract_between_dash_and_json(fv1)
-    return suspected_handovers 
+            last = extract_between_dash_and_json(fv1)
+    return suspected_handovers
 
 
 # remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin --report-speed=bits -O /dev/null; done
 # sudo ip route add 88.198.248.254  via 192.168.1.1
 def measure_bw(filename):
-    interface="enp1s0f3"
+    interface = "enp1s0f3"
     file_exists = os.path.exists(filename)
     with open(filename, "a+") as f:
         csv_writer = csv.writer(f)
@@ -247,16 +223,15 @@ def measure_bw(filename):
                 ]
             )
 
-
     previous_bytes = read_rx_bytes(interface)
     with open(filename, "a") as f:
         csv_writer = csv.writer(f)
         while True:
             time.sleep(1)
             current_bytes = read_rx_bytes(interface)
-            bandwidth = (current_bytes-previous_bytes)*8
+            bandwidth = (current_bytes - previous_bytes) * 8
             previous_bytes = current_bytes
-            status=json.loads(get_status())["dishGetStatus"]
+            status = json.loads(get_status())["dishGetStatus"]
             # print(status)
             pop_ping_latency_ms = status["popPingLatencyMs"]
             downlink_throughput_bps = status["downlinkThroughputBps"]
@@ -271,8 +246,8 @@ def measure_bw(filename):
             f.flush()
 
 
-def visualize_handover(f1,f2):
-    fig, ax = plt.subplots(1, 2,figsize=(12,7))
+def visualize_handover(f1, f2):
+    fig, ax = plt.subplots(1, 2, figsize=(12, 7))
     map1 = json.load(open(f1))
     map1 = map1["dishGetObstructionMap"]["snr"]
     map1 = np.array(map1).reshape(123, 123)
@@ -285,7 +260,7 @@ def visualize_handover(f1,f2):
     plt.plot()
 
 
-def detect_handovers(f1,f2,list):
+def detect_handovers(f1, f2, list):
     map1 = json.load(open(f1))
     map1 = map1["dishGetObstructionMap"]["snr"]
     map1 = np.array(map1).reshape(123, 123)
@@ -293,15 +268,15 @@ def detect_handovers(f1,f2,list):
     map2 = json.load(open(f2))
     map2 = map2["dishGetObstructionMap"]["snr"]
     map2 = np.array(map2).reshape(123, 123)
-    
-    new=map1+map2
+
+    new = map1 + map2
 
     rows, cols = np.where(new == 0)
     zero_coordinates = list(zip(rows, cols))
     for coord in zero_coordinates:
         #     print(coord)
-        hx=coord[0]
-        hy=coord[1]
+        hx = coord[0]
+        hy = coord[1]
         pot = new[hx - 2 : hx + 2, hy - 2 : hy + 2]
         if not 2 in pot:
             head, tail = os.path.split(f1)

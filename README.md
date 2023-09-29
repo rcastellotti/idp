@@ -39,17 +39,11 @@ journalctl -u traceroute
 
 huge problem with cloud providers -> we loose track of the packet as soon as it enters their network
 
-
-mettere questo come esempio di come usare la api
-
 + run `iperf3` to create some constant background noise to a target J. will setup
     + server: `iperf -s -u`
     + client: `iperf -c 138.246.253.20 -p 5001 -u -b 5k` 
 + running for some time: `sudo python3 traceroutes_stress.py` (saving results in `~/idp-castellotti/data/traceroutes-iperf-5bks`) (typo)
 
-
-
-mettere in appendix blocchi di codice
 
 + ping two hosts in the same geographic area but in different ASes (in particular one AS peering directly with SpaceX and one not peering directly) => meh
 

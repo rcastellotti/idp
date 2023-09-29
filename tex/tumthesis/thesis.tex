@@ -25,7 +25,7 @@
 \captionsetup[subfloat]{%
 	font={rm,footnotesize},
 	labelfont={rm},
-}
+}	
 % \usepackage{subcaption}
 \usepackage{longtable}
 \usepackage[hang]{footmisc}
@@ -74,7 +74,7 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
 % Only needed for dissertation
 \chairman{\makebox[7cm]{\dotfill}}
-\advisor{Prof.~Dr.-Ing.~Wolfgang~Utschick}
+% \advisor{Prof.~Dr.-Ing.~Wolfgang~Utschick}
 
 \courseofstudy{Electrical Engineering}
 
@@ -87,7 +87,7 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 
 \setcounter{tocdepth}{2}
 
-\addbibresource{bib/litnew.bib}
+\addbibresource{ref.bib}
 % Load late to avoid same identifier warning
 % \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
 
@@ -142,16 +142,15 @@ SpaceX is also experimenting with Inter Satellite Links, this would allow satell
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/dish.jpeg}
-	\caption{the dish, from Starlink webite Starlink working, from \cite{izhikevich2023democratizing}}
+	\caption{the dish, from Starlink website Starlink working, from \cite{izhikevich2023democratizing}}
 	\label{fig:dish}
 \end{figure}
 
 \begin{figure}
-	\label{fig:starlink-101}
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/starlink-101.png}
 	\caption{Basic Starlink working, from \cite{izhikevich2023democratizing}}
-	\label{fig:dish}
+	\label{fig:starlink-101}
 \end{figure}
 
 SpaceX is currently the most popular LEO-based Internet Service Provider, but other similar projects exist, such as OneWeb \footnote{https://oneweb.net/} and Amazon Project Kuiper \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, the former one is more enterprise and government focused, while Project Kuiper aims to compete with Starlink, effectively commercializing a similar product. Future is bright for LEO based ISPs!
@@ -451,7 +450,7 @@ A server-reflected \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/s
 grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
 \end{lstlisting}
 
-It is then possible to use \textt{jq} to extract the needed fields. We can use the following command to describe the available services:
+It is then possible to use \texttt{jq} to extract the needed fields. We can use the following command to describe the available services:
 
 \begin{lstlisting}[language=bash,basicstyle=\tiny]
 rc@gnolmir ~> grpcurl -plaintext 192.168.100.1:9200 describe
