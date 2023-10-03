@@ -26,41 +26,11 @@
 	font={rm,footnotesize},
 	labelfont={rm},
 }	
-% \usepackage{subcaption}
 \usepackage{longtable}
 \usepackage[hang]{footmisc}
 \usepackage{blindtext}
-\usepackage[printonlyused]{acronym}
 
 \setlength\footnotemargin{5pt}
-
-% Theorem environments
-
-\makeatletter
-\newenvironment{moeplstborder}[2][]{%
-\ifx#1\@empty\@empty%
-	\edef\@margin{-1.5\baselineskip}%
-\else%
-	\edef\@margin{#1}%
-\fi%
-\vspace{-\baselineskip}
-\begin{center}
-\begin{minipage}{#2}
-\begin{mdframed}[%
-	topline=false,leftline=false,bottomline=false,rightline=true,
-	linecolor=TUMRed!20,linewidth=\charwidth,
-	innertopmargin=\@margin,innerbottommargin=-0.5\baselineskip,
-	innerleftmargin=0pt,innerrightmargin=-\charwidth,
-	userdefinedwidth=#2,
-]%
-}%
-{%
-\end{mdframed}%
-\end{minipage}
-\end{center}
-}%
-\makeatother
-
 
 % \betreuer{Leander Seidlitz, Johannes Zirngibl}
 % Needed for Bachelor's theses, Master's theses and IDP
@@ -84,12 +54,8 @@ Sebastian~Gallenmüller\tlc{}~B.\,Sc.}
 %\date[November 15, 2021]{September 15, 2021} % [acceptance date]{hand-in date}
 
 \location{Garching}
-
 \setcounter{tocdepth}{2}
-
 \addbibresource{ref.bib}
-% Load late to avoid same identifier warning
-% \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
 
 
 \begin{document}
@@ -114,12 +80,9 @@ Lastly we analyzed satellites visible from a dish and, after developing a script
 \tableofcontents
 \listoffigures
 \listoftables
-\listoftodos
 
 \startcontent
 
-
-\todo{question: how should i style names? like grpcurl, starlink, networkx... is there any style convention?}
 \chapter{Introduction}
 
 Starlink is the largest Low Earth Orbiting, hereinafter LEO, satellite constellation managed by SpaceX aimed at providing internet broadband connection in the most remote and rural areas in the world while also issuing the service to people living in residential areas. LEO satellites orbit at around 550 Kms from earth, this leads to a low latency, SpaceX claims latency is around ~25 ms, from our experiments it is higher (~45ms) but it is still order of magnitudes lower than other satellite based solutions.  For the latter Starlink might not be the best solution, as probably their place is covered by a default connection which probably is way cheaper as the infrastructure is simpler to maintain and the fixed costs one has to substain are way less. This technology however makes night-and-day difference for people living in the most isolated places in the world. 
@@ -142,7 +105,7 @@ SpaceX is also experimenting with Inter Satellite Links, this would allow satell
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\columnwidth]{img/dish.jpeg}
-	\caption{the dish, from Starlink website Starlink working, from \cite{izhikevich2023democratizing}}
+	\caption{Starlink dish, picture from  \url{https://www.starlink.com/technology}}
 	\label{fig:dish}
 \end{figure}
 
