@@ -90,7 +90,8 @@ We will now introduce some concepts we will use later. First, let us describe Tw
 
 \subsection{Two-line Element Sets}
 
-Two-line Element Sets (hereinafter TLEs) is a widely used ASCII-based data format to encode the position of orbital elements for a given point in time \footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. We will be working with TLEs using the Skyfield Library, \footnote{\url{https://rhodesmill.org/skyfield/}}, an elegant astronomy library for Python. Check Appendix \ref{app:sky} for a sample script to localize a satellite's position given the Satellite Name. A complete list of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink}. SATNAME is a unique identifier.
+Two-line Element Sets (hereinafter TLEs) is a widely used ASCII-based data format to encode the position of orbital elements for a given point in time \footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. We will be working with TLEs using the Skyfield Library, \footnote{\url{https://rhodesmill.org/skyfield/}}, an elegant astronomy library for Python. Check Appendix \ref{app:sky} for a sample script to localize a satellite's position given the Satellite Name. A complete list of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink}. 
+SATNAME is a unique identifier.
 
 Knowing the position of a satellite at any given time allows us to restrict the subset of satellites the dish may be connected to; it is worth noting that previously, it was possible to call the \texttt{dish\_get\_context} or similar methods to retrieve such information. Unfortunately, these methods either return a \texttt{PermissionDenied} error or are deprecated.
 
@@ -162,8 +163,7 @@ To simplify scripting, we developed a very simple wrapper library around the gRP
 
 
 \chapter{Measurements}
-
-introuduce the kind of measurements we will run
+After getting acquainted with our working environment, we planned several different measurements to run over time to get a deeper understanding of Starlink internals. We first tried to understand the possible differences in package routing between Starlink-based connections and the default cabled connection, we then moved to measuring latency and bandwidth of connections, and we also checked whether the values for bandwidth reported from the API were the same as our machine reports. We then moved on to trying to understand whether we could spot physical layer influences on the latency of connections before implementing a side-channel measurement to detect satellite handovers based on the approach introduced in \cite{izhikevich2023democratizing}.
 
 \section{Routing}
 
