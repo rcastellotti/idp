@@ -51,3 +51,7 @@ huge problem with cloud providers -> we loose track of the packet as soon as it 
 ## additional stuff
 
 + http://geoip.starlinkisp.net/feed.csv
++ get pops: `curl -g -X 'GET' \
+'https://search.censys.io/api/v2/hosts/search?per_page=25&virtual_hosts=EXCLUDE&q=autonomous_system.name%3D%60SPACEX-STARLINK%60+and+dns.reverse_dns.names+%3Dcustomer.*' \
+-H 'Accept: application/json' \
+--user "$CENSYS_API_ID:$CENSYS_API_SECRET"`
