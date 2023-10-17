@@ -100,6 +100,22 @@ STARLINK-1007
 2 44713  53.0553  19.2809 0001296  68.3392 291.7735 15.06406564209327
 \end{lstlisting}
 
+\subsection{Visible Satellites}
+% It is up to us to define what "visible" means, in our evaluations we decided that, knowing the satellites orbit around the earth at around 550 kms in height it is reasonable to assume a satellite is visible when it is above the horizon and it is (point to point) not further than 800 kms. The ground truth might be different, but this approximation allows us to approximately have an idea about what is going on in space. 
+
+% The first measurement we are setting up is the following: every 15 seconds we run a script that gets all the "visible" satellites and we store them in a SQLite database, if we see the same satellite in the iteration before we simply update the \texttt{timestamp}, otherwise we create a new row in the db. We use a \texttt{relative\_ts} (relative timestamp) to enumerate every measurement (a probe every 15 seconds). To measure visible satellites we are running the following command: \texttt{python3 visible-satellites.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation.
+
+
+\subsection{Patterns in Satellites Appearances}
+% After having collected data for several hours we decided to plot satellite appearances to check whether they were following some patterns, it seems like it is the case, as you can see in Figure \ref{fig:vis-sat-pat}. We see the same satellite each 12 hours roughly, for some satellites we notice something that might seem like a change in the pattern, but this is not really true, the interval between the appearances is the same as in the other cases, we are not sure we understand why we are seeing this artifact.
+
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=1.2\columnwidth]{img/visualizing-how-long-satellites-are-visible-for.png}
+% 	\caption{Visualizing patterns in satellite appearances, we roughly see the same satellite each 12 hours.}
+% 	\label{fig:vis-sat-pat}
+% \end{figure}
+
   
 \section{Related work}
 
@@ -228,7 +244,6 @@ introuduce the kind of measurements we will run
 % \end{figure}
 
 \section{Bandwidth analysis}
-% \label{sec:bw}
 % During our investigations we decided to analyze bandwidth for two reasons: first one first is we wanted to check wheter the data from the API was correct and then we also planned to investigate whether we could detect any patterns in bandwidth drops.
 
 % The first experiment we set up was the following: we started downloading 5 debian ISOs from different mirrors (to neutralize the effect of the single upload speed of a mirror) while running a script to extract downlink throughput from the dish while also measuring it, simply by getting data from \texttt{/sys/class/net/{interface}/statistics/rx\_bytes}.
@@ -249,21 +264,7 @@ introuduce the kind of measurements we will run
 
 
 
-% \section{Visible Satellites}
-% It is up to us to define what "visible" means, in our evaluations we decided that, knowing the satellites orbit around the earth at around 550 kms in height it is reasonable to assume a satellite is visible when it is above the horizon and it is (point to point) not further than 800 kms. The ground truth might be different, but this approximation allows us to approximately have an idea about what is going on in space. 
 
-% The first measurement we are setting up is the following: every 15 seconds we run a script that gets all the "visible" satellites and we store them in a SQLite database, if we see the same satellite in the iteration before we simply update the \texttt{timestamp}, otherwise we create a new row in the db. We use a \texttt{relative\_ts} (relative timestamp) to enumerate every measurement (a probe every 15 seconds). To measure visible satellites we are running the following command: \texttt{python3 visible-satellites.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation.
-
-
-% \section{Patterns in Satellites Appearances}
-% After having collected data for several hours we decided to plot satellite appearances to check whether they were following some patterns, it seems like it is the case, as you can see in Figure \ref{fig:vis-sat-pat}. We see the same satellite each 12 hours roughly, for some satellites we notice something that might seem like a change in the pattern, but this is not really true, the interval between the appearances is the same as in the other cases, we are not sure we understand why we are seeing this artifact.
-
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=1.2\columnwidth]{img/visualizing-how-long-satellites-are-visible-for.png}
-% 	\caption{Visualizing patterns in satellite appearances, we roughly see the same satellite each 12 hours.}
-% 	\label{fig:vis-sat-pat}
-% \end{figure}
 
 
 \section{Physical layer influences on latency}
