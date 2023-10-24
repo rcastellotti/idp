@@ -10,6 +10,7 @@
 \usepackage{listings}
 \lstset{numbers=none,basicstyle=\footnotesize\ttfamily,breaklines=true}
 \usepackage{url}
+\usepackage{varwidth}
 \usepackage[style=base]{caption}
 \captionsetup{font={rm,footnotesize},labelfont={rm}}    
 \usepackage[hang]{footmisc}
@@ -284,7 +285,7 @@ We know that in AS14593, there are several geographically distributed hosts cont
 Latency to the PoP is pretty stable, as SpaceX reports it fluctuates around 35 ms, as we can verify from Figure \ref{fig:vis-latency}. We were not able to detect any patterns in latency fluctuation.
 
 \begin{figure}
-    \centeringed
+    \centering
     \includegraphics[width=1\columnwidth]{img/latency.png}
     \caption{Visualizing latency to the Point of Presence.}
     \label{fig:vis-latency}
