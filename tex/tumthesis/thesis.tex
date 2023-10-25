@@ -65,8 +65,7 @@ Starlink \footnote{\url{https://starlink.com}} is the largest Low Earth Orbiting
 LEO satellites orbit around 550 kilometers from Earth, so naturally, LEO connections have a lower latency than other satellite-based connections. SpaceX claims latency is around approximately 25 ms. Our experiments show that it is often a little higher (approximately 35 milliseconds). 
 Starlink might not be the best solution for people living in residential areas, as their place is covered by a faster cabled connection and is probably way cheaper as the infrastructure is more straightforward to maintain; as of October 2023, Starlink costs 65 USD per month with a one-time hardware cost of 450 USD. 
 It is, though, worth mentioning it might be possible that using laser links is faster than fiber on Earth, thus providing lower latency connection to everyone, as reported by Elon Musk himself \cite{tweet}.
-    
-    
+    `'
 Satellite-based Internet connections have been around for several years. They are based on geostationary satellites, hereinafter GEOSAT, orbiting at about 35.000 kilometers; it is thus natural to expect higher latency when comparing GEOSAT connections to cabled Internet connections; we are talking about around 600 ms for latency, or in other words, Starlink averages ~70 RTTs in the time a GEOSAT satellite does 1 RTT.
     
 From a customer perspective, using Starlink is straightforward; after receiving the hardware package, the only needed thing is to plug the satellite dish (see Figure \ref{fig:dish}) and position it in a place with clear access to the sky. After that, adding in a router is enough to browse the Internet using different devices. 
@@ -75,7 +74,7 @@ Our setup is more straightforward; the machine we use to run measurements and us
     
 On a more technical note, what is happening to packets sent from a local device is they go through the dish, they are relayed to a nearby satellite, and they are sent to a ground station in view; from that point onwards, packets are routed normally through the Internet. Figure \ref{fig:gs} shows a sample ground station.
     
-SpaceX also experiments with Inter Satellite Links, allowing a dish not in proximity of a Ground Station to communicate by routing packets to different satellites and relaying them back to Earth as soon as it is deemed convenient. This is crucial for the maritime version of the Starlink kit \footnote{\url{https://starlink.com/business/maritime}} since it is safe to assume oceangoing ships will often be in such condition.
+SpaceX is also employing Inter Satellite Links, allowing a dish not in proximity of a Ground Station to communicate by routing packets to different satellites and relaying them back to Earth as soon as it is deemed convenient. This is crucial for the maritime version of the Starlink kit \footnote{\url{https://starlink.com/business/maritime}} since it is safe to assume oceangoing ships will often be in such condition.
    
 \begin{figure}
     \centering
@@ -96,7 +95,7 @@ SpaceX also experiments with Inter Satellite Links, allowing a dish not in proxi
     \includegraphics[width=0.6\columnwidth]{img/starlink-101.png}
     \caption{Basic Starlink working, from \cite{izhikevich2023democratizing}}
     \label{fig:starlink-101}
-\end{figure}
+\end{figure}x       
     
 SpaceX is currently the most popular LEO-based Internet Service Provider. However, other similar projects exist, such as OneWeb \footnote{\url{https://oneweb.net}} and Amazon Project Kuiper \footnote{\url{https://aboutamazon.com/what-we-do/devices-services/project-kuiper}}. The former is more enterprise and government-focused, while the latter aims to be a Starlink competitor, with the first satellite launches starting now.
 
@@ -112,7 +111,7 @@ For the measurement parts, we are using standard Unix tools, like \texttt{ping},
     
 gRPC is an RPC framework from Google\footnote{\url{https://grpc.io}}. It is the dish API's protocol and is massively employed across different fields, especially in microservices architectures. 
     
-gRPC uses protocol buffers (protobufs) as Interface Definition Language and as a message interchange format; this means every client needs to have a stub providing the methods available on the server. In order to obtain the stub \texttt{.proto} files are usually needed, but the dish employs a technology called \textit{Server Reflection} \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}; this means it is possible to query the API itself to get a list of the available methods.
+gRPC uses protocol buffers (protobufs) as Interface Definition Language and as a message interchange format; this means every client needs to have a stub providing the methods available on the server. In order to obtain it \texttt{.proto} files are usually needed, but the dish employs a technology called \textit{Server Refl   ection} \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}; this means it is possible to query the API itself to get a list of the available methods.
 
 Using a tool like grpcurl \footnote{\url{https://github.com/fullstorydev/grpcurl}}, it is possible to inspect the service; furthermore, it is easy to use the gRPC python library \footnote{\url{https://pypi.org/project/grpc/}} to develop scripts.
     
