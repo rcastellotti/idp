@@ -60,13 +60,13 @@ In this brief section, we introduce the topic of our research and some of the ba
 
 \section{Introduction}
     
-Starlink \footnote{\url{https://starlink.com}} is the largest Low Earth Orbiting, hereinafter LEO, satellite constellation with more than 4000 satellites currently orbiting around Earth. It is managed by SpaceX \footnote{\url{https://spacex.com}}, and its scope is to bring Internet broadband connection to the most remote and rural areas in the world while also serving people living in residential areas, typically using a cabled link.
+Starlink \footnote{\url{https://starlink.com}} is the largest Low Earth Orbiting (LEO), satellite constellation with more than 4000 satellites currently orbiting around Earth. It is managed by SpaceX \footnote{\url{https://spacex.com}}, and its scope is to bring Internet broadband connection to the most remote and rural areas in the world while also serving people living in residential areas, typically using a cabled link.
     
 LEO satellites orbit around 550 kilometers from Earth, so naturally, LEO connections have a lower latency than other satellite-based connections. SpaceX claims latency is around approximately 25 ms. Our experiments show that it is often a little higher (approximately 35 milliseconds). 
 Starlink might not be the best solution for people living in residential areas, as their place is covered by a faster cabled connection and is probably way cheaper as the infrastructure is more straightforward to maintain; as of October 2023, Starlink costs 65 USD per month with a one-time hardware cost of 450 USD. 
-It is, though, worth mentioning it might be possible that using laser links is faster than fiber on Earth, thus providing lower latency connection to everyone, as reported by Elon Musk himself \cite{tweet}.
-    `'
-Satellite-based Internet connections have been around for several years. They are based on geostationary satellites, hereinafter GEOSAT, orbiting at about 35.000 kilometers; it is thus natural to expect higher latency when comparing GEOSAT connections to cabled Internet connections; we are talking about around 600 ms for latency, or in other words, Starlink averages ~70 RTTs in the time a GEOSAT satellite does 1 RTT.
+It is, though, worth mentioning it might be possible that using laser links is faster than fiber on Earth, thus providing lower latency connection to everyone, as reportedf here \cite{tweet}.
+
+Satellite-based Internet connections have been around for several years. They are based on geostationary satellites(GEOSAT), orbiting at about 35.000 kilometers; it is thus natural to expect higher latency when comparing GEOSAT connections to cabled Internet connections; we are talking about around 600 ms for latency, or in other words, Starlink averages ~70 RTTs in the time a GEOSAT satellite does 1 RTT.
     
 From a customer perspective, using Starlink is straightforward; after receiving the hardware package, the only needed thing is to plug the satellite dish (see Figure \ref{fig:dish}) and position it in a place with clear access to the sky. After that, adding in a router is enough to browse the Internet using different devices. 
 
@@ -117,7 +117,7 @@ Using a tool like grpcurl \footnote{\url{https://github.com/fullstorydev/grpcurl
     
 \subsection{Two-line Element Sets}
     
-Two-line Element Sets (hereinafter TLEs) is a widely used ASCII-based data format to encode the position of orbital elements for a given point in time \footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. We work with TLEs using the Skyfield Library, \footnote{\url{https://rhodesmill.org/skyfield/}}, an elegant astronomy library for Python. Check Appendix \ref{app:sky} for a sample script to localize a satellite's position given the Satellite Name. A complete list of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink}. 
+Two-line Element Sets (TLEs) is a widely used ASCII-based data format to encode the position of orbital elements for a given point in time \footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. We work with TLEs using the Skyfield Library, \footnote{\url{https://rhodesmill.org/skyfield/}}, an elegant astronomy library for Python. Check Appendix \ref{app:sky} for a sample script to localize a satellite's position given the Satellite Name. A complete list of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink}. 
 SATNAME is a unique identifier.
     
 Knowing the position of a satellite at any given time allows us to restrict the subset of satellites the dish may be connected to; it is worth noting that previously, it was possible to call the \texttt{dish\_get\_context} or similar methods on the API to retrieve such information. Unfortunately, these methods either return a \texttt{PermissionDenied} error or are deprecated.
@@ -470,7 +470,7 @@ The measurements chapter is, for the moment, concluded; we now move to wrap up o
 
 \chapter{Final Remarks and Future Work}
 
-Concluding our experiments, we highlight several key insights. First, the latency to the Point of Presence remains remarkably stable and low enough for network-intensive applications, such as online video gaming. In practice, the average customer, provided they have clear sky access, is usually more than satisfied with Starlink's performances. Bandwidth is sustained consistently, even in the presence of satellite handovers, which do not appear to impact it significantly.
+Concluding our experiments, we highlight several key insights. First, the latency to the Point of Presence remains remarkably stable and low enough even for network-intensive applications, such as online video gaming. In practice, the average customer, provided they have clear sky access, is usually more than satisfied with Starlink's performances. Bandwidth is sustained consistently, even in the presence of satellite handovers, which do not appear to impact it significantly.
 
 Typically, a Starlink dish maintains contact with approximately eight satellites at any given moment, making autonomous decisions internally about which satellite to connect to. It is worth noting that this satellite count may vary following new launches.
 
