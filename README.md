@@ -1,19 +1,5 @@
 # IDP Castellotti
 
-+ `common.py` ~> collection of miscellaneous functions
-+ `nine981.py` ~> interact with the gRPC api the dish exposes
-+ `cloud-traceroutes.py` ~> the tool to perform (and visualize) traceroutes to cloud datacenters
-+ `s.py` ~> cli to use `nine918.py`
-+ `map.py` ~> download obstruction maps for a certain amount of seconds (to get meaningful data remember to reboot first)
-+ `viz.py` ~> a script to create images to visualize obstruction maps
-+ `hand.py` ~> the tool to detect handovers (check `main.ipynb` to see a viz)
-+ `visible-satellites.py` ~> extracts visible Starlink satellites (you get to define what "visible" means), sample usage: `python3 visible_satellites.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800` READY
-+ `main.ipynb` ~> scratchpad
-+ `big-file.py` ~> a script to measure 
-+ `pop-ping-latency.py` ~> can be used to extract pop ping latency from the dish, it is meant to be used while creating some traffic with iperf, to do so: start iperf in server mode on an host with `iper3 -s` 
-and send some data with `iperf3 -c <YOUR_IP> -u -b  <YOUR_BW> -t  300`, make sure to set a route for your ip to send traffic trhough the right interface, in our case `ip route add 138.246.253.20 via 192.168.1.1`.
-
-
 ## traceroute systemd-timer
 
 ```bash
@@ -42,11 +28,6 @@ huge problem with cloud providers -> we loose track of the packet as soon as it 
 + run `iperf3` to create some constant background noise to a target J. will setup
     + server: `iperf -s -u`
     + client: `iperf -c 138.246.253.20 -p 5001 -u -b 5k` 
-+ running for some time: `sudo python3 traceroutes_stress.py` (saving results in `~/idp-castellotti/data/traceroutes-iperf-5bks`) (typo)
-
-
-+ ping two hosts in the same geographic area but in different ASes (in particular one AS peering directly with SpaceX and one not peering directly) => meh
-
 
 ## additional stuff
 
