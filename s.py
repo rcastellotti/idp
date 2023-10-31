@@ -1,16 +1,25 @@
 #!/usr/bin/python3
-
 # a simple tool to interact with the gRPC dish
 
 import argparse
 import nine981
 import json
 from pprint import pprint
+
 parser = argparse.ArgumentParser(prog="s(mol)tarlink cli")
 
-parser.add_argument("--obstruction_map", "-o", help="dish_get_obstruction_map", action=argparse.BooleanOptionalAction)
-parser.add_argument("--reboot", "-r", help="reboot", action=argparse.BooleanOptionalAction)
-parser.add_argument("--status", "-s", help="status", action=argparse.BooleanOptionalAction)
+parser.add_argument(
+    "--obstruction_map",
+    "-o",
+    help="dish_get_obstruction_map",
+    action=argparse.BooleanOptionalAction,
+)
+parser.add_argument(
+    "--reboot", "-r", help="reboot", action=argparse.BooleanOptionalAction
+)
+parser.add_argument(
+    "--status", "-s", help="status", action=argparse.BooleanOptionalAction
+)
 
 args = parser.parse_args()
 

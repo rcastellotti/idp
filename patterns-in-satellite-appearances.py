@@ -8,7 +8,6 @@ import logging
 parser = argparse.ArgumentParser(
     prog="retrieve visible satellites (you get to define what visible means)"
 )
-
 parser.add_argument(
     "--latitude", "-lat", help="observer latitude", required=True, type=float
 )

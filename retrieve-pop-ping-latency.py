@@ -12,10 +12,9 @@ from scapy.all import (
 import argparse
 
 parser = argparse.ArgumentParser(prog="pop_ping_latency with iperf running")
-
 parser.add_argument("--bandwidth", "-b", help="bandwidth", required=True)
-
 args = parser.parse_args()
+
 conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
 
 
@@ -43,4 +42,5 @@ def ping(bw):
 t_end = time.time() + 60 * 5
 while time.time() < t_end:
     ping("normal")
+
 conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")

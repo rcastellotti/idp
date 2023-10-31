@@ -7,12 +7,11 @@ from common import cloud_traceroutes
 import time
 
 parser = argparse.ArgumentParser(prog="traceroute")
-
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )
-
 args = parser.parse_args()
+
 if args.verbose:
     logging.getLogger().setLevel(logging.DEBUG)
     logging.getLogger("urllib3").setLevel(logging.WARNING)

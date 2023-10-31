@@ -4,7 +4,7 @@ import argparse
 import logging
 import nine981
 
-parser = argparse.ArgumentParser(prog="map")
+parser = argparse.ArgumentParser(prog="save obstruction maps")
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )

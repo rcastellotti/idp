@@ -35,12 +35,12 @@ def get_obstruction_maps():
 
 
 def function2():
-    common.measure_bw(directory+".csv")
+    common.measure_bw(directory + ".csv")
 
 
 def function3():
     subprocess.run(
-            [
+        [
             "curl",
             "--interface",
             "enp1s0f3",

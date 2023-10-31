@@ -12,7 +12,6 @@ parser.add_argument(
 )
 parser.add_argument("--directory", "-d", help="directory", required=True, type=str)
 parser.add_argument("--output", "-o", help="output filename", required=True, type=str)
-
 args = parser.parse_args()
 
 directory = args.directory
@@ -38,15 +37,16 @@ def process_file(filename):
         # burn = extract_between_dash_and_json(filename)
         # plt.text(
         #     map.shape[1] - 120,
-        #     map.shape[0] - 10,  
+        #     map.shape[0] - 10,
         #     burn,
         #     color="yellow",
         #     fontsize=10,
         #     fontweight="bold",
         # )
-        
+
         plt.savefig(img, bbox_inches="tight")
         plt.close()
+
 
 files = os.listdir(directory)
 for file in files:

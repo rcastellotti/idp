@@ -6,7 +6,6 @@ from pathlib import Path
 from datetime import datetime
 
 parser = argparse.ArgumentParser(prog="traceroute")
-
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )
@@ -16,7 +15,6 @@ parser.add_argument(
 parser.add_argument("--directory", "-d", help="where to store files", required=True)
 parser.add_argument("--asndb", "-a", help="asndb file location", required=True)
 parser.add_argument("--region_file", "-r", help="region file  (csv)", required=True)
-
 args = parser.parse_args()
 
 if args.verbose:
@@ -37,6 +35,7 @@ def run_traceroute(filename, type):
             writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
         results = traceroute(ip, p, asndb=args.asndb)
         writer.writerows(results)
+
 
 with open(args.region_file, "r") as csvfile:
     next(csvfile)  # skipping the header

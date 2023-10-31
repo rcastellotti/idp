@@ -38,37 +38,36 @@ showstringspaces=false
 
 \begin{abstract} 
 
-Starlink is a novel technology designed to extend internet connectivity to remote and underserved regions worldwide by leveraging a satellite constellation in Low Earth Orbit (LEO). This report serves as a comprehensive documentation of our work and findings related to Starlink-based internet connections.
+\textit{Starlink} is a novel technology designed to extend internet connectivity to remote and underserved regions worldwide by leveraging a satellite constellation in Low Earth Orbit (LEO). This report serves as a comprehensive documentation of our work and findings related to Starlink-based internet connections.
 
-After introducing the fundamental principles of LEO satellite-based internet connectivity and the technologies to locate such satellites, this report proceeds to an analysis of whether Starlink-based connections result in distinct packet routing behaviors when reaching geographically sparse targets when compared to normal cabled connections. Furthermore, an in-depth examination is conducted to assess whether the physical layer has any influence on latency. The report subsequently delves into an evaluation of the satellites that are within the line of sight of a Starlink dish. This analysis starts with the development of a script aimed at identifying occurrences of satellite handovers; afterward, this data is used to try to establish a correlation between bandwidth fluctuations and satellite handovers. It is worth noting that our findings seem to indicate such handovers do not happen in a specific pattern and do not cause a drop in bandwidth, thereby suggesting a high level of connection stability from an end-user perspective.
+After introducing the fundamental principles of LEO satellite-based internet connectivity and the technologies to locate such satellites, this report proceeds to an analysis of whether Starlink-based connections result in characteristic packet routing behaviors when reaching geographically sparse targets when compared to normal cabled connections. Furthermore, an analysis is conducted to assess whether the physical layer influences latency. The report subsequently proposes a schema to evaluate satellites within the line of sight of a Starlink dish. Analysis starts with the development of a script aimed at identifying occurrences of satellite handovers; afterward, this data is used to try to establish a correlation between bandwidth fluctuations and satellite handovers. Our findings seem to indicate such handovers do not happen in a specific pattern and do not cause a drop in bandwidth, thereby suggesting a high level of connection stability from an end-user perspective.
     
 Throughout the course of our research, we developed tooling to interact with the dish and run measurements.
 
 \end{abstract}
     
 \tableofcontents
-\listoffigures
-\listoftables
+
 \startcontent
 
 \chapter{Introduction and Background}   
 
-In this brief section, we introduce the topic of our research and some of the background knowledge needed to fully understand further developments, and we touch on the body of literature we examined while performing our measurements.
+In this brief section, we introduce the topic of our research and some of the background knowledge needed to fully understand further developments. Additionally we present literature we examined while performing our measurements.
 
 \section{Introduction}
     
-Starlink \footnote{\url{https://starlink.com}} is the largest Low Earth Orbiting (LEO), satellite constellation with more than 4000 satellites currently orbiting around Earth. It is managed by SpaceX \footnote{\url{https://spacex.com}}, and its scope is to bring Internet broadband connection to the most remote and rural areas in the world while also serving people living in residential districts, typically using a cabled link.
+Starlink\footnote{\url{https://starlink.com}} is the largest Low Earth Orbiting (LEO) satellite constellation with more than 4000 satellites currently orbiting around Earth. It is managed by SpaceX\footnote{\url{https://spacex.com}}, and its scope is to bring Internet broadband connection to the most remote and rural areas in the world while also serving people living in residential districts, currently typically using a cabled link.
     
-LEO satellites orbit around 550 kilometers from Earth, so naturally, LEO connections have a lower latency than other satellite-based connections. SpaceX claims latency is around approximately 25 ms; however our experiments show that it is often a little higher (approximately 35 milliseconds). 
-Starlink might not be the best solution for people living in residential areas, as their place is covered by a faster cabled connection and is probably way cheaper as the infrastructure is more straightforward to maintain; as of October 2023, Starlink costs 65 USD per month with a one-time hardware cost of 450 USD. It is, though, worth mentioning it might be possible that using laser links is faster than fiber on Earth, thus providing lower latency connection to everyone, as reported by Elon Musk himself \cite{tweet}.
+LEO satellites orbit around 550 kilometers from Earth, so naturally, LEO connections have a lower latency than other satellite-based connections. SpaceX claims latency is around approximately 25 milliseconds; however our experiments show that it is often a little higher (approximately 35 milliseconds). It is, though, worth mentioning it might be possible that using laser links is faster than fiber on Earth due to the higher speed of light in vacuum and shorter path than undersea fiber, as reported by Elon Musk himself\cite{tweet}.
 
-Satellite-based Internet connections have been around for several years. They are based on geostationary satellites(GEOSAT), orbiting at about 35.000 kilometers; it is thus natural to expect higher latency when comparing GEOSAT connections to cabled Internet connections; about around 600 ms for latency, or in other words, Starlink averages ~70 RTTs in the time a GEOSAT satellite does 1 RTT.
+Starlink might not be the best solution for people living in residential areas, as their place is covered by a faster cabled connection and is probably way cheaper as the infrastructure is more straightforward to maintain; as of October 2023, Starlink costs 65 USD per month with a one-time hardware cost of 450 USD. 
+Satellite-based Internet connections have been around for several years. They are typically based on geostationary satellites (GEOSAT), orbiting at about 35,000 kilometers. It is thus natural to expect higher latency when comparing GEOSAT connections to cabled Internet connections; about around 600 milliseconds for latency, or in other words, Starlink averages ~70 RTTs in the time a GEOSAT connection is able to send a single packet back and forth.
     
-From a customer perspective, using Starlink is straightforward; after receiving the hardware package, the only needed thing is to plug the satellite dish (see Figure \ref{fig:dish}) and position it in a place with clear access to the sky. After that, adding in a router is enough to browse the Internet using different devices. Our setup is more straightforward; the machine we use to run measurements and use the Starlink connection is directly connected to the dish.
+From a customer perspective, using Starlink is straightforward. After receiving the hardware, the only needed step is to plug the satellite dish (see Figure \ref{fig:dish}) and position it in a place with clear access to the sky. After that, connecting the provided router is enough to browse the Internet using different devices. Our setup is more straightforward; the machine we use to run measurements and use the Starlink connection is directly connected to the dish.
     
-On a more technical note, what is happening to packets sent from a local device is they go through the dish, they are relayed to a nearby satellite, and they are sent to a ground station in view; from that point onwards, packets are routed normally through the Internet. Figure \ref{fig:gs} shows a sample ground station.
+On a more technical note, packets sent from a local device go through the dish, they are relayed to a nearby satellite, and they are sent to a ground station in view; from that point onwards, packets are routed normally through the Internet. Figure \ref{fig:gs} shows a sample ground station. The Ground Station needs to be in proximity for the satellite to be able to reach it.   
     
-SpaceX is also employing Inter Satellite Links, allowing a dish not in proximity of a Ground Station to communicate by routing packets to different satellites and relaying them back to Earth as soon as it is deemed convenient. This is crucial for the maritime version of the Starlink kit \footnote{\url{https://starlink.com/business/maritime}} since it is safe to assume oceangoing ships will often be in such condition.
+SpaceX is also employing Inter Satellite Links, allowing a dish not in proximity of a Ground Station to communicate by routing packets to different satellites and relaying them back to Earth as soon as it is deemed convenient. This is crucial for the maritime version of the Starlink kit\footnote{\url{https://starlink.com/business/maritime}} since it is safe to assume oceangoing ships will often be in such condition.
    
 \begin{figure}
     \centering
@@ -91,30 +90,30 @@ SpaceX is also employing Inter Satellite Links, allowing a dish not in proximity
     \label{fig:starlink-101}
 \end{figure}      
     
-SpaceX is currently the most popular LEO-based Internet Service Provider. However, other similar projects exist, such as OneWeb \footnote{\url{https://oneweb.net}} and Amazon Project Kuiper \footnote{\url{https://aboutamazon.com/what-we-do/devices-services/project-kuiper}}. The former is more enterprise and government-focused, while the latter aims to be a Starlink competitor, with the first satellite launches starting now.
+SpaceX is currently the most popular LEO-based Internet Service Provider. However, other similar projects exist, such as OneWeb\footnote{\url{https://oneweb.net}} and Amazon Project Kuiper\footnote{\url{https://aboutamazon.com/what-we-do/devices-services/project-kuiper}}. The former is more enterprise and government-focused, while the latter aims to be a Starlink competitor, with the first satellite launches starting now.
 
-The future is bright for LEO-based ISPs; however, we might soon encounter some problems. Starlink alone now has 4306 satellites in orbit, and Project Kuiper plans to launch 3236; these two constellations alone account for more than 7500 satellites. This is increasing the overall brightness of the skies, and debris proliferation will become more and more of a concern, as reported by \cite{cite-key}.
+The future is bright for LEO-based ISPs; however, we might soon encounter some problems. Starlink alone has currently 4974\footnote{\url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink &FORMAT=tle}} satellites in orbit, and Project Kuiper plans to launch 3236\footnote{\url{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}}; these two constellations alone account for more than 8000 satellites. This is increasing the overall brightness of the skies, and debris proliferation will become more and more of a concern, as reported by Barentine et al. \cite{cite-key}
     
 \section{Background}
 
 We will now introduce some concepts we will use later. We briefly describe the gRPC protocol, as it is used by the dish to communicate diagnostics and statistics to customers, before describing Two Line Element Sets, the data format used to encode the satellite's positions. 
 
 For the measurement parts, we are using standard Unix tools, like \texttt{ping}, \texttt{traceroute}, \texttt{iperf}, and we are using Python for scripting purposes.
-% ----
+
 \subsection{gRPC protocol}
     
 gRPC is an RPC (Remote Procedure Call) framework from Google\footnote{\url{https://grpc.io}}. It is the dish API's protocol and is massively employed across different fields, especially in microservices architectures. 
     
-gRPC uses protocol buffers (protobufs) both as Interface Definition Language and as the format for message interchange; consequently every client needs to have a stub providing the server's accessible methods. Typically this involves generating some \texttt{.proto} files are usually needed, but an alternative approach called \textit{Server Reflection} \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}} is employed. With Server Reflection, it is feasible to dynamically query the API to retrieve a list of the accessible methods.
+gRPC uses protocol buffers (protobufs) both as Interface Definition Language and as the format for message interchange; consequently, every client needs to have a stub providing the server's accessible methods. Typically this involves generating some \texttt{.proto} files are usually needed, but an alternative approach called \textit{Server Reflection} \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}} is employed. With Server Reflection, it is feasible to dynamically query the API to retrieve a list of the accessible methods.
 
-Using a tool like \texttt{grpcurl} \footnote{\url{https://github.com/fullstorydev/grpcurl}}, it is possible to inspect the service; furthermore, it is easy to use the gRPC python library \footnote{\url{https://pypi.org/project/grpc/}} to develop scripts.
+Using a tool like \texttt{grpcurl}\footnote{\url{https://github.com/fullstorydev/grpcurl}}, it is possible to inspect the service; furthermore, it is easy to use the gRPC python library\footnote{\url{https://pypi.org/project/grpc/}} to develop scripts.
     
 \subsection{Two-line Element Sets}
     
-Two-line Element Sets (TLEs) is a widely used ASCII-based data format to encode the position of orbital elements for a given point in time \footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. We work with TLEs using the Skyfield Library, \footnote{\url{https://rhodesmill.org/skyfield/}}, an elegant astronomy library for Python. Check Appendix \ref{app:sky} for a sample script to localize a satellite's position given the Satellite Name. A complete list of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink}. 
+Two-line Element Sets (TLEs) is a widely used ASCII-based data format to encode the position of orbital elements for a given point in time\footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}. We work with TLEs using the Skyfield Library\footnote{\url{https://rhodesmill.org/skyfield/}}, an elegant astronomy library for Python. Check Appendix \ref{app:sky} for a sample script to localize a satellite's position given the Satellite Name. A complete list of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink}. 
 SATNAME is a unique identifier.
     
-Knowing a satellite's position at any given time is a very powerful mechanisms, which allows us to restrict the subset of satellites the dish may be connected to; it is worth noting that previously, it was possible to call the \texttt{dish\_get\_context} or similar methods on the API to retrieve such information, as reported by this Reddit user \footnote{\url{https://reddit.com/r/Starlink/comments/p84o5i/comment/h9o1elp/}}. Unfortunately, these methods now either return a \texttt{PermissionDenied} error or are deprecated.
+Knowing a satellite's position at any given time is a very powerful mechanisms, which allows us to restrict the subset of satellites the dish may be connected to; it is worth noting that previously, it was possible to call the \texttt{dish\_get\_context} or similar methods on the API to retrieve such information, as reported by this Reddit user\footnote{\url{https://reddit.com/r/Starlink/comments/p84o5i/comment/h9o1elp/}}. Unfortunately, these methods now either return a \texttt{PermissionDenied} error or are deprecated.
     
 \begin{lstlisting}[caption={TLE for satellite STARLINK-1007 },captionpos=b]
 STARLINK-1007           
@@ -124,17 +123,17 @@ STARLINK-1007
     
 \section{Related work}
     
-Being Starlink a novel technology the existing body of research is somewhat limited, but papers and tools \footnote{\url{https://github.com/danopstech/starlink\_exporter}}, \footnote{\url{https://github.com/sparky8512/starlink-grpc-tools}} are in development, we created some scripts to work with the dish and to perform some measurements, you can find them in the very same repository that contains this report \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}}.
+Being Starlink a novel technology the existing body of research is somewhat limited, but papers and tools \footnote{\url{https://github.com/danopstech/starlink\_exporter},\url{https://github.com/sparky8512/starlink-grpc-tools}} are in development, we created some scripts to work with the dish and to perform some measurements, you can find them in the very same repository that contains this report\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}}.
     
-From a research perspective, different works provide more insights into Starlink — papers like \cite{pan2023measuring} focus on describing the infrastructure Starlink uses. In contrast, \cite{izhikevich2023democratizing} illustrates a novel approach to make measurements simpler and cheaper, and \cite{browser-side} focuses on running some client-side measurements with a browser extension.
+From a research perspective, different works provide more insights into Starlink — papers like \cite{pan2023measuring} focus on describing the infrastructure Starlink uses. In contrast, Izhikevich et al. \cite{izhikevich2023democratizing} illustrate a novel approach to make measurements simpler and cheaper, and Kassem et al.\cite{browser-side} focuses on running some client-side measurements with a browser extension.
     
-Recent work has been carried out on the hardware side, like \cite{glitching} while \cite{quarkslab} focuses on the firmware perspective and offered valuable insights into the gRPC API.
+Recent work has been carried out on the hardware side, by Wouters \cite{glitching} while Ramponi \cite{quarkslab} focuses on the firmware perspective and offered valuable insights into the gRPC API.
     
 \section{gRPC API}
     
 Our first approach to the dish is through the web UI reachable at 192.168.100.1; we discover it is getting data from a gRPC API running directly on the dish, so we decide to spend some time documenting the available methods we could later use to gather useful additional information.
     
-The server-reflected gRPC API is running on the dish; we can access it by querying it at \texttt{192.168.100.1:9200} using grpcurl \footnote{\url{https://github.com/fullstorydev/grpcurl}}, a sample query to retrieve downlink throughput is:
+The server-reflected gRPC API is running on the dish; we can access it by querying it at \texttt{192.168.100.1:9200} using \texttt{grpcurl}\footnote{\url{https://github.com/fullstorydev/grpcurl}}, a sample query to retrieve downlink throughput is:
     
 \begin{lstlisting}[language=bash]
 rc@gnolmir:~$ grpcurl -plaintext -d '{"get_status":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
@@ -176,51 +175,51 @@ message Request {
     }
 \end{lstlisting}
     
-Here \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}} is a complete list of available methods as of September 2023.
+Here\footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}} is a complete list of available methods as of September 2023.
 
-To simplify scripting, we develop a simple wrapper library around the gRPC API  \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/nine981.py}} and a CLI tool \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/s.py}} to use the library in command line. It should be trivial to add functionality to the library.
+To simplify scripting, we develop a simple wrapper library around the gRPC API \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/nine981.py}} and a CLI tool\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/s.py}} to use the library in command line. It should be trivial to add functionality to the library.
 
 Unlike \texttt{sparky8512/starlink-grpc-tools}, we do not make any assumptions about the format used to save data.
 
 After having laid the groundwork to understand the next section, we now move to the measurements we performed.
     
-\chapter{Measurements}
+\chapter{Measurements and Analysis}
 
 After getting acquainted with our working environment, we run several measurements to better understand Starlink internals. 
     
 We first try to understand the possible differences in package routing between Starlink-based and default cabled connections. We then move to measure the latency and bandwidth of links, and we check whether the values for bandwidth reported from the API are the same as our machine reports. Later, we will try to understand whether we can spot physical layer influences on the latency of connections.  
     
-In the second part of our measurements, we explore the satellite part of the infrastructure. First, we implement tooling to identify satellites in line of sight of our dish and to detect patterns in satellite appearances before implementing a side-channel measurement to detect satellite handovers based on the approach introduced in \cite{izhikevich2023democratizing}.
+In the second part of our measurements, we explore the satellite part of the infrastructure. First, we implement tooling to identify satellites in line of sight of our dish and to detect patterns in satellite appearances before implementing a side-channel measurement to detect satellite handovers based on the approach Izhikevich's approach \cite{izhikevich2023democratizing}.
     
 \section{Routing}
     
-In this section, we delve into the exploration of the routing behavior in Starlink-based connections; routing refers to the process of selecting a path across one or more networks \footnote{\url{https://www.cloudflare.com/learning/network-layer/what-is-routing/}}. To investigate such topic, we use traceroutes; \texttt{traceroute (8)}  is a tool used to diagnose problems in a network path; it is used to understand the path IP packets are taking from one computer (source IP address) to another (destination IP address).
+In this section, we delve into the exploration of the routing behavior in Starlink-based connections; routing refers to the process of selecting a path across one or more networks\footnote{\url{https://www.cloudflare.com/learning/network-layer/what-is-routing/}}. To investigate such topic, we use traceroutes; \texttt{traceroute (8)}  is a tool used to diagnose problems in a network path; it is used to understand the path IP packets are taking from one computer (source IP address) to another (destination IP address).
 
-One of the first experiments we perform is running traceroutes to several different geographically sparse targets; we retrieve a list of those from major cloud vendors, \footnote{\url{ https://gstatic.com/ipranges/cloud.json}}, \footnote{\url{https://ip-ranges.amazonaws.com/ip-ranges.json}}, \footnote{\url{https://microsoft.com/en-us/download/details.aspx?id=53601}}, \footnote{\url{https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json }}. We are both using the \texttt{traceroute (8)} standard UNIX tool and a custom python script \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/cloud-traceroutes.py}} to run traceroutes and save data to CSV files.
+One of the first experiments we perform is running traceroutes to several different geographically sparse targets; we retrieve a list of those from major cloud vendors,\footnote{\url{ https://gstatic.com/ipranges/cloud.json}, \url{https://ip-ranges.amazonaws.com/ip-ranges.json}, \url{https://microsoft.com/en-us/download/details.aspx?id=53601}}, \footnote{\url{https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json }}. We are both using the \texttt{traceroute (8)} standard UNIX tool and a custom python script\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/cloud-traceroutes.py}} to run traceroutes and save data to CSV files.
     
 We carefully select our target destinations from major cloud vendors. The reason behind this selection is that these cloud vendors publish their IP ranges, and their host locations are known. While the precise location of the final target in complex networks remains challenging to assess, the last hop in a traceroute often provides a reasonably accurate approximation. It's worth noting that in private networks, the hosts often do not respond to ICMP pings, further obscuring the packet's route.
 
-We run the traceroutes using ICMP, UDP, and TCP protocols using both the Starlink and the default network interface over several days, and we save the results to CSV files. Subsequently, we use NetworkX, a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks. \footnote{\url{https://networkx.org/}} to visualize whether we can spot some differences in the graphs we create. The following Figures are some of the representations for traceroutes to certain specific hosts. While running traceroutes, it is common to retrieve information for the first 30 hops; however, we decided to limit ourselves to the first seven hops because we do not receive answers for further hops. 
+We run the traceroutes using ICMP, UDP, and TCP protocols using both the Starlink and the default network interface over several days, and we save the results to CSV files. Subsequently, we use NetworkX, a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks\footnote{\url{https://networkx.org/}}. to visualize whether we can spot some differences in the graphs we create. The following Figures are some of the representations for traceroutes to certain specific hosts. While running traceroutes, it is common to retrieve information for the first 30 hops; however, we decided to limit ourselves to the first seven hops because we do not receive answers for further hops. 
 
 \begin{figure}
     \label{fig:tr_aws_icmp}
     \centering
     \includegraphics[width=0.6\columnwidth]{img/tr_aws_icmp.png}
-    \caption{Visualizing traceroutes to 4 different hosts from AWS using ICMP, the left Figure refers to Starlink traceroutes; the right one is the default network interface.}
+    \caption{Visualizing traceroutes to 4 different hosts from AWS using ICMP, the left Figure refers to Starlink traceroutes; the right one is the cabled network interface.}
 \end{figure}
     
 \begin{figure}
     \label{fig:tr_aws_udp}
     \centering
     \includegraphics[width=0.6\columnwidth]{img/tr_aws_udp.png}
-    \caption{Visualizing traceroutes to 4 different hosts from AWS using UDP, the left Figure refers to Starlink traceroutes; the right is the default network interface.}
+    \caption{Visualizing traceroutes to 4 different hosts from AWS using UDP, the left Figure refers to Starlink traceroutes; the right is the cabled network interface.}
 \end{figure}
     
 \begin{figure}
     \label{fig:tr_aws_tcp}
     \centering
     \includegraphics[width=0.6\columnwidth]{img/tr_aws_tcp.png}
-    \caption{Visualizing traceroutes to 4 different hosts from AWS using TCP, the left Figure refers to Starlink traceroutes; the right is the default network interface.}
+    \caption{Visualizing traceroutes to 4 different hosts from AWS using TCP, the left Figure refers to Starlink traceroutes; the right is the cabled network interface.}
 \end{figure}
     
 \begin{figure}
@@ -230,11 +229,11 @@ We run the traceroutes using ICMP, UDP, and TCP protocols using both the Starlin
     \caption{Visualizing traceroutes to 4 different hosts from Azure using ICMP, the left Figure refers to Starlink traceroutes, the right one is the default network interface.}
 \end{figure}
     
-Upon analyzing the traceroute data, it is evident that the routing within the Starlink network exhibits a notably higher degree of complexity compared to the "default" network traceroutes. While the default traceroutes show data following relatively straightforward paths in four different main directions, the Starlink traceroutes display a more intricate and convoluted routing pattern. Several factors could contribute to this complexity, including diverse routing decisions and the possibility of Inter Satellite Routing within the Starlink constellation.
+Upon analyzing the traceroute data, it is evident that the routing within the Starlink network exhibits a notably higher degree of complexity compared to the cabled ISP network traceroutes. While the default traceroutes show data following relatively straightforward paths in four different main directions, the Starlink traceroutes display a more intricate and convoluted routing pattern. Several factors could contribute to this complexity, including diverse routing decisions and the possibility of Inter Satellite Routing within the Starlink constellation.
 
-We are only reporting traceroutes to AWS using the three most common methods and a traceroute to Azure; more data to visualize can be found in the accompanying repository. \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti-data}}
+We are only reporting traceroutes to AWS using the three most common methods and a traceroute to Azure; more data to visualize can be found in the accompanying repository\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti-data}}.
     
-We do not find any significant differences comparing traceroutes over different days; we see hops in the same Autonomous Systems; the only difference we are able to observe is that we reach different hosts inside AS14593, the Autonomous System SpaceX operates, \footnote{\url{https://bgp.he.net/AS14593}}.
+We do not find any significant differences comparing traceroutes over different days; we see hops in the same Autonomous Systems; the only difference we are able to observe is that we reach different hosts inside AS14593, the Autonomous System SpaceX operates\footnote{\url{https://bgp.he.net/AS14593}}.
     
 The following is a table of hosts reached together and a count of how many times we reached the target.
     
@@ -261,15 +260,15 @@ The following is a table of hosts reached together and a count of how many times
     \caption{Targets reached inside AS14593 together with the count}
 \end{table}
 
-We also see some different prefixes in later traceroutes; AS14593 advertises many \footnote{\url{https://bgp.he.net/AS14593\#_prefixes}}.
+We also see some different prefixes in later traceroutes; AS14593 advertises many\footnote{\url{https://bgp.he.net/AS14593\#_prefixes}}.
     
 \section{Latency Analysis}
 
-The gRPC API exposes a \texttt{get\_status} method containing a \texttt{pop\_ping\_latency\_ms} field, so we decide to measure the stability of latency to the Point of Presence (PoP) -- an artificial demarcation point or network interface point between communicating entities. A common example is an ISP point of presence, the local access point that allows users to connect to the Internet with their Internet service provider (ISP). \footnote{\url{https://en.wikipedia.org/wiki/Point_of_presence}, \url{https://networkencyclopedia.com/point-of-presence-pop/}}
+The gRPC API exposes a \texttt{get\_status} method containing a \texttt{pop\_ping\_latency\_ms} field, so we decide to measure the stability of latency to the Point of Presence (PoP) -- an artificial demarcation point or network interface point between communicating entities. A common example is an ISP point of presence, the local access point that allows users to connect to the Internet with their Internet service provider (ISP)\footnote{\url{https://en.wikipedia.org/wiki/Point_of_presence}, \url{https://networkencyclopedia.com/point-of-presence-pop/}}.
 
-We know that in AS14593, there are several geographically distributed hosts containing "pop" in their hostname, such as \texttt{customer.dnvrcox1.pop.starlinkisp.net}, the naming scheme suggests the position of the PoP we are analyzing, in the previous example it is located in Denver, Colorado. Here \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti-data/-/blob/main/pops.json}} is a brief list of different PoPs retrieved using censys \footnote{\url{https://search.censys.io/}}.
+We know that in AS14593, there are several geographically distributed hosts containing "pop" in their hostname, such as \texttt{customer.dnvrcox1.pop.starlinkisp.net}, the naming scheme suggests the position of the PoP we are analyzing, in the previous example it is located in Denver, Colorado. Here\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti-data/-/blob/main/pops.json}} is a brief list of different PoPs retrieved using censys\footnote{\url{https://search.censys.io/}}.
 
-Latency, defined as the time it takes for data to pass from one point on a network to another \footnote{\url{https://www.cloudflare.com/learning/performance/glossary/what-is-latency/}}, to the PoP is pretty stable, as SpaceX reports it fluctuates around 35 ms, as we can verify from Figure \ref{fig:vis-latency}. We are not able to observe any patterns in latency fluctuation.
+Latency, defined as the time it takes for data to pass from one point on a network to another\footnote{\url{https://www.cloudflare.com/learning/performance/glossary/what-is-latency/}}, to the PoP is pretty stable, as SpaceX reports it fluctuates around 35 milliseconds, as we can verify from Figure \ref{fig:vis-latency}. We are not able to observe any patterns in latency fluctuation.
 
 \begin{figure}
     \centering
@@ -284,7 +283,7 @@ During our investigations, we analyze bandwidth for two reasons: first, we want 
 
 The first experiment we set up is the following: We start downloading five Debian ISOs from different mirrors (to neutralize the effect of the single upload speed of a mirror). While downloading the files, we are also running a script to extract downlink throughput from the dish and measuring it simply by getting data from \path{/sys/class/net/{interface}/statistics/rx_bytes} in order to compare the data reported from the API and the actual bandwidth our machine reports.
 
-Figure \ref{fig:vis-bw-15sec} contains our results, \texttt{bandwidth\_bps} is the data we obtain from \path{/sys/class/net/{interface}/statistics/rx_bytes}, while \texttt{downlink\_throughput\_bps} is the data reported from the gRPC API. As we can see, the two values are very similar; this suggests that the dish reports bandwidth correctly.
+Figure \ref{fig:vis-bw-15sec} shows our results, \texttt{bandwidth\_bps} is the data we obtain from \path{/sys/class/net/{interface}/statistics/rx_bytes}, while \texttt{downlink\_throughput\_bps} is the data reported from the gRPC API. As we can see, the two values are very similar; this suggests that the dish reports bandwidth correctly.
 
 From \cite{llc-application}, we know the dish seeks better connections, as satellites move constantly, every 15 seconds. We plot vertical lines every 15 seconds and shift them to detect whether the bandwidth drops were happening in 15-second intervals.
 
@@ -295,13 +294,13 @@ From \cite{llc-application}, we know the dish seeks better connections, as satel
     \label{fig:vis-bw-15sec}
 \end{figure}
 
-We repeat the experiments by shifting the red vertical lines and changing the intervals for collected data, and in the majority of cases, we see that whenever we draw a vertical red line, we have some drop in the immediate milliseconds before or after; however, drops also happen in different intervals. Initially We thought these drops might be related to satellite handovers, so we investigated further; check Section \ref{sec:sat-hand-drop}, where we try to correlate satellite handovers (retrieved using a side-channel) and drops in bandwidth. 
+We repeat the experiments by shifting the red vertical lines and changing the intervals for collected data, and in the majority of cases, we see that whenever we draw a vertical red line, we have some drop in the immediate milliseconds before or after; however, drops also happen in different intervals. Initially We thought these drops might be related to satellite handovers, so we investigated further; check Section \ref{sec:sat-hand-drop}, where we investigate the correlation between satellite handovers (retrieved using a side-channel) and drops in bandwidth. 
 
 \section{Physical layer influences on latency}
 
-After measuring latency and bandwidth and noticing some drops in semi-regular intervals, we decided to investigate whether the physical layer had any influences on latency in some way; our intuition is that if this is the case, we can approximately detect whether a certain amount of data is needed before a packet is sent; this means in the best-case scenario we send the packet we want to reach the Internet exactly, it fills exactly the size window and it is sent immediately, worst case scenario we sent the packet when the previous packet was just sent and we need to wait to fill the window before sending the packet. Of course, this operation introduces some performance drawbacks in the worst-case scenario, as the dish might have to delay transmission to wait for more data.
+After measuring latency and bandwidth and noticing some drops in semi-regular intervals, we decided to investigate whether the physical layer has any influences on latency in some way; our intuition is that if this is the case, we can approximately detect whether a certain amount of data is needed before a packet is sent; this means in the best-case scenario we send the packet we want to reach the Internet exactly, it fills exactly the size window and it is sent immediately, worst case scenario we sent the packet when the previous packet was just sent and we need to wait to fill the window before sending the packet. Of course, this operation introduces some performance drawbacks in the worst-case scenario, as the dish might have to delay transmission to wait for more data.
 
-To verify this hypothesis, we try to send some payload with iPerf \footnote{\url{https://iperf.fr/}} on the network interface used by Starlink. We send payloads of increasing sizes (10k, 20k, 50k, 100k, 1M, 10M) and measure the RTT; the following is a visualization, as we can notice that sending some traffic does not have an impact.
+To verify this hypothesis, we try to send some payload with iPerf\footnote{\url{https://iperf.fr/}} on the network interface used by Starlink. We send payloads of increasing sizes (10k, 20k, 50k, 100k, 1M, 10M) and measure the RTT; the following is a visualization, as we can notice that sending some traffic does not have an impact.
 
 \begin{figure}
     \centering
@@ -309,15 +308,16 @@ To verify this hypothesis, we try to send some payload with iPerf \footnote{\url
     \caption{Latency variation while sending traffic on the uplink using iPerf}
 \end{figure}
 
+We conclude no such mechanism is enabled on the device, it might be possible other smarter and better technologies are employed and they operate at the ideal point and thus are hard to detect.
 \section{Visible Satellites}
 
-One of the first operations on satellites for use is to retrieve the subset of satellites the dish might be connected to.
+One of the first measurements we perform with satellites is to retrieve the subset of satellites the dish might be connected to.
 
-It is up to us to define what "visible" means; in our evaluations, we decide that, knowing the satellites orbit around Earth at around 550 kilometers, it is reasonable to assume a satellite is visible when it is above the horizon and it is (point to point) not further than 800 kilometers. The ground truth might be different, but this approximation allows us to have an idea about what is going on in space. 
+It is up to us to define what "visible" means; in our evaluations, we decide that, knowing the satellites orbit around Earth at around 550 kilometers, it is reasonable to assume a satellite is visible when it is above the horizon and it is (point to point) not further away than 800 kilometers. The ground truth might be different, but this approximation allows us to formulate and hypothesis around satellites positions. 
 
-The first measurement we set up is the following: every 15 seconds, we run a script that retrieves all the "visible" satellites and stores them in a SQLite database. If we see the same satellite in the iteration before we update the \texttt{timestamp} otherwise, we create a new row in the database. We use a \texttt{relative\_ts} (relative timestamp) to enumerate every measurement (a probe every 15 seconds). To measure visible satellites, we are running the following script: \texttt{python3 visible-satellites.py -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation. The script can be found in the repository containing this report.
+The first measurement we set up is the following: every 15 seconds, we run a script that retrieves all the visible satellites and stores them in a SQLite database. If we see the same satellite in the iteration before we update the \texttt{timestamp} otherwise, we create a new row in the database. We use a \texttt{relative\_ts} (relative timestamp) to enumerate every measurement (a probe every 15 seconds). To measure visible satellites, we are running the following script: \texttt{python3 visible-satellites.py -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and \texttt{lon} are Garching's coordinates, we are not interested in using an elevation. The script can be found in the repository containing this report.
 
-After collecting data for several hours, we plot satellite appearances to check whether they are following some patterns; this seems like this is the case, as shown in Figure \ref{fig:vis-sat-pat}. We see the same satellite every 12 hours roughly. For some satellites, we notice some artifacts that might induce thinking there is a change in the pattern, but this is not true; the interval between the appearances is the same as in the other cases; we are uncertain about the reasons we are seeing this phenomenon.
+After collecting data for several hours, we plot satellite appearances to check whether their appearance is following some pattern; Figure \ref{fig:vis-sat-pat} reveals this is the case; we are able to observe the same satellites every 12 hours roughly. For some satellites, we notice some artifacts that might induce to think there is a change in the pattern, but this is not true; the interval between the appearances is the same as in the other cases; we are uncertain about the reasons we are seeing this phenomenon.
 
 \begin{figure}
     \centering
@@ -330,7 +330,7 @@ After collecting data for several hours, we plot satellite appearances to check 
 
 Unfortunately, as mentioned earlier, it is impossible to know from the gRPC API which satellite the dish is connected to.
 
-The Starlink gRPC API, however, exposes a \texttt{dish\_get\_obstruction\_map} method. Following the approach described in \cite{izhikevich2023democratizing}, we use the information gathered from polling the endpoint each second to extract the current obstruction map and visualize satellite handovers. This works because the dish adds a dot (setting a value to 1) in a 123*123 matrix whenever it sees a satellite in that position. 
+The Starlink gRPC API, however, exposes a \texttt{dish\_get\_obstruction\_map} method. Following the approach described in Izhikevich's paper \cite{izhikevich2023democratizing}, we use the information gathered from polling the endpoint each second to extract the current obstruction map and visualize satellite handovers. This works because the dish adds a dot (setting a value to 1) in a 123*123 matrix whenever it sees a satellite in that position. 
 
 The matrix is cleared whenever the dish is rebooted by setting every entry to -1; whenever a satellite is detected, the entry is set to 1. 
 
@@ -441,12 +441,12 @@ plt.show()
     \label{fig:vis-single-map}
 \end{figure}
 
-Following this approach, we can create a simple script to retrieve maps each second and save them locally; later, we can export images and create a video to better analyze what is going on \footnote{\url{https://www.youtube.com/watch?v=PjfMPr20suw}}.
+Following this approach, we can create a simple script to retrieve maps each second and save them locally; later, we can export images and create a video to better visualize the phenomenon, we have uploaded a sample video at \url{https://www.youtube.com/watch?v=PjfMPr20suw}.
 
 \section{Correlating Handovers and Drops in Bandwidth}
 \label{sec:sat-hand-drop}
 
-We create a simple script to algorithmically detect handovers; we can use the function \texttt{common.detect\_handovers} \footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/common.py?ref_type=heads\#L263}} to detect whether a handover was performed between two subsequent snapshots; getting all the handovers is simply a matter of iterating for every JSON file we saved and running the function on each pair.
+We create a simple script to algorithmically detect handovers; we can use the function \texttt{common.detect\_handovers}\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/common.py?ref_type=heads\#L263}} to detect whether a handover was performed between two subsequent snapshots; getting all the handovers is simply a matter of iterating for every JSON file we saved and running the function on each pair.
 
 We now correlate satellite handovers (the vertical dashed lines) with the bandwidth measurements we obtained before; we assume we might have bandwidth drops during handovers. 
 
@@ -457,7 +457,7 @@ We now correlate satellite handovers (the vertical dashed lines) with the bandwi
     \label{fig:vis-correlation-handovers}
 \end{figure}
 
-As we can verify from Figure \ref{fig:vis-correlation-handovers}, handovers do not seem to impact bandwidth drops.
+As we can verify from Figure \ref{fig:vis-correlation-handovers}, handovers do not seem to impact bandwidth drops. This suggests the dish is employing a sophisticated technology to perform satellite handovers without leading to a performance loss, further investigation might be needed to better understand what is enabling smooth transitions between satellites.
 
 The measurements chapter is, for the moment, concluded; we now move to wrap up our work.
 
@@ -476,9 +476,11 @@ Future research endeavors may include running our measurements over a more exten
 
 Moreover, the methodologies applied in our measurements on Starlink's dish may be adapted for use with Project Kuiper's dishes as soon as they are commercialized. While specifics about Project Kuiper's dish remain undisclosed, it is reasonable to expect it to offer a similar API for dish data access.
 
-Additionally, exploring the implementation of an IPv6-compatible router and external access to the dish may facilitate the execution of diverse measurements, as proposed in \cite{izhikevich2023democratizing}.
+Additionally, exploring the implementation of an IPv6-compatible router and external access to the dish may facilitate the execution of diverse measurements, as proposed by Izhikevich et al. \cite{izhikevich2023democratizing}.
 
-Another interesting topic of research is Inter Satellite Links (ISLs). Detecting whether packets are relayed between satellites can be accomplished by examining the initial hop after the Starlink Autonomous System. Using ISL routing might make it cheaper for SpaceX; it is reasonable to assume their operators might want to use their technology to do some internal routing to later exit the AS, where they have favorable agreements with other service providers.
+Another interesting topic of research are the recently added Inter Satellite Links (ISLs). Detecting whether packets are relayed between satellites can be accomplished by examining the initial hop after the Starlink Autonomous System. Using ISL routing might make it cheaper for SpaceX; it is reasonable to assume their operators might want to use their technology to do some internal routing to later exit the AS, where they have favorable agreements with other service providers.
+    
+
 
 \appendix
 \chapter{Appendix}
@@ -488,7 +490,6 @@ def calculate_visible_satellites(
     observer_latitude, observer_longitude, observer_elevation, distance_km
 ):
     stations_url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
-    ed
     satellites = load.tle_file(stations_url)
     observer = Topos(observer_latitude, observer_longitude, observer_elevation)
     ts = load.timescale()
@@ -538,6 +539,8 @@ print("Longitude:", lon)
 \pagestyle{thesischapter}
 \cleardoublepage
 \selectlanguage{english}
+\listoffigures
+\listoftables
 \printbibliography[heading=bibintoc]
 \clearpage
 \pagestyle{empty}

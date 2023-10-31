@@ -168,44 +168,6 @@ def extract_between_dash_and_json(input_string):
         return None
 
 
-def detect_handovers(dir):
-    l = sorted(os.listdir(dir))
-    last = 0
-    print(
-        f"[*] examining obstruction maps in interval: {l[0][:-4]} and {extract_between_dash_and_json(l[-1][:-4])}"
-    )
-    suspected_handovers = []
-    for i in range(0, len(l) - 1, 2):
-        f1 = os.path.join(dir, l[i])
-        f2 = os.path.join(dir, l[i + 1])
-        fv1 = os.path.join(dir + "-viz", l[i]) + ".png"
-        os.path.join(dir + "-viz", l[i + 1]) + ".png"
-
-        map1 = json.load(open(f1))
-        map1 = map1["dishGetObstructionMap"]["snr"]
-        map1 = np.array(map1).reshape(123, 123)
-        map2 = json.load(open(f2))
-        map2 = map2["dishGetObstructionMap"]["snr"]
-        map2 = np.array(map2).reshape(123, 123)
-
-        new_map = map1 + map2
-        new_dots = np.count_nonzero(new_map == 0)
-        if new_dots > 0:
-            x, y = np.where(new_map == 0)
-            for hx in x:
-                for hy in y:
-                    pot = new_map[hx - 1 : hx + 2, hy - 1 : hy + 2]
-                    if 2 not in pot:
-                        new_t = extract_between_dash_and_json(fv1)
-                        # print(
-                        #         f"[-] handover detected: {new_t} rel: {(datetime.fromtimestamp(float(new_t))-datetime.fromtimestamp(float(last))).total_seconds()} "
-
-                        # )
-                        suspected_handovers.append(new_t)
-            last = extract_between_dash_and_json(fv1)
-    return suspected_handovers
-
-
 # remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin --report-speed=bits -O /dev/null; done
 # sudo ip route add 88.198.248.254  via 192.168.1.1
 def measure_bw(filename):
@@ -258,27 +220,3 @@ def visualize_handover(f1, f2):
     ax[1].imshow(map2)
     plt.title(f"{f1} ~> {f2}")
     plt.plot()
-
-
-def detect_handovers(f1, f2, list):
-    map1 = json.load(open(f1))
-    map1 = map1["dishGetObstructionMap"]["snr"]
-    map1 = np.array(map1).reshape(123, 123)
-
-    map2 = json.load(open(f2))
-    map2 = map2["dishGetObstructionMap"]["snr"]
-    map2 = np.array(map2).reshape(123, 123)
-
-    new = map1 + map2
-
-    rows, cols = np.where(new == 0)
-    zero_coordinates = list(zip(rows, cols))
-    for coord in zero_coordinates:
-        #     print(coord)
-        hx = coord[0]
-        hy = coord[1]
-        pot = new[hx - 2 : hx + 2, hy - 2 : hy + 2]
-        if not 2 in pot:
-            head, tail = os.path.split(f1)
-            list.append(int(tail[:-5]))
-            # logging.info(f"detected handover between {f1} and {f2}")
