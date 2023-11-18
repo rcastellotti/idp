@@ -1,6 +1,6 @@
 \documentclass[NET,english,beameralt]{tumbeamer}
-\usepackage[options]{minted}
-\usepackage[options]{hyperref}
+% \usepackage[options]{hyperref}
+\usepackage{listings}
 \input{include/slides}
 % \beamerdefaultoverlayspecification{<+->}
 
@@ -66,26 +66,32 @@
 \end{frame}
 
 \begin{frame}[fragile]{\texttt{common.calculate\_visible\_satellites}}
-\begin{minted}[fontsize=\small]{python3}
+    \begin{lstlisting}[
+        language=python,
+        caption={visualizing a single obstruction map},
+        captionpos=b,
+        label=listing-obs,
+        basicstyle=\small,
+    ]
 def calculate_visible_satellites(...):
-    # ...
-    satellites = load.tle_file(stations_url)
-    observer = Topos(observer_latitude, observer_longitude, observer_elevation)
-    t = load.timescale().now()
+# ...
+satellites = load.tle_file(stations_url)
+observer = Topos(observer_latitude, observer_longitude, observer_elevation)
+t = load.timescale().now()
 
-    # Calculate satellite positions
-    positions = [(sat, (sat - observer).at(t)) for sat in satellites]
-    
-    # Filter visible satellites
-    visible_satellites = []
-    for sat, position in positions:
-        alt, az, distance = position.altaz()
-        # Satellite is above the horizon
-        if alt.degrees > 0 and distance.km < distance_km:
-            visible_satellites.append((sat, alt, az))
+# Calculate satellite positions
+positions = [(sat, (sat - observer).at(t)) for sat in satellites]
 
-    return visible_satellites
-\end{minted}
+# Filter visible satellites
+visible_satellites = []
+for sat, position in positions:
+    alt, az, distance = position.altaz()
+    # Satellite is above the horizon
+    if alt.degrees > 0 and distance.km < distance_km:
+        visible_satellites.append((sat, alt, az))
+
+return visible_satellites
+    \end{lstlisting}
 \end{frame}
 
 \begin{frame}{count of visible satellites across time}

@@ -1,0 +1,232 @@
+\documentclass[NET,english,beameralt]{tumbeamer}
+% \usepackage[options]{hyperref}
+\usepackage{listings}
+\input{include/slides}
+
+\begin{document}
+
+\begin{frame}{Starlink 101}
+\begin{figure}
+    \includegraphics[width=0.75\textwidth]{pics/starlink-101.png}
+    \caption[short]{starlink in a nutshell (ignoring ISL), from \cite{izhikevich2023democratizing}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Understanding routing decisions}
+\begin{itemize}
+    \item retrieved ip address blocks from major cloud providers (aws,azure,oracle), as we know their position
+    \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a
+    traceroute to that geographic area}
+    \item chose 5 geographically sparse targets around the globe (for aws: ap-northeast-2, us-east-1, ap-south-1,
+    sa-east-1, me-south-1 )
+    \item tracerouted the targets over several days 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Understanding routing decisions}
+\begin{figure}
+    \includegraphics[width=0.75\textwidth]{pics/aws_7_icmp.png}
+    \caption[short]{First 7 hops of traceroutes to 5 AWS datacenters using ICMP}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Visualize visible satellites}
+\begin{itemize}
+    \item from \href{celestrak.org}{celestrak.org} we can download a list of Starlink's satellites TLEs
+    \item A two-line element set (TLE) is a data format encoding a list of orbital elements of an Earth-orbiting object
+    for a given point in time, the epoch. Using a suitable prediction formula, the state (position and velocity) at any
+    point in the past or future can be estimated to some accuracy. (from wikipedia.org)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{common.calculate\_visible\_satellites}}
+    \begin{lstlisting}[
+        language=python,
+        caption={visualizing a single obstruction map},
+        captionpos=b,
+        label=listing-obs,
+        basicstyle=\small,
+    ]
+def calculate_visible_satellites(...):
+# ...
+satellites = load.tle_file(stations_url)
+observer = Topos(observer_latitude, observer_longitude, observer_elevation)
+t = load.timescale().now()
+
+# Calculate satellite positions
+positions = [(sat, (sat - observer).at(t)) for sat in satellites]
+
+# Filter visible satellites
+visible_satellites = []
+for sat, position in positions:
+    alt, az, distance = position.altaz()
+    # Satellite is above the horizon
+    if alt.degrees > 0 and distance.km < distance_km:
+        visible_satellites.append((sat, alt, az))
+
+return visible_satellites
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Visualizing patterns in visible satellites}
+    \begin{figure}
+        \includegraphics[width=1\textwidth]{pics/visualizing-how-long-satellites-are-visible-for.png}
+        \caption[short]{Visualizing patterns in visible satellites}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{The gRPC api}
+    \begin{itemize}
+        \item the dish exposes a gRPC api with server reflection, "runtime construction of requests without having stub
+        information precompiled into the client."
+        \footnote{\href{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
+        \item 55 "methods" are available, most of them don't work, we have 2 categories of errors: \texttt{Uninmplemented},
+        \texttt{PermissionDenied} and a couple of some other specific errors 
+        \item working methods: \texttt{reboot}, \texttt{get\_status}, \texttt{start\_dish\_self\_test}, \texttt{get\_history}, \texttt{get\_device\_info}, \texttt{dish\_power\_save}, \texttt{dish\_get\_config}, \texttt{get\_obstruction\_map}
+        \item to see all methods:
+        \href{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Querying the  \texttt{dish\_get\_obstruction\_map} endpoint }
+    \begin{lstlisting}[
+        basicstyle=\footnotesize,
+    ]
+"apiVersion":"9",
+"dishGetObstructionMap":{
+    "minElevationDeg":10.0,
+    "numCols":123,
+    "numRows":123,
+    "snr":[
+        -1.0,
+        -1.0,
+        1.0,
+        1.0,
+        -1.0,
+        -1.0,
+        "...",
+        1.0,
+        1.0,
+        1.0,
+        -1.0,
+        -1.0,
+        -1.0
+    ]
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Visualizing a single Obstruction Map}
+    \begin{lstlisting}[
+        caption={Visualizing a single obstruction map},
+        captionpos=b,
+        basicstyle=\small,
+    ]
+    import json
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    f = "1692089163.json"
+    map = json.load(open(f))
+    map = map["dishGetObstructionMap"]["snr"]
+    map = np.array(map).reshape(123, 123)
+    plt.imshow(map)
+    plt.show()
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{figure}
+        \includegraphics[width=0.4\columnwidth]{pics/map1.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{figure}
+        \includegraphics[width=0.4\columnwidth]{pics/map2.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{figure}
+        \includegraphics[width=0.4\columnwidth]{pics/map3.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{figure}
+        \includegraphics[width=0.4\columnwidth]{pics/map4.png}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Obstruction Maps as Matrices (no handover)}
+    $\begin{bmatrix}
+        -1 & -1 & \color{red}1 &           -1 & -1 \\
+        -1 & -1 &           -1 & \color{red}1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\ 
+        \end{bmatrix}
+        +
+        \begin{bmatrix}
+        -1 & -1 & \color{red}1 &           -1 &           -1 \\
+        -1 & -1 &           -1 & \color{red}1 &           -1 \\
+        -1 & -1 &           -1 &           -1 & \color{red}1 \\
+        -1 & -1 &           -1 &           -1 &           -1 \\
+        -1 & -1 &           -1 &           -1 &           -1 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+        -2 & -2 & 2 &  -2 &           -2 \\
+        -2 & -2 & -2 &  2 &           -2 \\
+        -2 & -2 & -2 & -2 & \color{red}0 \\
+        -2 & -2 & -2 & -2 &            -2 \\
+        -2 & -2 & -2 & -2 &            -2 \\
+    \end{bmatrix}$
+
+    \vspace{5mm}
+    
+\end{frame}
+
+\begin{frame}{Obstruction Maps as Matrices (handover)}
+    $\begin{bmatrix}
+        -1 & -1 & \color{red}1 &           -1 & -1 \\
+        -1 & -1 &           -1 & \color{red}1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        -1 & -1 & \color{red}1 &           -1 & -1 \\
+        -1 & -1 &           -1 & \color{red}1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+        -1 & -1 &           -1 &           -1 & -1 \\
+        1 & -1 &            -1 &           -1 & -1 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        -2 & -2 & 2 & -2 & -2 \\
+        -2 & -2 & -2 & 2 & -2 \\
+        -2 & -2 & -2 & -2 & -2 \\
+        -2 & -2 & -2 & -2 & -2 \\
+        \color{red}0 & -2 & -2 & -2 & -2 \\
+    \end{bmatrix}$
+\end{frame}
+
+\begin{frame}[fragile]{Correlation between satellite handovers bandwidth drops}
+    \begin{figure}
+        \includegraphics[width=0.8\columnwidth]{pics/correlation_handovers_bw.png}
+    \end{figure}
+\end{frame}
+
+\section{Bibliography}
+\begin{frame}[allowframebreaks]
+    \bibliographystyle{abbrv}
+    \setbeamertemplate{bibliography item}[text]
+    \footnotesize
+    \bibliography{lit}
+\end{frame}
+
+\end{document}
