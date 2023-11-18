@@ -12,25 +12,25 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Understanding routing decisions}
+\begin{frame}{Understanding Routing Decisions}
 \begin{itemize}
     \item retrieved ip address blocks from major cloud providers (aws,azure,oracle), as we know their position
     \footnote[]{the fact we know the position doesn't really mean a traceroute to a certain address is really a
     traceroute to that geographic area}
-    \item chose 5 geographically sparse targets around the globe (for aws: ap-northeast-2, us-east-1, ap-south-1,
-    sa-east-1, me-south-1 )
+    \item chose 5 geographically sparse targets around the globe (for aws: \texttt{ap-northeast-2}, \texttt{us-east-1}, \texttt{ap-south-1},
+    \texttt{sa-east-1}, \texttt{me-south-1} )
     \item tracerouted the targets over several days 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Understanding routing decisions}
+\begin{frame}{Understanding Routing Decisions}
 \begin{figure}
     \includegraphics[width=0.75\textwidth]{pics/aws_7_icmp.png}
     \caption[short]{First 7 hops of traceroutes to 5 AWS datacenters using ICMP}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Visualize visible satellites}
+\begin{frame}{Visualize Visible Satellites}
 \begin{itemize}
     \item from \href{celestrak.org}{celestrak.org} we can download a list of Starlink's satellites TLEs
     \item A two-line element set (TLE) is a data format encoding a list of orbital elements of an Earth-orbiting object
@@ -42,7 +42,6 @@
 \begin{frame}[fragile]{\texttt{common.calculate\_visible\_satellites}}
     \begin{lstlisting}[
         language=python,
-        caption={visualizing a single obstruction map},
         captionpos=b,
         label=listing-obs,
         basicstyle=\small,
@@ -68,12 +67,17 @@ return visible_satellites
     \end{lstlisting}
 \end{frame}
 
-\begin{frame}{Visualizing patterns in visible satellites}
+\begin{frame}{Visualizing Patterns in Visible Satellites}
     \begin{figure}
-        \includegraphics[width=1\textwidth]{pics/visualizing-how-long-satellites-are-visible-for.png}
-        \caption[short]{Visualizing patterns in visible satellites}
+        \includegraphics[width=1\textwidth]{pics/patterns-in-satellite-appearances.png}
     \end{figure}
 \end{frame}
+
+\begin{frame}{Measuring RTT Changes when Applying Stress with iPperf}
+    \begin{figure}
+        \includegraphics[width=1\textwidth]{pics/rtt-iperf-stress.png}
+    \end{figure}
+    \end{frame}
 
 \begin{frame}{The gRPC api}
     \begin{itemize}
@@ -88,7 +92,7 @@ return visible_satellites
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Querying the  \texttt{dish\_get\_obstruction\_map} endpoint }
+\begin{frame}[fragile]{Querying the  \texttt{dish\_get\_obstruction\_map} Endpoint }
     \begin{lstlisting}[
         basicstyle=\footnotesize,
     ]
@@ -118,7 +122,6 @@ return visible_satellites
 
 \begin{frame}[fragile]{Visualizing a single Obstruction Map}
     \begin{lstlisting}[
-        caption={Visualizing a single obstruction map},
         captionpos=b,
         basicstyle=\small,
     ]
@@ -160,7 +163,7 @@ return visible_satellites
 \end{frame}
 
 
-\begin{frame}{Obstruction Maps as Matrices (no handover)}
+\begin{frame}{Obstruction Maps as Matrices (No Handover)}
     $\begin{bmatrix}
         -1 & -1 & \color{red}1 &           -1 & -1 \\
         -1 & -1 &           -1 & \color{red}1 & -1 \\
@@ -184,12 +187,9 @@ return visible_satellites
         -2 & -2 & -2 & -2 &            -2 \\
         -2 & -2 & -2 & -2 &            -2 \\
     \end{bmatrix}$
-
-    \vspace{5mm}
-    
 \end{frame}
 
-\begin{frame}{Obstruction Maps as Matrices (handover)}
+\begin{frame}{Obstruction Maps as Matrices (Handover)}
     $\begin{bmatrix}
         -1 & -1 & \color{red}1 &           -1 & -1 \\
         -1 & -1 &           -1 & \color{red}1 & -1 \\
@@ -215,7 +215,7 @@ return visible_satellites
     \end{bmatrix}$
 \end{frame}
 
-\begin{frame}[fragile]{Correlation between satellite handovers bandwidth drops}
+\begin{frame}[fragile]{Correlation between Satellite Handovers and Bandwidth Drops}
     \begin{figure}
         \includegraphics[width=0.8\columnwidth]{pics/correlation_handovers_bw.png}
     \end{figure}
