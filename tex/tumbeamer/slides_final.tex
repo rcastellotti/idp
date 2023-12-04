@@ -48,7 +48,7 @@
               Enterprises and Governments
         \item Amazon is currently launching its own LEO constellation: Project Kuiper
               \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to launch
-              3,236 satellites, with secured lanches (BlueOrigin)
+              3,236 satellites with secured lanches (BlueOrigin)
         \item The China Aerospace Science and Technology Corporation plans to deploy a 13,000-satellite constellation
               \footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
         \item The increasing number of LEO satellites might cause problems, mainly:
@@ -86,7 +86,7 @@
 \begin{frame}{Measuring Latency to the Point of Presence}
     Can we measure latency to the Point of Presence (PoP)?
     \begin{itemize}
-        \item In short, we don't have to
+        \item In short, we do not have to
         \item The \texttt{get\_status} endpoint contains a  \texttt{pop\_ping\_latency\_ms} field
         \item We started polling the endpoint to gather latency to the Point of Presence
         \pause
@@ -120,7 +120,7 @@
 
 \begin{frame}{Understanding Routing Decisions}
     \begin{itemize}
-        \item First 7 hops to 5 different AWS datacenters
+        \item First seven hops to 5 different AWS datacenters
         \item Using ICMP protocol
         \item Left is Starlink, right is default cabled connection
     \end{itemize}
@@ -138,7 +138,7 @@
             \item Allow for estimation of position and velocity at any point in the past or future
         \end{itemize}     
         \item Downloaded a list of Starlink's satellites TLEs from \href{celestrak.org}{celestrak.org}
-        \item Wrote a python script to calculate visible
+        \item Wrote a Python script to calculate visible
         satellites\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/common.py?ref_type=heads\#L132}}
         \item Gathered information about satellite position
         \item Visualized patterns in satellite appearances.
@@ -175,7 +175,7 @@
 \begin{frame}{The \texttt{dish\_get\_obstruction\_map} Endpoint}
     Can we use a side channel to extract satellite handovers from obstruction maps?
     \begin{itemize}
-        \item An obstruction map captures the position where the Dish has seen satellites
+        \item An obstruction map captures the position where the dish has seen satellites
         \item Designed to provide a way to report whether the dish positioning is optimal
         \item Following the approach described by Izhikevich et al. \cite{izhikevich2023democratizing}, we retrieved maps
         \begin{itemize}
@@ -289,6 +289,7 @@
     \begin{itemize}
         \item Blue is bandwidth
         \item Red vertical dashes are satellite handovers
+        \item There is no specific pattern in satellite handovers
         \item No correlation between handovers and bandwidth drops
     \end{itemize}
     \begin{figure}
@@ -310,10 +311,11 @@
 \begin{frame}[fragile]{Future Work}
     Further research might include:
     \begin{itemize}
-        \item Running the same measurements over a longer period of time
+        \item Running the same measurements over a longer period
         \item Analyzing routing using IPv6
         \item Repeating the measurements with different satellite constellations
-        \item Analyze ISL routing (first hop after AS14593)
+        \item Analyzing ISL routing (first hop after AS14593)
+        \item Analyzing satellite handovers while overloading the interface
     \end{itemize}
 \end{frame}
 
