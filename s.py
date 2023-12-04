@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-# a simple tool to interact with the gRPC dish
-
+"""
+simple CLI tool using `api`
+"""
 import argparse
-import nine981
 import json
 from pprint import pprint
+import api
 
 parser = argparse.ArgumentParser(prog="s(mol)tarlink cli")
 
@@ -24,10 +25,10 @@ parser.add_argument(
 args = parser.parse_args()
 
 if args.obstruction_map:
-    pprint(json.loads(nine981.get_obstruction_map()))
+    pprint(json.loads(api.get_obstruction_map()))
 elif args.reboot:
-    pprint(json.loads(nine981.reboot()))
+    pprint(json.loads(api.reboot()))
 elif args.status:
-    pprint(json.loads(nine981.get_status()))
+    pprint(json.loads(api.get_status()))
 else:
     parser.print_help()

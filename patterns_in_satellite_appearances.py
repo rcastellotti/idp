@@ -1,9 +1,14 @@
+"""
+save satellite appearance patterns to a sqlite database
+`scratch`.ipynb contains a cell to visualize the data created
+by this script
+"""
 import time
-from common import calculate_visible_satellites
+import logging
 import argparse
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
-import logging
+from common import calculate_visible_satellites
 
 parser = argparse.ArgumentParser(
     prog="retrieve visible satellites (you get to define what visible means)"
@@ -28,12 +33,16 @@ args = parser.parse_args()
 if args.verbose:
     logging.basicConfig(level="INFO")
 
-db_url = "sqlite:///satellites.sqlite"
-engine = create_engine(db_url)
+DB_URL = "sqlite:///satellites.sqlite"
+engine = create_engine(DB_URL)
 Base = declarative_base()
 
 
 class Satellite(Base):
+    """
+    satellite class, needed by SQLAlchemy
+    """
+
     __tablename__ = "satellites"
     id = Column(Integer, primary_key=True)
     relative_ts = Column(Integer)
@@ -52,9 +61,9 @@ class Satellite(Base):
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-count = 0
+COUNT = 0
 while True:
-    count += 1
+    COUNT += 1
     timestamp = time.time()
     vis_sat = calculate_visible_satellites(
         args.latitude, args.longitude, args.elevation, args.distance
@@ -62,7 +71,7 @@ while True:
     for sat, alt, az in vis_sat:
         new_satellite = Satellite(
             satname=sat.name,
-            relative_ts=count,
+            relative_ts=COUNT,
             alt=str(alt),
             az=str(az),
             ts=timestamp,

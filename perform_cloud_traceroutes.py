@@ -1,9 +1,16 @@
-from scapy.all import *
+"""
+traceroute an host, using different methods, using both starlink
+and the default cabled connection
+"""
 import argparse
-from common import traceroute
+import logging
+import os
 import csv
 from pathlib import Path
 from datetime import datetime
+from scapy.config import conf
+from common import traceroute
+
 
 parser = argparse.ArgumentParser(prog="traceroute")
 parser.add_argument(
@@ -25,35 +32,41 @@ else:
     logging.getLogger().setLevel(logging.INFO)
 
 
-def run_traceroute(filename, type):
-    logging.debug(f"traceroute {filename}")
+def run_traceroute(filename):
+    """
+    run the traceroute
+    """
+    logging.debug("tracerouting %s", filename)
     file_exists = os.path.isfile(filename)
 
-    with open(filename, "a") as f:
+    with open(filename, "a", encoding="utf-8") as f:
         writer = csv.writer(f)
         if not file_exists:
             writer.writerow(("timestamp", "ttl", "ip", "hostname", "asn"))
-        results = traceroute(ip, p, asndb=args.asndb)
-        writer.writerows(results)
+        res = traceroute(ip, p, asndb=args.asndb)
+        writer.writerows(res)
 
 
-with open(args.region_file, "r") as csvfile:
+# sudo ./perform_cloud_traceroutes.py \
+#                                          -d gino \
+#                                          -a ../idp-castellotti-data/ipasn_20230315.dat
+# -r ../idp-castellotti-data/targets.csv
+
+with open(args.region_file, "r", encoding="utf-8") as csvfile:
     next(csvfile)  # skipping the header
     reader = csv.reader(csvfile)
 
     for row in reader:
         provider, region, ip = row
-        dir = args.directory
-        Path(dir + "/" + provider).mkdir(parents=True, exist_ok=True)
+        d = args.directory
+        Path(d + "/" + provider).mkdir(parents=True, exist_ok=True)
 
         for p in ["ICMP", "UDP", "TCP"]:
             dt = datetime.now().isoformat()
             results = []
 
-            filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-normal.csv"
-            run_traceroute(filename, "normal")
+            run_traceroute(f"{d}/{provider}/{region}-{ip}-{dt}-{p}-normal.csv")
 
             conf.route.add(net="0.0.0.0/0", gw="192.168.200.11")
-            filename = f"{dir}/{provider}/{region}-{ip}-{dt}-{p}-starlink.csv"
-            run_traceroute(filename, "starlink")
+            run_traceroute(f"{d}/{provider}/{region}-{ip}-{dt}-{p}-starlink.csv")
             conf.route.delt(net="0.0.0.0/0", gw="192.168.200.11")

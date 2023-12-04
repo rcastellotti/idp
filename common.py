@@ -1,46 +1,27 @@
-# common stuff used in different scripts
+"""
+this module offers common functions, namely:
+"""
 import csv
 import logging
 import json
 import os
 from datetime import datetime
 import socket
-import numpy as np
 import time
-import re
-import matplotlib.pyplot as plt
-from ipaddress import ip_address, IPv4Address, IPv6Address
-
-from nine981 import get_status
 import pyasn
-from scapy.all import (
-    IP,
-    IPv6,
-    TCP,
-    IPv6,
-    conf,
-    ICMP,
-    sr1,
-    UDP,
-)
-from pathlib import Path
+from scapy.layers.inet import IP, UDP, TCP, ICMP
+from scapy.sendrecv import sr1
 from skyfield.api import Topos, load
-
-import re
-
-
-def is_ipv4(address):
-    ipv4_pattern = r"^(\d{1,3}\.){3}\d{1,3}$"
-    return re.match(ipv4_pattern, address) is not None
-
-
-def is_ipv6(address):
-    ipv6_pattern = r"^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"
-    return re.match(ipv6_pattern, address) is not None
+from api import get_status
 
 
 def read_rx_bytes(interface):
-    with open(f"/sys/class/net/{interface}/statistics/rx_bytes", "r") as file:
+    """
+    read bytes received from `interface`
+    """
+    with open(
+        f"/sys/class/net/{interface}/statistics/rx_bytes", "r", encoding="utf-8"
+    ) as file:
         rx_bytes = int(file.read())
     return rx_bytes
 
@@ -51,37 +32,39 @@ def reach_target(target, filename, asndb):
     in a csv file
     """
     asndb = pyasn.pyasn(asndb)
-    time = datetime.now()
+    time_now = datetime.now()
     filename = f"{filename}.csv"
     file_exists = os.path.isfile(filename)
-    f = open(filename, "a")
-    writer = csv.writer(f)
-    if not file_exists:
-        writer.writerow(["time", "hop#", "ip"])
-    for i in range(3, 8):
-        pkt = IP(dst=target, ttl=i) / ICMP()
-        res = sr1(pkt, verbose=0, timeout=3)
-        if res:
-            src = res.src
-            logging.debug(src)
-            lookup = asndb.lookup(src)
-            if lookup[0] == 14593:
-                writer.writerow([time, i, src])
+    with open(filename, "a", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["time", "hop#", "ip"])
+        for i in range(3, 8):
+            pkt = IP(dst=target, ttl=i) / ICMP()
+            res = sr1(pkt, verbose=0, timeout=3)
+            if res:
+                src = res.src
+                logging.debug(src)
+                lookup = asndb.lookup(src)
+                if lookup[0] == 14593:
+                    writer.writerow([time_now, i, src])
 
 
 # i should turn this into a class with a .run() method and a .display() method
 def traceroute(target, protocol, asndb):
+    """
+    + traceroute("1.1.1.1","ICMP", "../idp-castellotti-data/ipasn_20230315.dat")
+    + traceroute("1.1.1.1","UDP", "../idp-castellotti-data/ipasn_20230315.dat")
+    + traceroute("1.1.1.1","TCP", "../idp-castellotti-data/ipasn_20230315.dat")
+    """
     asndb = pyasn.pyasn(asndb)
 
     ttl = 1
     probe_timestamp = int(time.time())
     results = []
     while ttl < 30:
-        if is_ipv6(target):
-            pkt_base = IPv6(dst=target, hlim=ttl)
-        elif is_ipv4(target):
-            pkt_base = IP(dst=target, ttl=ttl)
-
+        pkt_base = IP(dst=target, ttl=ttl)
+        pkt=""
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
         elif protocol == "UDP":
@@ -118,20 +101,12 @@ def traceroute(target, protocol, asndb):
     return results
 
 
-def run_traceroute_and_save_to_file(filename, ip, protocol, asndb):
-    logging.debug(f"traceroute: {filename}")
-    file_exists = os.path.isfile(filename)
-    with open(filename, "a") as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(("timestamp", "hop", "ip", "hostname", "asn", "rtt"))
-        results = traceroute(ip, protocol, asndb=asndb)
-        writer.writerows(results)
-
-
 def calculate_visible_satellites(
     observer_latitude, observer_longitude, observer_elevation, distance_km
 ):
+    """
+    calculate visible satellites using skyfield
+    """
     stations_url = (
         "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
     )
@@ -159,21 +134,20 @@ def calculate_visible_satellites(
     return visible_satellites
 
 
-def extract_between_dash_and_json(input_string):
-    pattern = r"map-(.*).json"
-    match = re.search(pattern, input_string)
-    if match:
-        return match.group(1)
-    else:
-        return None
 
 
-# remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin --report-speed=bits -O /dev/null; done
+
+# remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin
+#             --report-speed=bits -O /dev/null; done
 # sudo ip route add 88.198.248.254  via 192.168.1.1
 def measure_bw(filename):
+    """
+    get bandwidth from the api
+
+    """
     interface = "enp1s0f3"
     file_exists = os.path.exists(filename)
-    with open(filename, "a+") as f:
+    with open(filename, "a+", encoding="utf-8") as f:
         csv_writer = csv.writer(f)
         if not file_exists:
             csv_writer.writerow(
@@ -186,7 +160,7 @@ def measure_bw(filename):
             )
 
     previous_bytes = read_rx_bytes(interface)
-    with open(filename, "a") as f:
+    with open(filename, "a", encoding="utf-8") as f:
         csv_writer = csv.writer(f)
         while True:
             time.sleep(1)
@@ -206,17 +180,3 @@ def measure_bw(filename):
                 ]
             )
             f.flush()
-
-
-def visualize_handover(f1, f2):
-    fig, ax = plt.subplots(1, 2, figsize=(12, 7))
-    map1 = json.load(open(f1))
-    map1 = map1["dishGetObstructionMap"]["snr"]
-    map1 = np.array(map1).reshape(123, 123)
-    map2 = json.load(open(f2))
-    map2 = map2["dishGetObstructionMap"]["snr"]
-    map2 = np.array(map2).reshape(123, 123)
-    ax[0].imshow(map1)
-    ax[1].imshow(map2)
-    plt.title(f"{f1} ~> {f2}")
-    plt.plot()

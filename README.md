@@ -1,5 +1,19 @@
 # IDP Castellotti
 
+
+measure latency check still works after nine981 rename
+
+## `api.py`
+This module calls the gRPC api and returns JSON data, offers:
+    + `api.get_status()`
+    + `api.reboot()`
+    + `api.get_obstruction_map()`
+Should be straightforward to extend to call [other gRPC endpoints](https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac)
+
+## `s.py`
+An extremely simple CLI to call methods from the `api` module
+
+
 ## traceroute systemd-timer
 
 ```bash
@@ -32,7 +46,23 @@ huge problem with cloud providers -> we loose track of the packet as soon as it 
 ## additional stuff
 
 + http://geoip.starlinkisp.net/feed.csv
-+ get pops: `curl -g -X 'GET' \
-'https://search.censys.io/api/v2/hosts/search?per_page=25&virtual_hosts=EXCLUDE&q=autonomous_system.name%3D%60SPACEX-STARLINK%60+and+dns.reverse_dns.names+%3Dcustomer.*' \
--H 'Accept: application/json' \
---user "$CENSYS_API_ID:$CENSYS_API_SECRET"`
+
+given a directory of obstruction maps: 
+TODO: give equivalent
+<!-- 
+# ffmpeg.input(f"{directory}-viz/*.png", framerate=60, pattern_type="glob").output(
+#     args.output,
+#     vcodec="libx264",
+#     pix_fmt="yuv420p",
+#     vf="pad=ceil(iw/2)*2:ceil(ih/2)*2",
+# ).run() -->
+
+
+
++ maybe save obstruction maps visualization
++  common py listare tutto
++  + configure pyasn
++  + i think pop measure latency is useless
+
+<!--  python3 obstruction_maps_visualization.py -i ../idp-castellotti-data/maps_overnight -o ./marco
+ -->

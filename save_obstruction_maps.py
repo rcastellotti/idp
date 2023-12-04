@@ -1,8 +1,11 @@
+"""
+save obstruction maps from get_obstruction_map endpoint 
+"""
 import os
 import time
 import argparse
 import logging
-import nine981
+import api
 
 parser = argparse.ArgumentParser(prog="save obstruction maps")
 parser.add_argument(
@@ -24,8 +27,8 @@ if args.verbose:
 
 logging.info("starting to save maps")
 for i in range(args.seconds):
-    map = nine981.get_obstruction_map()
+    obstruction_map = api.get_obstruction_map()
     os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
-    with open(f"{directory}/map-{time.time()}.json", "w+") as f:
-        f.write(map)
+    with open(f"{directory}/map-{time.time()}.json", "w+",encoding="utf-8") as f:
+        f.write(obstruction_map)
     time.sleep(0.5)

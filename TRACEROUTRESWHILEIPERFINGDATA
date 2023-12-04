@@ -1,10 +1,9 @@
-from threading import Thread
-from time import sleep
 import subprocess
+import time
 import logging
 import argparse
+from threading import Thread
 from common import cloud_traceroutes
-import time
 
 parser = argparse.ArgumentParser(prog="traceroute")
 parser.add_argument(
@@ -24,22 +23,30 @@ args.asndb = "/home/rc/idp-castellotti-data/ipasn_20230315.dat"
 args.region_file = "/home/rc/idp-castellotti/targets.csv"
 args.directory = "/home/rc/idp-castellotti-data/traceroutes-iperf-5bks"
 
-duration = 60 * 60 * 12
+DURATION = 60 * 60 * 12
 start_time = time.time()
-end_time = start_time + duration
+end_time = start_time + DURATION
 
 print(end_time)
 
 
 def tr():
+    """
+    run the traceroutes
+    """
     while time.time() < end_time:
         cloud_traceroutes(args.region_file, args.directory, args.asndb)
         time.sleep(1)
 
 
 def iperf():
+    """
+    run `iperf -c 138.246.253.20 -p 5001 -u -b 5k`
+    """
     while time.time() < end_time:
-        subprocess.run(["iperf", "-c", "138.246.253.20", "-p 5001", "-u", "-b 5k"])
+        subprocess.run(
+            ["iperf", "-c", "138.246.253.20", "-p 5001", "-u", "-b 5k"], check=True
+        )
 
 
 if __name__ == "__main__":
