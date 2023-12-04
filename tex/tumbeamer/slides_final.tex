@@ -3,24 +3,19 @@
 \usepackage{listings}
 \input{include/slides}
 
-    \begin{document}
+\begin{document}
 
 \begin{frame}{What is Starlink?}
     \begin{itemize}
         \item Starlink is a Low Earth Orbiting (LEO) Satellite Constellation
-        \item Brings Internet connection to remote areas 
         \item 4000+ satellites with plans to launch more
         \item End users have a Dish to connect to satellites in sight
-        \item Performance is higher compared to geostationary satellites (GEOSAT) based connections
-        \item Satellites are orbiting at ~550 km in height vs GEOSAT's 35,000 km
-        \item Average latency is ~35 ms
-        \item Download bandwidth is $>$ 100 MBps
+        \item Performance is higher compared to geostationary satellites (GEOSAT) based connections (~550 km in height vs 35,000 km)
+        \item Average latency is ~35 ms, download bandwidth is $>$ 100 MBps
     \end{itemize}
-\end{frame}
 
-\begin{frame}{Starlink 101}
     \begin{figure}
-        \includegraphics[width=0.75\textwidth]{pics/starlink-101.png}
+        \includegraphics[width=0.45\textwidth]{pics/starlink-101.png}
         \caption{Starlink in a nutshell (ignoring Inter Satellite Links), from \cite{izhikevich2023democratizing}}
     \end{figure}
 \end{frame}
@@ -28,37 +23,53 @@
 \begin{frame}{Our Dish}
     \begin{figure}
         \includegraphics[width=0.3\textwidth]{pics/dish.jpeg}
-        \caption{Our Starlink Dish}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Problem Statement}
-    \color{red}{should I remove this slide?}
     \begin{itemize}
         \item Documenting gRPC API
-        \item Measuring Latency to Point of Presence
-        \item Understanding Routing Decisions
-        \item Visualize Visible Satellites and patterns in their appearance
-        \item Physical Layer Influences on Performance
-        \item Retrieval of Obstruction Maps
-        \item Satellite Handovers detection based on Obstruction Maps
-        \item Correlation between Satellite Handovers and Bandwidth Drops   
+        \item Can we measure latency to the Point of Presence (PoP)?
+        \item Can we gather additional information about routing inside AS14593 
+              \footnote{The Autonomous System SpaceX opearates; \url{https://www.peeringdb.com/net/18747}}?
+        \item Can we visualize visible satellites?
+        \item Is there any correlation between satellite handovers and drops in bandwidth?
+            \begin{itemize}
+                \item Retrieval of obstruction maps
+                \item Satellite handovers detection based on obstruction maps
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Similar Technologies}
+    \begin{itemize}
+        \item Eutelsat operates a LEO constellation, Oneweb \footnote{\url{https://oneweb.net}}, mainly serving Enterprises and Governments
+        \item Amazon is currently launching its own LEO constellation: Project Kuiper 
+              \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to launch 3,236 satellites,
+               with secured lanches (BlueOrigin)
+        \item The China Aerospace Science and Technology Corporation plans to deploy a 13,000-satellite constellation
+                \footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
+        \item The increasing number of LEO satellites might cause problems, mainly:
+        \begin{itemize}
+            \item Overall sky brightness increases (impacts astronomical observation)
+            \item Proliferation of debris
+        \end{itemize}
+        \item It is important to work on tooling to better understand the infrastructure
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Documenting the gRPC API}
-    We started by documenting the gRPC API running on the Dish
     \begin{itemize}
         \item We started by documenting the gRPC\footnote{\url{https://grpc.io} is a RPC framework from Google} API running on the dish
         \item API is reachable at \texttt{192.168.100.1:9200}
         \item The dish exposes a gRPC API with \emph{"Server Reflection"}\footnote{"Runtime construction of requests without having stub
             information precompiled into the client." \url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
-        \item 55 Endpoints are available
+        \item 55 endpoints are available
         \begin{itemize}
             \item Majority of them do not work
             \item 2 categories of errors: \texttt{Uninmplemented}, \texttt{PermissionDenied} and a some other errors 
         \end{itemize}
-        \item Most interesting working Endpoints \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
+        \item Most interesting working endpoints \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
             \begin{itemize}
                 \item \texttt{reboot}
                 \item \texttt{get\_status}
@@ -73,16 +84,13 @@
         \item In short, we don't have to
         \item The \texttt{get\_status} endpoint contains a  \texttt{pop\_ping\_latency\_ms} field
         \item We started polling the endpoint to gather latency to the Point of Presence
+        \pause
         \item Latency is pretty stable, averaging ~35 ms with some irregular peaks
         \item Data reported by the API seems to be consistent with traceroutes
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Measuring Latency to the Point of Presence}
     \begin{figure}
         \centering
-        \includegraphics[width=1\columnwidth]{pics/latency.png}
-        \caption{Visualizing latency to the Point of Presence.}
+        \includegraphics[width=0.6\columnwidth]{pics/latency.png}
     \end{figure}
 \end{frame}
 
@@ -108,13 +116,12 @@
 \begin{frame}{Understanding Routing Decisions}
     \begin{figure}
         \includegraphics[width=0.75\textwidth]{pics/aws_7_icmp.png}
-        \caption{First seven hops of traceroutes to 5 AWS datacenters using ICMP; left is Starlink, right is cabled connection}
+        % \caption{First seven hops of traceroutes to 5 AWS datacenters using ICMP; left is Starlink, right is cabled connection}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Visualize Visible Satellites}
     Can we visualize visible satellites?
-	\color{red}{should i add a TLE file in the next slide? I don't think it is too relevant}
     \begin{itemize}
         \item Two-line element sets (TLE)\footnote{\url{https://en.wikipedia.org/wiki/Two-line_element_set}}: 
         \begin{itemize} 
@@ -131,8 +138,8 @@
 
 \begin{frame}{Visualizing Patterns in Visible Satellites}
     \begin{figure}
-        \includegraphics[width=1\textwidth]{pics/patterns-in-satellite-appearances.png}
-        \caption{Visualizing patterns in Visible Satellites, we add a dot whenever we see a satellite}
+        \includegraphics[width=0.9\textwidth]{pics/patterns-in-satellite-appearances.png}
+        % \caption{Visualizing patterns in Visible Satellites, we add a dot whenever we see a satellite}
     \end{figure}
 \end{frame}
 
@@ -154,14 +161,14 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{the \texttt{dish\_get\_obstruction\_map} Endpoint}
+\begin{frame}{The \texttt{dish\_get\_obstruction\_map} Endpoint}
     Can we use a side channel to extract satellite handovers from obstruction maps?
     \begin{itemize}
-        \item An Obstruction Map captures the position where the Dish has seen satellites
+        \item An obstruction map captures the position where the Dish has seen satellites
         \item Designed to provide a way to report whether the dish positioning is optimal
         \item Following the approach described by Izhikevich et al. \cite{izhikevich2023democratizing}, we retrieved maps
         \begin{itemize}
-            \item Reboot the Dish to clear the Obstruction Map (\texttt{api.reboot})
+            \item Reboot the Dish to clear the obstruction map (\texttt{api.reboot})
             \item Poll the endpoint frequently enough to see satellite traces (\texttt{api.get\_obstruction\_map})
             \item Save the maps to visualize them later
         \end{itemize}
@@ -186,29 +193,10 @@
 
 \begin{frame}[fragile]
     \begin{figure}
-        \includegraphics[width=0.4\columnwidth]{pics/map1.png}
-        \caption{An Obstruction Map}
-    \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]
-    \begin{figure}
-        \includegraphics[width=0.4\columnwidth]{pics/map2.png}
-        \caption{An Obstruction Map}
-    \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]
-    \begin{figure}
-        \includegraphics[width=0.4\columnwidth]{pics/map3.png}
-        \caption{An Obstruction Map}
-    \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]
-    \begin{figure}
-        \includegraphics[width=0.4\columnwidth]{pics/map4.png}
-        \caption{An Obstruction Map}
+        \includegraphics<1>[width=0.4\columnwidth]{pics/map1.png}
+        \includegraphics<2>[width=0.4\columnwidth]{pics/map2.png}
+        \includegraphics<3>[width=0.4\columnwidth]{pics/map3.png}
+        \includegraphics<4>[width=0.4\columnwidth]{pics/map4.png}
     \end{figure}
 \end{frame}
 
@@ -227,52 +215,50 @@
                 \item If it is in complete different position \emph{an handover must have been performed}
             \end{itemize}
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Obstruction Maps as Matrices (No Handover)}
-    $$\begin{bmatrix}
-        -1 & \color{red}1 &           -1 & -1           \\
-        -1 &           -1 & \color{red}1 & -1           \\
-        -1 &           -1 &           -1 & -1           \\
-        -1 &           -1 &           -1 & -1           \\
+    \only<2>{
+        $$\begin{bmatrix}
+            -1 & \color{red}1 &           -1 & -1           \\
+            -1 &           -1 & \color{red}1 & -1           \\
+            -1 &           -1 &           -1 & -1           \\
+            -1 &           -1 &           -1 & -1           \\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+            -1 & \color{red}1 &           -1 &           -1 \\
+            -1 &           -1 & \color{red}1 &           -1 \\
+            -1 &           -1 &           -1 & \color{red}1 \\
+            -1 &           -1 &           -1 &           -1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            -2 & 2            &  -2          &           -2 \\
+            -2 & -2           &  2           &           -2 \\
+            -2 & -2           & -2           & \color{red}0 \\
+            -2 & -2           & -2           &           -2 \\
+        \end{bmatrix}$$
+    }
+    \only<3>{
+        $$\begin{bmatrix}
+            -1 & -1 & \color{red}1 &           -1          \\
+            -1 & -1 &           -1 & \color{red}1          \\
+            -1 & -1 &           -1 &           -1          \\
+            -1 & -1 &           -1 &           -1          \\
         \end{bmatrix}
         +
         \begin{bmatrix}
-        -1 & \color{red}1 &           -1 &           -1 \\
-        -1 &           -1 & \color{red}1 &           -1 \\
-        -1 &           -1 &           -1 & \color{red}1 \\
-        -1 &           -1 &           -1 &           -1 \\
+            -1 & -1 & \color{red}1 &           -1          \\
+            -1 & -1 &           -1 & \color{red}1          \\
+            -1 & -1 &           -1 &           -1          \\
+            1 & -1 &            -1 &           -1          \\
         \end{bmatrix}
         =
         \begin{bmatrix}
-        -2 & 2            &  -2          &           -2 \\
-        -2 & -2           &  2           &           -2 \\
-        -2 & -2           & -2           & \color{red}0 \\
-        -2 & -2           & -2           &           -2 \\
-    \end{bmatrix}$$
-\end{frame} 
-
-\begin{frame}{Obstruction Maps as Matrices (Handover)}
-    $$\begin{bmatrix}
-        -1 & -1 & \color{red}1 &           -1          \\
-        -1 & -1 &           -1 & \color{red}1          \\
-        -1 & -1 &           -1 &           -1          \\
-        -1 & -1 &           -1 &           -1          \\
-    \end{bmatrix}
-    +
-    \begin{bmatrix}
-        -1 & -1 & \color{red}1 &           -1          \\
-        -1 & -1 &           -1 & \color{red}1          \\
-        -1 & -1 &           -1 &           -1          \\
-        1 & -1 &            -1 &           -1          \\
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-        -2           & -2 & 2 &  -2                    \\
-        -2           & -2 & -2 &  2                    \\
-        -2           & -2 & -2 & -2                    \\
-        \color{red}0 & -2 & -2 & -2                    \\
-    \end{bmatrix}$$
+            -2           & -2 & 2 &  -2                    \\
+            -2           & -2 & -2 &  2                    \\
+            -2           & -2 & -2 & -2                    \\
+            \color{red}0 & -2 & -2 & -2                    \\
+        \end{bmatrix}$$
+    }
 \end{frame}
 
 \begin{frame}[fragile]{Correlating Satellite Handovers and Bandwidth Drops}
@@ -281,34 +267,18 @@
         \item We now have an algorithm to detect handovers
         \item We run two scripts in parallel:
             \begin{itemize}
-                \item 1st: Retrieves an obstruction map every second
-                \item 2nd: Gathers Bandwidth data
+                \item 1st: retrieves an obstruction map every second
+                \item 2nd: gathers bandwidth data
             \end{itemize} 
-        \item We visualize Bandwidth data and Satellite Handovers 
+        \item We visualize bandwidth data and satellite handovers 
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Correlating Satellite Handovers and Bandwidth Drops}
     \begin{figure}
         \includegraphics[width=0.8\columnwidth]{pics/correlation_handovers_bw.png}
-        \caption{Correlating Satellite Handovers and Bandwidth Drops, blue is bandwidth, red vertical dashes are satellite handovers}
+        % \caption{Correlating Satellite Handovers and Bandwidth Drops, blue is bandwidth, red vertical dashes are satellite handovers}
     \end{figure}
-\end{frame}
-estimation
-\begin{frame}{Similar Technologies}
-    \begin{itemize}
-        \item Eutelsat operates a LEO constellation, Oneweb \footnote{\url{https://oneweb.net}}, mainly serving Enterprises and Governments
-        \item Amazon is currently launching its own LEO constellation: Project Kuiper 
-              \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to launch 3,236 satellites,
-               with secured lanches (BlueOrigin)
-        \item The China Aerospace Science and Technology Corporation plans to deploy a 13,000-satellite constellation
-                \footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
-        \item The increasing number of LEO satellites might cause problems, mainly:
-        \begin{itemize}
-            \item Overall sky brightness increases (impacts astronomical observation)
-            \item Proliferation of debris
-        \end{itemize}
-    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Final Remarks}
@@ -322,6 +292,15 @@ estimation
     \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Future Work}
+    Further research might include:
+    \begin{itemize}
+        \item Running the same measurements over a longer period of time
+        \item Analyzing routing using IPv6
+        \item Repeating the measurements with different satellite constellations
+        \item Analyze ISL routing (first hop after AS14593)
+    \end{itemize}
+\end{frame}
 
 \section{Bibliography}
 \begin{frame}[allowframebreaks]
