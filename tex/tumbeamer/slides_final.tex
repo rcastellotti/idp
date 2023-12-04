@@ -119,9 +119,13 @@
 \end{frame}
 
 \begin{frame}{Understanding Routing Decisions}
+    \begin{itemize}
+        \item First 7 hops to 5 different AWS datacenters
+        \item Using ICMP protocol
+        \item Left is Starlink, right is default cabled connection
+    \end{itemize}
     \begin{figure}
         \includegraphics[width=0.75\textwidth]{pics/aws_7_icmp.png}
-        % \caption{First seven hops of traceroutes to 5 AWS datacenters using ICMP; left is Starlink, right is cabled connection}
     \end{figure}
 \end{frame}
 
@@ -142,10 +146,12 @@
 \end{frame}
 
 \begin{frame}{Visualizing Patterns in Visible Satellites}
+    \begin{itemize}
+        \item Satellites appear at regular intervals (\textasciitilde12 hours)
+        \item The small graphical artifact is not relevant (distance is the same)
+    \end{itemize}
     \begin{figure}
-        % \includegraphics[width=0.9\textwidth]{pics/patterns-in-satellite-appearances.png}
         \includegraphics[width=1\textwidth]{pics/patterns-in-satellite-appearances.pdf}
-        % \caption{Visualizing patterns in Visible Satellites, we add a dot whenever we see a satellite}
     \end{figure}
 \end{frame}
 
@@ -163,7 +169,6 @@
 \begin{frame}{{Physical Layer Influences on Performance}}
     \begin{figure}
         \includegraphics[width=1\textwidth]{pics/rtt-iperf-stress.png}
-        % \caption{Physical Layer Influences on Performance}
     \end{figure}
 \end{frame}
 
@@ -281,9 +286,13 @@
 \end{frame}
 
 \begin{frame}[fragile]{Correlating Satellite Handovers and Bandwidth Drops}
+    \begin{itemize}
+        \item Blue is bandwidth
+        \item Red vertical dashes are satellite handovers
+        \item No correlation between handovers and bandwidth drops
+    \end{itemize}
     \begin{figure}
         \includegraphics[width=0.8\columnwidth]{pics/correlation_handovers_bw.png}
-        % \caption{Correlating Satellite Handovers and Bandwidth Drops, blue is bandwidth, red vertical dashes are satellite handovers}
     \end{figure}
 \end{frame}
 
