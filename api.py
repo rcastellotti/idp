@@ -1,10 +1,10 @@
 """
 This module calls the gRPC api and returns JSON data, offers:
-    + `api.get_status()`
-    + `api.reboot()`
-    + `api.get_obstruction_map()`
-Should be straightforward to extend to call 
-[other gRPC endpoints](https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac)
++ `api.get_status()`
++ `api.reboot()`
++ `api.get_obstruction_map()`
+
+It should be straightforward to extend to call [other gRPC endpoints](https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac)
 """
 import warnings
 import grpc
@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore")
 
 def setup():
     """
-    setup stuff
+    Setup stuff
     """
     channel = grpc.insecure_channel("192.168.100.1:9200")
     importer.resolve_lazy_imports(channel)
@@ -53,8 +53,7 @@ def reboot():
 
 def get_obstruction_map():
     """
-    grpcurl -plaintext -d '{"dish_get_obstruction_map":{}}' 192.168.100.1:9200
-    SpaceX.API.Device.Device/Handle
+    grpcurl -plaintext -d '{"dish_get_obstruction_map":{}}' 192.168.100.1:9200 SpaceX.API.Device.Device/Handle
     """
     stub = setup()
     obstruction_map = stub.Handle(

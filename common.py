@@ -1,62 +1,22 @@
 """
 this module offers common functions, namely:
 """
-import csv
-import logging
-import json
-import os
-from datetime import datetime
 import socket
 import time
 import pyasn
-from scapy.layers.inet import IP, UDP, TCP, ICMP
-from scapy.sendrecv import sr1
 from skyfield.api import Topos, load
-from api import get_status
 
 
-def read_rx_bytes(interface):
-    """
-    read bytes received from `interface`
-    """
-    with open(
-        f"/sys/class/net/{interface}/statistics/rx_bytes", "r", encoding="utf-8"
-    ) as file:
-        rx_bytes = int(file.read())
-    return rx_bytes
-
-
-def reach_target(target, filename, asndb):
-    """
-    this function reaches a target and saves HOPS related to Starlink
-    in a csv file
-    """
-    asndb = pyasn.pyasn(asndb)
-    time_now = datetime.now()
-    filename = f"{filename}.csv"
-    file_exists = os.path.isfile(filename)
-    with open(filename, "a", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(["time", "hop#", "ip"])
-        for i in range(3, 8):
-            pkt = IP(dst=target, ttl=i) / ICMP()
-            res = sr1(pkt, verbose=0, timeout=3)
-            if res:
-                src = res.src
-                logging.debug(src)
-                lookup = asndb.lookup(src)
-                if lookup[0] == 14593:
-                    writer.writerow([time_now, i, src])
-
-
-# i should turn this into a class with a .run() method and a .display() method
 def traceroute(target, protocol, asndb):
     """
     + traceroute("1.1.1.1","ICMP", "../idp-castellotti-data/ipasn_20230315.dat")
     + traceroute("1.1.1.1","UDP", "../idp-castellotti-data/ipasn_20230315.dat")
     + traceroute("1.1.1.1","TCP", "../idp-castellotti-data/ipasn_20230315.dat")
     """
+    # believe it or not, this is valid
+    from scapy.layers.inet import IP, UDP, TCP, ICMP
+    from scapy.sendrecv import sr1
+
     asndb = pyasn.pyasn(asndb)
 
     ttl = 1
@@ -132,48 +92,3 @@ def calculate_visible_satellites(
             visible_satellites.append((sat, alt, az))
 
     return visible_satellites
-
-
-# remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin
-#             --report-speed=bits -O /dev/null; done
-# sudo ip route add 88.198.248.254  via 192.168.1.1
-def measure_bw(filename):
-    """
-    get bandwidth from the api
-
-    """
-    interface = "enp1s0f3"
-    file_exists = os.path.exists(filename)
-    with open(filename, "a+", encoding="utf-8") as f:
-        csv_writer = csv.writer(f)
-        if not file_exists:
-            csv_writer.writerow(
-                [
-                    "timestamp",
-                    "bandwidth_bps",
-                    "pop_ping_latency_ms",
-                    "downlink_troughput_bps",
-                ]
-            )
-
-    previous_bytes = read_rx_bytes(interface)
-    with open(filename, "a", encoding="utf-8") as f:
-        csv_writer = csv.writer(f)
-        while True:
-            time.sleep(1)
-            current_bytes = read_rx_bytes(interface)
-            bandwidth = (current_bytes - previous_bytes) * 8
-            previous_bytes = current_bytes
-            status = json.loads(get_status())["dishGetStatus"]
-            # print(status)
-            pop_ping_latency_ms = status["popPingLatencyMs"]
-            downlink_throughput_bps = status["downlinkThroughputBps"]
-            csv_writer.writerow(
-                [
-                    int(time.time()),
-                    bandwidth,
-                    pop_ping_latency_ms,
-                    downlink_throughput_bps,
-                ]
-            )
-            f.flush()

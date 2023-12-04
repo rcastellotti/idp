@@ -36,10 +36,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--bandwidth", "-b", help="bandwidth", required=True)
 args = parser.parse_args()
 
-conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
 
-
-def measure():
+def main():
     """
     run the measurement, remember to run iperf in the background
     """
@@ -62,8 +60,10 @@ def measure():
             writer.writerow([probe_timestamp, rtt_ms, pop_ping_latency_ms])
 
 
-t_end = time.time() + 60 * 5
-while time.time() < t_end:
-    measure()
+if __name__ == "__main__":
+    conf.route.add(net="0.0.0.0/0", gw="192.168.1.1")
+    t_end = time.time() + 60 * 5
+    while time.time() < t_end:
+        main()
 
-conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")
+    conf.route.delt(net="0.0.0.0/0", gw="192.168.1.1")

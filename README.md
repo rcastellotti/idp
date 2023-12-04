@@ -28,3 +28,7 @@ journalctl -u traceroute
 + https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json --> incredibily transparent, consider using these 
 + http://geoip.starlinkisp.net/feed.csv
 + https://lizizhikevich.github.io/assets/papers/LEO-HitchHiking.pdf (updated)
+
+
++ check all python scripts have working sample and same structure if name
++ check all the helps

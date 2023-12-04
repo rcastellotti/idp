@@ -1,5 +1,7 @@
 """
-save obstruction maps from get_obstruction_map endpoint 
+save obstruction maps from get_obstruction_map endpoint, remember to reboot (./s.py -r)
+Sample usage:
+python3 save_obstruction_maps -i 500 -d ./obstruction_maps
 """
 import os
 import time
@@ -13,22 +15,29 @@ parser.add_argument(
 )
 parser.add_argument("--directory", "-d", help="directory", required=True, type=str)
 parser.add_argument(
-    "--seconds",
-    "-s",
+    "--interval",
+    "-interval",
     help="how many seconds we should collect maps for",
     required=True,
     type=int,
 )
-args = parser.parse_args()
 
-directory = args.directory
-if args.verbose:
-    logging.basicConfig(level="INFO")
 
-logging.info("starting to save maps")
-for i in range(args.seconds):
-    obstruction_map = api.get_obstruction_map()
-    os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
-    with open(f"{directory}/map-{time.time()}.json", "w+", encoding="utf-8") as f:
-        f.write(obstruction_map)
-    time.sleep(0.5)
+def main(directory, interval):
+    """
+    save obstruction maps into directory
+    """
+    logging.info("starting to save maps")
+    for _ in range(interval):
+        obstruction_map = api.get_obstruction_map()
+        os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
+        with open(f"{directory}/map-{time.time()}.json", "w+", encoding="utf-8") as f:
+            f.write(obstruction_map)
+        time.sleep(0.5)
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    if args.verbose:
+        logging.basicConfig(level="INFO")
+    main(args.directory, args.interval)

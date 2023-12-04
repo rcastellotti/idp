@@ -1,7 +1,7 @@
 """
 visualize obstruction maps retrieved with `save_obstruction_maps`
 Sample usage:
-python3 obstruction_maps_visualization.py \
+python3 obstruction_maps_visualization.py
     -i ../idp-castellotti-data/obstruction_maps
     -o ./obstruction_maps_visualization
 """
@@ -23,17 +23,11 @@ parser.add_argument(
 parser.add_argument(
     "--output_directory", "-o", help="output directory", required=True, type=str
 )
-args = parser.parse_args()
-
-os.makedirs(args.output_directory, exist_ok=True)
-
-if args.verbose:
-    logging.basicConfig(level="INFO")
 
 
 def process_file(filename, input_directory, output_directory):
     """
-    process a single file from save_obstruction_maps
+    Process a single file from save_obstruction_maps
     """
     input_filename = os.path.join(input_directory, filename)
     with open(input_filename, "r", encoding="utf-8") as f:
@@ -50,6 +44,18 @@ def process_file(filename, input_directory, output_directory):
         plt.close()
 
 
-for file in os.listdir(args.input_directory):
-    logging.info(file)
-    process_file(file, args.input_directory, args.output_directory)
+def main(input_directory, output_directory):
+    """
+    Run the measurement
+    """
+    for file in os.listdir(input_directory):
+        logging.info(file)
+        process_file(file, input_directory, output_directory)
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    os.makedirs(args.output_directory, exist_ok=True)
+    if args.verbose:
+        logging.basicConfig(level="INFO")
+    main(args.input_directory, args.output_directory)

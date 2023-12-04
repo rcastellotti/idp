@@ -1,7 +1,9 @@
 """
 save satellite appearance patterns to a sqlite database
 `scratch`.ipynb contains a cell to visualize the data created
-by this script
+by this script.
+Sample usage:
+python3 patterns_in_satellite_appearances.py -v -lat 48.2489 -lon 11.6532 -el 0 -d 800
 """
 import time
 import logging
@@ -28,10 +30,6 @@ parser.add_argument(
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )
-args = parser.parse_args()
-
-if args.verbose:
-    logging.basicConfig(level="INFO")
 
 DB_URL = "sqlite:///satellites.sqlite"
 engine = create_engine(DB_URL)
@@ -58,25 +56,34 @@ class Satellite(Base):
         return f"Satellite {self.satname}"
 
 
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
-COUNT = 0
-while True:
-    COUNT += 1
-    timestamp = time.time()
-    vis_sat = calculate_visible_satellites(
-        args.latitude, args.longitude, args.elevation, args.distance
-    )
-    for sat, alt, az in vis_sat:
-        new_satellite = Satellite(
-            satname=sat.name,
-            relative_ts=COUNT,
-            alt=str(alt),
-            az=str(az),
-            ts=timestamp,
-        )
-        logging.info(sat)
-        session.add(new_satellite)
-        session.commit()
-    time.sleep(15)
+def main(latitude, longitude, elevation, distance):
+    """
+    Retrieve visible satellites
+    """
+    Base.metadata.create_all(engine)
+    session = sessionmaker(bind=engine)()
+    count = 0
+    while True:
+        count += 1
+        timestamp = time.time()
+        vis_sat = calculate_visible_satellites(latitude, longitude, elevation, distance)
+        for sat, alt, az in vis_sat:
+            new_satellite = Satellite(
+                satname=sat.name,
+                relative_ts=count,
+                alt=str(alt),
+                az=str(az),
+                ts=timestamp,
+            )
+            logging.info(sat)
+            session.add(new_satellite)
+            session.commit()
+        time.sleep(15)
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.basicConfig(level="INFO")
+    main(args.latitude, args.longitude, args.elevation, args.distance)
