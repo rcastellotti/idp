@@ -29,6 +29,3 @@ journalctl -u traceroute
 + http://geoip.starlinkisp.net/feed.csv
 + https://lizizhikevich.github.io/assets/papers/LEO-HitchHiking.pdf (updated)
 
-
-+ check all python scripts have working sample and same structure if name
-+ check all the helps
