@@ -64,7 +64,7 @@ def traceroute(target, protocol, asndb):
     results = []
     while ttl < 30:
         pkt_base = IP(dst=target, ttl=ttl)
-        pkt=""
+        pkt = ""
         if protocol == "ICMP":
             pkt = pkt_base / ICMP()
         elif protocol == "UDP":
@@ -132,9 +132,6 @@ def calculate_visible_satellites(
             visible_satellites.append((sat, alt, az))
 
     return visible_satellites
-
-
-
 
 
 # remember to while true; do wget -4 https://speed.hetzner.de/10GB.bin

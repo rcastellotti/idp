@@ -10,8 +10,8 @@ import warnings
 import grpc
 
 try:
-    from spacex.api.device import device_pb2_grpc #pylint: disable=import-error
-    from spacex.api.device import device_pb2 #pylint: disable=import-error
+    from spacex.api.device import device_pb2_grpc  # pylint: disable=import-error
+    from spacex.api.device import device_pb2  # pylint: disable=import-error
 except ImportError:
     pass
 
@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore")
 
 def setup():
     """
-    setup stuff 
+    setup stuff
     """
     channel = grpc.insecure_channel("192.168.100.1:9200")
     importer.resolve_lazy_imports(channel)
@@ -53,9 +53,11 @@ def reboot():
 
 def get_obstruction_map():
     """
-    grpcurl -plaintext -d '{"dish_get_obstruction_map":{}}' 192.168.100.1:9200 
+    grpcurl -plaintext -d '{"dish_get_obstruction_map":{}}' 192.168.100.1:9200
     SpaceX.API.Device.Device/Handle
     """
     stub = setup()
-    obstruction_map = stub.Handle(device_pb2.Request(dish_get_obstruction_map={}), timeout=5)
+    obstruction_map = stub.Handle(
+        device_pb2.Request(dish_get_obstruction_map={}), timeout=5
+    )
     return MessageToJson(obstruction_map)

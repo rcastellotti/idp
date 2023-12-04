@@ -29,6 +29,6 @@ logging.info("starting to save maps")
 for i in range(args.seconds):
     obstruction_map = api.get_obstruction_map()
     os.makedirs(os.path.dirname(directory + "/"), exist_ok=True)
-    with open(f"{directory}/map-{time.time()}.json", "w+",encoding="utf-8") as f:
+    with open(f"{directory}/map-{time.time()}.json", "w+", encoding="utf-8") as f:
         f.write(obstruction_map)
     time.sleep(0.5)
