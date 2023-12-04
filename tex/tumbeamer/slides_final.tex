@@ -7,10 +7,11 @@
 
 \begin{frame}{What is Starlink?}
     \begin{itemize}
-        \item Starlink is a Low Earth Orbiting (LEO) Satellite Constellation
+        \item Starlink is a Low Earth Orbiting (LEO) satellite constellation
         \item 4000+ satellites with plans to launch more
         \item End users have a Dish to connect to satellites in sight
-        \item Performance is higher compared to geostationary satellites (GEOSAT) based connections (\textasciitilde 550 km in height vs \textasciitilde 35,000 km)
+        \item Performance is higher compared to geostationary satellites (GEOSAT) based connections (\textasciitilde 550
+              km in height vs \textasciitilde 35,000 km)
         \item Average latency is ~35 ms, download bandwidth is $>$ 100 MBps
     \end{itemize}
 
@@ -43,12 +44,13 @@
 
 \begin{frame}{Similar Technologies}
     \begin{itemize}
-        \item Eutelsat operates a LEO constellation, Oneweb \footnote{\url{https://oneweb.net}}, mainly serving Enterprises and Governments
-        \item Amazon is currently launching its own LEO constellation: Project Kuiper 
-              \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to launch 3,236 satellites,
-               with secured lanches (BlueOrigin)
+        \item Eutelsat operates a LEO constellation, Oneweb \footnote{\url{https://oneweb.net}}, mainly serving
+              Enterprises and Governments
+        \item Amazon is currently launching its own LEO constellation: Project Kuiper
+              \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to launch
+              3,236 satellites, with secured lanches (BlueOrigin)
         \item The China Aerospace Science and Technology Corporation plans to deploy a 13,000-satellite constellation
-                \footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
+              \footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
         \item The increasing number of LEO satellites might cause problems, mainly:
         \begin{itemize}
             \item Overall sky brightness increases (impacts astronomical observation)
@@ -60,16 +62,19 @@
 
 \begin{frame}{Documenting the gRPC API}
     \begin{itemize}
-        \item We started by documenting the gRPC\footnote{\url{https://grpc.io} is a RPC framework from Google} API running on the dish
+        \item We started by documenting the gRPC\footnote{\url{https://grpc.io} is a RPC framework from Google} API
+              running on the dish
         \item API is reachable at \texttt{192.168.100.1:9200}
-        \item The dish exposes a gRPC API with \emph{"Server Reflection"}\footnote{"Runtime construction of requests without having stub
-            information precompiled into the client." \url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
+        \item The dish exposes a gRPC API with \emph{"Server Reflection"}\footnote{"Runtime construction of requests
+              without having stub information precompiled into the client."
+              \url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
         \item 55 endpoints are available
         \begin{itemize}
             \item Majority of them do not work
             \item 2 categories of errors: \texttt{Uninmplemented}, \texttt{PermissionDenied} and a some other errors 
         \end{itemize}
-        \item Most interesting working endpoints \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
+        \item Most interesting working endpoints
+              \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
             \begin{itemize}
                 \item \texttt{reboot}
                 \item \texttt{get\_status}
@@ -129,7 +134,7 @@
             \item Allow for estimation of position and velocity at any point in the past or future
         \end{itemize}     
         \item Downloaded a list of Starlink's satellites TLEs from \href{celestrak.org}{celestrak.org}
-        \item Wrote a Python script to calculate visible
+        \item Wrote a python script to calculate visible
         satellites\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/common.py?ref_type=heads\#L132}}
         \item Gathered information about satellite position
         \item Visualized patterns in satellite appearances.
@@ -286,7 +291,7 @@
     \begin{itemize}
         \item Majority of the Endpoints on the gRPC API are not accessible
         \item PoP Latency is remarkably stable
-        \item Physical layer has no remarkable influences on Performance
+        \item Physical layer has no remarkable influences on performance
         \item Bandwidth is sustained consistently, even in the presence of satellite handovers
         \item Getting insights into inner routing is hard
     \end{itemize}
