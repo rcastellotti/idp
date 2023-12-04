@@ -1,5 +1,9 @@
 """
 visualize obstruction maps retrieved with `save_obstruction_maps`
+Sample usage:
+python3 obstruction_maps_visualization.py \
+    -i ../idp-castellotti-data/obstruction_maps
+    -o ./obstruction_maps_visualization
 """
 
 import json
