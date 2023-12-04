@@ -1,7 +1,7 @@
 """
 save obstruction maps from get_obstruction_map endpoint, remember to reboot (./s.py -r)
 Sample usage:
-python3 save_obstruction_maps -i 500 -d ./obstruction_maps
+python3 save_obstruction_maps -i 500 -o ./obstruction_maps
 """
 import os
 import time
@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser(prog="save obstruction maps")
 parser.add_argument(
     "--verbose", "-v", help="verbose", action=argparse.BooleanOptionalAction
 )
-parser.add_argument("--directory", "-d", help="directory", required=True, type=str)
+parser.add_argument("--output", "-o", help="output_directory", required=True, type=str)
 parser.add_argument(
     "--interval",
     "-interval",
@@ -40,4 +40,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.verbose:
         logging.basicConfig(level="INFO")
-    main(args.directory, args.interval)
+    main(args.output, args.interval)
