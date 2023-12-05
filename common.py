@@ -1,5 +1,5 @@
 """
-this module offers common functions, namely:
+this module offers common functions
 """
 import socket
 import os
