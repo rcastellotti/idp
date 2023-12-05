@@ -2,9 +2,52 @@
 this module offers common functions, namely:
 """
 import socket
+import os
 import time
+import json
 import pyasn
+import numpy as np
 from skyfield.api import Topos, load
+
+
+def get_adjacent_files(directory_path):
+    """
+    creates list of tuples of adjacent files, used to detect handovers
+    """
+    file_list = sorted(os.listdir(directory_path))
+    couples = []
+    for i in range(len(file_list) - 1):
+        current_file = file_list[i]
+        next_file = file_list[i + 1]
+        couples.append((current_file, next_file))
+    return couples
+
+
+def detect_handovers(f1, f2):
+    """
+    check whether an handover happened between two obstruction maps
+    """
+    map1 = json.load(open(f1))
+    map1 = map1["dishGetObstructionMap"]["snr"]
+    map1 = np.array(map1).reshape(123, 123)
+
+    map2 = json.load(open(f2))
+    map2 = map2["dishGetObstructionMap"]["snr"]
+    map2 = np.array(map2).reshape(123, 123)
+
+    new = map1 + map2
+
+    rows, cols = np.where(new == 0)
+    zero_coordinates = list(zip(rows, cols))
+    for coord in zero_coordinates:
+        hx = coord[0]
+        hy = coord[1]
+        pot = new[hx - 2 : hx + 2, hy - 2 : hy + 2]
+        if 2 not in pot:
+            # print(f"detected handover between {f1} and {f2}")
+            head, tail = os.path.split(f1)
+            return int(tail[:-5])
+        return None
 
 
 def traceroute(target, protocol, asndb):
