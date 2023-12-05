@@ -10,8 +10,8 @@ import warnings
 import grpc
 
 try:
-    from spacex.api.device import device_pb2_grpc  # pylint: disable=import-error
-    from spacex.api.device import device_pb2  # pylint: disable=import-error
+    from spacex.api.device import device_pb2_grpc
+    from spacex.api.device import device_pb2
 except ImportError:
     pass
 

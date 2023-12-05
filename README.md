@@ -1,9 +1,11 @@
 # IDP Castellotti
 
-
 satellite obstruction maps visualization: <https://youtu.be/PjfMPr20suw>
 
-
+explanation for some things that may be hardcoded:
++ `192.168.1.1` ~> default gateway for Starlink
++ `192.168.100.1` ~> API endpoint
++ `enp1s0f2` ~> Starlink interface (it changed after some reboots, rule of thumb: every hardcoded interface is Starlink's)
 ## traceroute systemd-timer
 
 ```bash
@@ -28,4 +30,4 @@ journalctl -u traceroute
 + https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json --> incredibily transparent, consider using these 
 + http://geoip.starlinkisp.net/feed.csv
 + https://lizizhikevich.github.io/assets/papers/LEO-HitchHiking.pdf (updated)
-
++ https://publicdata.caida.org/datasets/as-relationships/serial-1/20230401.as-rel.txt.bz2
