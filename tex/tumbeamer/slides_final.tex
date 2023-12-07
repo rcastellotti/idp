@@ -1,21 +1,35 @@
 \documentclass[NET,english,beameralt]{tumbeamer}
-\usepackage{packages}
-
-% \documentclass{beamer}
-% \usetheme{Boadilla}
-% \usecolortheme{seahorse}
-\renewcommand\emph[1]{\textcolor{TUMBlue}{#1}}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[caption=false]{subfig}
+\usepackage{nicefrac}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{calc}
+\usepackage{tikz}
+\usetikzlibrary[calc,shapes,arrows,positioning]
+\usepackage{tumcolor}
+\usepackage{tumlogo}
+\usepackage{tumlang}
+\usepackage{tumcontact}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[tx]{sfmath}
+\usepackage{helvet}
+\usepackage[scaled]{inconsolata}
+\usepackage{datetime}
 \usepackage{listings}
+
+
+\renewcommand\emph[1]{\textcolor{TUMBlue}{#1}}
 \author[Roberto Castellotti]{Roberto Castellotti}
 \title[IDP]{Development of a Framework for Retrieval \\ of Parameters of the Starlink Dish}
 \advisor{Leander Seidlitz, Johannes Zirngibl}
 \thesistype{final}{idp}
-% \usepackage{pgfpages}
 
 \newdate{date}{13}{12}{2023}
 \date{\displaydate{date}}
 \begin{document}
-
 \begin{frame}{What is Starlink?}
     \begin{itemize}
         \item Starlink is a Low Earth Orbiting (LEO) satellite constellation
