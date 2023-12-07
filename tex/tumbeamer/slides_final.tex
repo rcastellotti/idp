@@ -1,5 +1,4 @@
-\documentclass[NET,englsish,beameralt]{tumbeamer}
-\documentclass{beamer}
+\documentclass[NET,english,beameralt]{tumbeamer}
 \usepackage{listings}
 \input{include/slides}
 
@@ -65,16 +64,15 @@
         \item We started by documenting the gRPC\footnote{\url{https://grpc.io} is a RPC framework from Google} API
               running on the dish
         \item API is reachable at \texttt{192.168.100.1:9200}
-        \item The dish exposes a gRPC API with \emph{"Server Reflection"}\footnote{"Runtime construction of requests
-              without having stub information precompiled into the client."
+        \item The dish exposes a gRPC API with \emph{'Server Reflection'} \footnote{Runtime construction of requests
+              without having stub information precompiled into the client.
               \url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
         \item 55 endpoints are available
-        \begin{itemize}
-            \item Majority of them do not work
-            \item 2 categories of errors: \texttt{Uninmplemented}, \texttt{PermissionDenied} and a some other errors 
-        \end{itemize}
-        \item Most interesting working endpoints
-              \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
+            \begin{itemize}
+                \item Majority of them do not work
+                \item 2 categories of errors: \texttt{Uninmplemented}, \texttt{PermissionDenied} and a some other errors 
+            \end{itemize}
+        \item Most interesting working endpoints \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
             \begin{itemize}
                 \item \texttt{reboot}
                 \item \texttt{get\_status}
@@ -106,7 +104,7 @@
         \item Retrieved IP address blocks from major cloud providers (AWS, Azure, Oracle), position already known
             \footnote{does not necessarily mean the last hop will be in that area (little information around what happens inside data centers), 
                         but a good enough approximation}
-        \item Chose five geographically sparse targets around the globe, i.e., for aws:
+        \item Chose five geographically sparse targets around the globe, i.e., for AWS:
             \begin{itemize}
                 \item \texttt{ap-northeast-2} Asia Pacific (Seoul)
                 \item \texttt{us-east-1} US East (N. Virginia)
@@ -125,7 +123,7 @@
         \item Left is Starlink, right is default cabled connection
     \end{itemize}
     \begin{figure}
-        \includegraphics[width=0.75\textwidth]{pics/aws_7_icmp.png}
+        \includegraphics[width=0.75\textwidth]{pics/aws-7-icmp.pdf}
     \end{figure}
 \end{frame}
 
@@ -161,14 +159,13 @@
         \item We wanted to understand whether the physical layer influences RTT
         \item The Dish may decide to send a packet only when it fills a buffer
         \item Sent packets to a host we control with iPerf to create traffic on the interface, varying the payload size
-        \item Downloaded Debian ISOs from 5 different mirrors (to neutralize upload speed differences)
-        \item Measured RTTs 
+        \item Measured RTTs when reaching the first hop outside of AS14593
     \end{itemize}
 \end{frame}
 
 \begin{frame}{{Physical Layer Influences on Performance}}
     \begin{figure}
-        \includegraphics[width=1\textwidth]{pics/rtt-iperf-stress.png}
+        \includegraphics[width=1\textwidth]{pics/rtt-iperf-stress.pdf}
     \end{figure}
 \end{frame}
 
@@ -301,10 +298,13 @@
     We conclude that:
     \begin{itemize}
         \item Majority of the Endpoints on the gRPC API are not accessible
+        \item Getting insights into inner routing is hard
         \item PoP Latency is remarkably stable
+        \begin{itemize}
+            \item Validated bandwidth and PoP ping latency reported by API
+        \end{itemize}   
         \item Physical layer has no remarkable influences on performance
         \item Bandwidth is sustained consistently, even in the presence of satellite handovers
-        \item Getting insights into inner routing is hard
     \end{itemize}
 \end{frame}
 
