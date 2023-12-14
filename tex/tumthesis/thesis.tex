@@ -79,18 +79,18 @@ that using laser links is faster than fiber on Earth due to the higher speed of 
 undersea fiber, as reported by Elon Musk himself\cite{tweet}.
 
 Starlink might not be the best solution for people living in residential areas, as their place is covered by a faster
-cabled connection and is probably way cheaper as the infrastructure is more straightforward to maintain; as of October
-2023, Starlink costs 65 USD per month with a one-time hardware cost of 450 USD. Satellite-based Internet connections
-have been around for several years. They are typically based on geostationary satellites (GEOSAT), orbiting at about
-35,000 kilometers. It is thus natural to expect higher latency when comparing GEOSAT connections to cabled Internet
-connections; about around 600 milliseconds for latency, or in other words, Starlink averages ~70 RTTs in the time a
+cabled connection and it is probably way cheaper as the infrastructure is more straightforward to maintain. As of
+October 2023, Starlink costs 65 USD per month with a one-time hardware cost of 450 USD. 
+
+Satellite-based Internet connections have been around for several years. They are typically based on geostationary
+satellites (GEOSAT), orbiting at about 35,000 kilometers. It is thus natural to expect higher latency when comparing
+GEOSAT connections to cabled Internet connections; the former usually averages around 35ms of latency, while latter
+usually experiences about around 600 millisecond; or in other words, Starlink averages ~70 RTTs in the time a
 GEOSAT connection is able to send a single packet back and forth.
     
 From a customer perspective, using Starlink is straightforward. After receiving the hardware, the only needed step is to
 plug the satellite dish (see Figure \ref{fig:dish}) and position it in a place with clear access to the sky. After that,
-connecting the provided router is enough to browse the Internet using different devices. Our setup is more
-straightforward; the machine we use to run measurements and use the Starlink connection is directly connected to the
-dish.
+connecting the provided router is enough to browse the Internet using different devices.
     
 On a more technical note, packets sent from a local device go through the dish, they are relayed to a nearby satellite,
 and they are sent to a ground station in view; from that point onwards, packets are routed normally through the
@@ -143,7 +143,7 @@ to communicate diagnostics and statistics to customers, before describing Two Li
 encode the satellite's positions. 
 
 For the measurement parts, we are using standard Unix tools, like \texttt{ping}, \texttt{traceroute}, \texttt{iperf},
-and we are using Python for scripting purposes.
+and we are working with Python for scripting purposes.
 
 \subsection{gRPC protocol}
     
@@ -152,9 +152,9 @@ protocol and is massively employed across different fields, especially in micros
     
 gRPC uses protocol buffers (protobufs) both as Interface Definition Language and as the format for message interchange;
 consequently, every client needs to have a stub providing the server's accessible methods. Typically this involves
-generating some \texttt{.proto} files are usually needed, but an alternative approach called \textit{Server Reflection}
+generating some \texttt{.proto} files (stubs), but an alternative approach called \textit{Server Reflection}
 \footnote{\url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}} is employed. With Server Reflection,
-it is feasible to dynamically query the API to retrieve a list of the accessible methods.
+it is possible to dynamically query the API to retrieve a list of the accessible methods.
 
 Using a tool like \texttt{grpcurl}\footnote{\url{https://github.com/fullstorydev/grpcurl}}, it is possible to inspect
 the service; furthermore, it is easy to use the gRPC python library\footnote{\url{https://pypi.org/project/grpc/}} to
@@ -170,7 +170,7 @@ of Starlink satellite names can be found at \url{https://celestrak.org/NORAD/ele
 SATNAME is a unique identifier.
     
 Knowing a satellite's position at any given time is a very powerful mechanisms, which allows us to restrict the subset
-of satellites the dish may be connected to; it is worth noting that previously, it was possible to call the
+of satellites the dish may be connected to. It is worth noting that previously, it was possible to call the
 \texttt{dish\_get\_context} or similar methods on the API to retrieve such information, as reported by this Reddit
 user\footnote{\url{https://reddit.com/r/Starlink/comments/p84o5i/comment/h9o1elp/}}. Unfortunately, these methods now
 either return a \texttt{PermissionDenied} error or are deprecated.
@@ -185,8 +185,9 @@ STARLINK-1007
     
 Being Starlink a novel technology the existing body of research is somewhat limited, but papers and tools
 \footnote{\url{https://github.com/danopstech/starlink\_exporter},\url{https://github.com/sparky8512/starlink-grpc-tools}}
-are in development, we created some scripts to work with the dish and to perform some measurements, you can find them in
-the very same repository that contains this report\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}}.
+are in development. We created some scripts to work with the dish and to perform some measurements, they are
+availableint very same repository that contains this
+report\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti}}.
     
 From a research perspective, different works provide more insights into Starlink — papers like \cite{pan2023measuring}
 focus on describing the infrastructure Starlink uses. In contrast, Izhikevich et al. \cite{izhikevich2023democratizing}
@@ -251,7 +252,7 @@ Here\footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680
 available methods as of September 2023.
 
 To simplify scripting, we develop a simple wrapper library around the gRPC API
-\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/nine981.py}} and a CLI
+\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/api.py}} and a CLI
 tool\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/s.py}} to use the
 library in command line. It should be trivial to add functionality to the library.
 
@@ -292,14 +293,15 @@ to run traceroutes and save data to CSV files.
 We carefully select our target destinations from major cloud vendors. The reason behind this selection is that these
 cloud vendors publish their IP ranges, and their host locations are known. While the precise location of the final
 target in complex networks remains challenging to assess, the last hop in a traceroute often provides a reasonably
-accurate approximation. It's worth noting that in private networks, the hosts often do not respond to ICMP pings,
+accurate approximation. It is worth noting that in private networks, the hosts often do not respond to ICMP pings,
 further obscuring the packet's route.
 
 We run the traceroutes using ICMP, UDP, and TCP protocols using both the Starlink and the default network interface over
 several days, and we save the results to CSV files. Subsequently, we use NetworkX, a Python package for the creation,
 manipulation, and study of the structure, dynamics, and functions of complex
 networks\footnote{\url{https://networkx.org/}}. to visualize whether we can spot some differences in the graphs we
-create. The following Figures are some of the representations for traceroutes to certain specific hosts. While running
+create. 
+The following Figures are some of the representations for traceroutes to certain specific hosts. While running
 traceroutes, it is common to retrieve information for the first 30 hops; however, we decided to limit ourselves to the
 first seven hops because we do not receive answers for further hops. 
 
@@ -345,9 +347,10 @@ We do not find any significant differences comparing traceroutes over different 
 Systems; the only difference we are able to observe is that we reach different hosts inside AS14593, the Autonomous
 System SpaceX operates\footnote{\url{https://bgp.he.net/AS14593}}.
     
-The following is a table of hosts reached together and a count of how many times we reached the target.
+Table \ref{tab:hops} contains a list of hosts reached together and a count of how many times we reached the target.
     
 \begin{table}
+    \label{tab:hops}
     \centering
     \begin{tabular}{ r r }
         \toprule
@@ -413,7 +416,7 @@ bandwidth our machine reports.
 
 Figure \ref{fig:vis-bw-15sec} shows our results, \texttt{bandwidth\_bps} is the data we obtain from
 \path{/sys/class/net/{interface}/statistics/rx_bytes}, while \texttt{downlink\_throughput\_bps} is the data reported
-from the gRPC API. As we can see, the two values are very similar; this suggests that the dish reports bandwidth
+from the gRPC API. As the data reports, the two values are very similar; this suggests that the dish reports bandwidth
 correctly.
 
 From \cite{llc-application}, we know the dish seeks better connections, as satellites move constantly, every 15 seconds.
@@ -429,25 +432,25 @@ intervals.
 
 We repeat the experiments by shifting the red vertical lines and changing the intervals for collected data, and in the
 majority of cases, we see that whenever we draw a vertical red line, we have some drop in the immediate milliseconds
-before or after; however, drops also happen in different intervals. Initially We thought these drops might be related to
+before or after; however, drops also happen in different intervals. Initially we thought these drops might be related to
 satellite handovers, so we investigated further; check Section \ref{sec:sat-hand-drop}, where we investigate the
 correlation between satellite handovers (retrieved using a side-channel) and drops in bandwidth. 
 
 \section{Physical layer influences on latency}
 
 After measuring latency and bandwidth and noticing some drops in semi-regular intervals, we decided to investigate
-whether the physical layer has any influences on latency in some way; our intuition is that if this is the case, we can
-approximately detect whether a certain amount of data is needed before a packet is sent; this means in the best-case
-scenario we send the packet we want to reach the Internet exactly, it fills exactly the size window and it is sent
-immediately, worst case scenario we sent the packet when the previous packet was just sent and we need to wait to fill
+whether the physical layer has any influences on latency in some way. Our intuition is that if this is the case, we can
+approximately detect whether a certain amount of data is needed before a packet is sent; this means in the \textbf{best-case
+scenario} we send the packet we want to reach the Internet exactly, it fills exactly the size window and it is sent
+immediately, \textbf{worst-case scenario} we sent the packet when the previous packet was just sent and we need to wait to fill
 the window before sending the packet. Of course, this operation introduces some performance drawbacks in the worst-case
 scenario, as the dish might have to delay transmission to wait for more data.
 
 To verify this hypothesis, we try to send some payload with iPerf\footnote{\url{https://iperf.fr/}} on the network
-interface used by Starlink. We send payloads of increasing sizes (10k, 20k, 50k, 100k, 1M, 10M) and measure the RTT; the
-following is a visualization, as we can notice that sending some traffic does not have an impact.
-
+interface used by Starlink. We send payloads of increasing sizes (10k, 20k, 50k, 100k, 1M, 10M) and measure the RTT. 
+Figure \ref{fig:rtt-iperf} contains a visualization, as we can notice background traffic has no impact on performance.
 \begin{figure}
+    \label{fig:rtt-iperf}
     \centering
     \includegraphics[width=0.6\columnwidth]{img/latency_iperf.png}
     \caption{Latency variation while sending traffic on the uplink using iPerf}
@@ -469,10 +472,9 @@ allows us to formulate and hypothesis around satellites positions.
 The first measurement we set up is the following: every 15 seconds, we run a script that retrieves all the visible
 satellites and stores them in a SQLite database. If we see the same satellite in the iteration before we update the
 \texttt{timestamp} otherwise, we create a new row in the database. We use a \texttt{relative\_ts} (relative timestamp)
-to enumerate every measurement (a probe every 15 seconds). To measure visible satellites, we are running the following
-script: \texttt{python3 visible-satellites.py -lat 48.2489 -lon 11.6532 -el 0 -d 800}, where \texttt{lat} and
-\texttt{lon} are Garching's coordinates, we are not interested in using an elevation. The script can be found in the
-repository containing this report.
+to enumerate every measurement (a probe every 15 seconds). To measure visible satellites, we are using the
+\texttt{common.calculate\_visible\_satellites} function using Garching coordinates as latitude and longitude parameters
+and a distance of 800 Kms. The script can be found in Listing \ref{lst:cvs}.
 
 After collecting data for several hours, we plot satellite appearances to check whether their appearance is following
 some pattern; Figure \ref{fig:vis-sat-pat} reveals this is the case; we are able to observe the same satellites every 12
@@ -482,7 +484,7 @@ about the reasons we are seeing this phenomenon.
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\columnwidth]{img/visualizing-how-long-satellites-are-visible-for.png}
+    \includegraphics[width=1.0\columnwidth]{img/patterns-in-satellite-appearances.pdf}
     \caption{Visualizing patterns in satellite appearances, we roughly see the same satellite every 12 hours.}
     \label{fig:vis-sat-pat}
 \end{figure}
@@ -565,8 +567,8 @@ and check whether the $ 0 $ value (there was -1 before, and we currently have 1)
 (at $ t_{x} $ value was 1, and at $ t_{x+1} $ value is $ 1 $). 
 
 First, we must write a script to extract obstruction maps from the dish. To achieve this goal, we can use the
-\texttt{nine981.get\_obstruction\_map}
-\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blame/main/nine981.py\#L26}}
+\texttt{api.get\_obstruction\_map}
+\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blame/main/api.py\#L26}}
 function, which returns a JSON response similar to this:
 
 \begin{lstlisting}[caption={data from the \texttt{dish\_get\_obstruction\_map} function},captionpos=b]
@@ -626,7 +628,7 @@ export images and create a video to better visualize the phenomenon, we have upl
 \label{sec:sat-hand-drop}
 
 We create a simple script to algorithmically detect handovers; we can use the function
-\texttt{common.detect\_handovers}\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/common.py?ref_type=heads\#L263}}
+\texttt{common.detect\_handovers}\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/common.py}}
 to detect whether a handover was performed between two subsequent snapshots; getting all the handovers is simply a
 matter of iterating for every JSON file we saved and running the function on each pair.
 
@@ -668,7 +670,7 @@ impossible to connect to it as the manufacturer key pair is needed.
 
 Notably, as of 6 October 2023, Project Kuiper has initiated its satellite launch efforts, thereby advancing its
 satellite constellation. By 16 October, the first two Project Kuiper satellites had been fully activated, efficiently
-generating power and establishing communication with the mission operations center.
+generating power and establishing communication with the mission operations center \cite{kuiplaunches}.
 
 Future research endeavors may include running our measurements over a more extended period. Monitoring changes in
 latency and observing potential alterations in traceroutes could provide valuable insights, particularly after the
@@ -693,7 +695,7 @@ providers.
 \appendix
 \chapter{Appendix}
 
-\begin{lstlisting}[language=python,caption={the \texttt{calculate\_visible\_satellites} function},captionpos=b]
+\begin{lstlisting}[language=python,label=lst:cvs,caption={the \texttt{calculate\_visible\_satellites} function},captionpos=b]
 def calculate_visible_satellites(
     observer_latitude, observer_longitude, observer_elevation, distance_km
 ):

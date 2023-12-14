@@ -33,7 +33,7 @@
     \begin{itemize}
         \item Starlink is a Low Earth Orbiting (LEO) satellite constellation
         \item 4000+ satellites with plans to launch more
-        \item End users have a Dish to connect to satellites in sight
+        \item End users have a dish to connect to satellites in sight
         \item Performance is higher compared to geostationary satellites (GEOSAT) based connections (\textasciitilde 550
               km in height vs \textasciitilde 35,000 km)
         \item Average latency is ~35 ms, download bandwidth is $>$ 100 MBps
@@ -41,11 +41,11 @@
 
     \begin{figure}
         \includegraphics[width=0.45\textwidth]{pics/starlink-101.png}
-        \caption{Starlink in a nutshell (ignoring Inter Satellite Links), from \cite{izhikevich2023democratizing}}
+        \caption{Starlink in a nutshell (ignoring Inter Satellite Links), from Izhikevich et al. \cite{izhikevich2023democratizing}}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Our Dish}
+\begin{frame}{Our dish}
     \begin{figure}
         \includegraphics[width=0.3\textwidth]{pics/dish.jpeg}
     \end{figure}
@@ -55,8 +55,7 @@
     \begin{itemize}
         \item Documenting gRPC API
         \item Can we measure latency to the Point of Presence (PoP)?
-        \item Can we gather additional information about routing inside AS14593 
-              \footnote{The Autonomous System SpaceX opearates; \url{https://www.peeringdb.com/net/18747}}?
+        \item Can we gather additional information about routing inside AS14593\footnote{The Autonomous System SpaceX opearates; \url{https://www.peeringdb.com/net/18747}}?
         \item Can we visualize visible satellites?
         \item Is there any correlation between satellite handovers and drops in bandwidth?
             \begin{itemize}
@@ -68,13 +67,10 @@
 
 \begin{frame}{Similar Technologies}
     \begin{itemize}
-        \item Eutelsat operates a LEO constellation, Oneweb \footnote{\url{https://oneweb.net}}, mainly serving
-              Enterprises and Governments
-        \item Amazon is currently launching its own LEO constellation: Project Kuiper
-              \footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to launch
+        \item Eutelsat operates a LEO constellation, \emph{Oneweb}\footnote{\url{https://oneweb.net}}, mainly serving Enterprises and Governments
+        \item Amazon is currently launching its own LEO constellation: \emph{Project Kuiper}\footnote{https://www.aboutamazon.com/what-we-do/devices-services/project-kuiper}, with plans to deploy
               3,236 satellites with secured lanches (BlueOrigin)
-        \item The China Aerospace Science and Technology Corporation plans to deploy a 13,000-satellite constellation
-              \footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
+        \item The China Aerospace Science and Technology Corporation plans to deploy a 13,000-satellite constellation\footnote{\url{https://spacenews.com/china-to-begin-constructing-its-own-megaconstellation-later-this-year/}}
         \item The increasing number of LEO satellites might cause problems, mainly:
         \begin{itemize}
             \item Overall sky brightness increases (impacts astronomical observation)
@@ -89,7 +85,7 @@
         \item We started by documenting the gRPC\footnote{\url{https://grpc.io} is a RPC framework from Google} API
               running on the dish
         \item API is reachable at \texttt{192.168.100.1:9200}
-        \item The dish exposes a gRPC API with \emph{'Server Reflection'} \footnote{Runtime construction of requests
+        \item The dish exposes a gRPC API with \emph{'Server Reflection'}\footnote{Runtime construction of requests
               without having stub information precompiled into the client.
               \url{https://github.com/grpc/grpc/blob/master/doc/server-reflection.md}}
         \item 55 endpoints are available
@@ -97,7 +93,7 @@
                 \item Majority of them do not work
                 \item 2 categories of errors: \texttt{Uninmplemented}, \texttt{PermissionDenied} and a some other errors 
             \end{itemize}
-        \item Most interesting working endpoints \footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
+        \item Most interesting working endpoints\footnote{\url{https://gist.github.com/rcastellotti/e20630366dfeaeada6cc2680f562f6ac}}: 
             \begin{itemize}
                 \item \texttt{reboot}
                 \item \texttt{get\_status}
@@ -123,11 +119,9 @@
 \end{frame}
 
 \begin{frame}{Understanding Routing Decisions}
-    Can we gather additional information about routing inside AS14593 
-        \footnote{The Autonomous System SpaceX opearates; \url{https://www.peeringdb.com/net/18747}}?
+    Can we gather additional information about routing inside AS14593\footnote{The Autonomous System SpaceX operates; \url{https://www.peeringdb.com/net/18747}}?
     \begin{itemize}
-        \item Retrieved IP address blocks from major cloud providers (AWS, Azure, Oracle), position already known
-            \footnote{does not necessarily mean the last hop will be in that area (little information around what happens inside data centers), 
+        \item Retrieved IP address blocks from major cloud providers (AWS, Azure, Oracle), position already known \footnote{does not necessarily mean the last hop will be in that area (little information around what happens inside data centers), 
                         but a good enough approximation}
         \item Chose five geographically sparse targets around the globe, i.e., for AWS:
             \begin{itemize}
@@ -182,13 +176,17 @@
     Does the physical layer have any influences on performance? 
     \begin{itemize}
         \item We wanted to understand whether the physical layer influences RTT
-        \item The Dish may decide to send a packet only when it fills a buffer
+        \item The dish may decide to send a packet only when it fills a buffer
         \item Sent packets to a host we control with iPerf to create traffic on the interface, varying the payload size
         \item Measured RTTs when reaching the first hop outside of AS14593
     \end{itemize}
 \end{frame}
 
 \begin{frame}{{Physical Layer Influences on Performance}}
+    \begin{itemize}
+        \item In this measurement reaching \texttt{213.144.184.30} (4th hop in different traceroutes)
+        \item RTT is stable across different payload sizes
+    \end{itemize}
     \begin{figure}
         \includegraphics[width=1\textwidth]{pics/rtt-iperf-stress.pdf}
     \end{figure}
@@ -197,7 +195,7 @@
 \begin{frame}{The \texttt{dish\_get\_obstruction\_map} Endpoint}
     Can we use a side channel to extract satellite handovers from obstruction maps?
     \begin{itemize}
-        \item An obstruction map captures the position where the dish has seen satellites
+        \item An \emph{obstruction map} captures the position where the dish has seen satellites
         \item Designed to provide a way to report whether the dish positioning is optimal
         \item Following the approach described by Izhikevich et al. \cite{izhikevich2023democratizing}, we retrieved maps
         \begin{itemize}
@@ -227,8 +225,11 @@
 \begin{frame}[fragile]
     \begin{figure}
         \includegraphics<1>[width=0.4\columnwidth]{pics/map1.png}
+
         \includegraphics<2>[width=0.4\columnwidth]{pics/map2.png}
+
         \includegraphics<3>[width=0.4\columnwidth]{pics/map3.png}
+
         \includegraphics<4>[width=0.4\columnwidth]{pics/map4.png}
     \end{figure}
 \end{frame}

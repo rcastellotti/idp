@@ -58,17 +58,17 @@
 %----------------------------------------------------------------------
 % Setup font sizes
 %
-\iftumbeamer@lecture
-    \renewcommand{\huge}{\fontsize{13}{15}\selectfont}
-    \renewcommand{\LARGE}{\fontsize{11}{15}\selectfont}
-    \renewcommand{\Large}{\fontsize{9}{13}\selectfont}
-    \renewcommand{\large}{\fontsize{8}{11}\selectfont}
-    \renewcommand{\normalsize}{\fontsize{7}{9}\selectfont}
-    \renewcommand{\small}{\fontsize{6}{9}\selectfont}
-    \renewcommand{\footnotesize}{\fontsize{5}{7}\selectfont}
-    \renewcommand{\scriptsize}{\fontsize{4}{6}\selectfont}
-    \renewcommand{\tiny}{\fontsize{3}{4}\selectfont}
-\fi
+% \iftumbeamer@lecture
+%     \renewcommand{\huge}{\fontsize{13}{15}\selectfont}
+%     \renewcommand{\LARGE}{\fontsize{11}{15}\selectfont}
+%     \renewcommand{\Large}{\fontsize{9}{13}\selectfont}
+%     \renewcommand{\large}{\fontsize{8}{11}\selectfont}
+%     \renewcommand{\normalsize}{\fontsize{7}{9}\selectfont}
+%     \renewcommand{\small}{\fontsize{6}{9}\selectfont}
+%     \renewcommand{\footnotesize}{\fontsize{5}{7}\selectfont}
+%     \renewcommand{\scriptsize}{\fontsize{4}{6}\selectfont}
+%     \renewcommand{\tiny}{\fontsize{3}{4}\selectfont}
+% \fi
 \iftumbeamer@beameralt
     \renewcommand{\huge}{\fontsize{14}{16}\selectfont}
     \renewcommand{\LARGE}{\fontsize{12}{16}\selectfont}
@@ -184,29 +184,6 @@
     \scriptsize\insertfootnotetext\par%
 }
 
-\defbeamertemplate{headline}{tumheadline}{%
-    \vspace*{\tumbeamer@logoheight}%
-    \hspace*{\tumbeamer@logoheight}{\Large\strut}%
-    \TUMheader[\tumbeamer@basecolor]{\tumbeamer@logoheight}%
-    \hspace*{\tumbeamer@logoheight}%
-    \vspace{\tumbeamer@logoheight}%
-    \Large%FIXME
-    \vspace{-\baselineskip}%
-    \vspace{1em}%
-}%
-
-\defbeamertemplate{footline}{tumfootline}{%
-    \hspace{\tumbeamer@logoheight}%
-    \hfill\insertshortauthor\tumbeamer@sep\insertshorttitle%
-    \ifnoframenumbers\relax\else%
-    \makebox[1.897\tumbeamer@logoheight]{%
-        \hfill\bfseries\insertframenumber%
-    }%
-    \fi%
-    \hspace{\tumbeamer@logoheight}%
-    \vspace{\tumbeamer@logoheight}%
-    \vspace{-\baselineskip}%
-}%
 
 \defbeamertemplate{headline}{tumaltheadline}{%
     \vspace*{\tumbeamer@logoheight}%
@@ -248,68 +225,11 @@
     \vspace{-\baselineskip}%
 }%
 
-\defbeamertemplate{headline}{lectureheadline}{%
-    \vspace*{\tumbeamer@logoheight}%
-    \hspace*{\tumbeamer@logoheight}{\Large\strut}%
-    \ifnum\c@part<0%
-        \ifnum\c@section=0%
-            \TUMheader[\tumbeamer@basecolor]{\tumbeamer@logoheight}%
-        \else%
-            \textcolor{\tumbeamer@basecolor}{\Large\insertsection}%
-            \hfill%
-            \TUMLogo[\tumbeamer@basecolor]{\tumbeamer@logoheight}%
-        \fi%
-    \else%
-        \ifnum\c@section=0%
-            \textcolor{\tumbeamer@basecolor}{%
-                \Large\chaptername~\thepart: \insertpart%
-            }%
-        \else%
-            \ifnum\c@subsection=0%
-                \textcolor{\tumbeamer@basecolor}{\Large\insertsection}%
-            \else%
-                \textcolor{\tumbeamer@basecolor}{\large\insertsubsection}%
-            \fi%
-        \fi%
-        \hfill%
-        \TUMLogo[\tumbeamer@basecolor]{\tumbeamer@logoheight}%
-    \fi%
-    \hspace*{\tumbeamer@logoheight}%
-    \vspace{\tumbeamer@logoheight}%
-    \Large%FIXME
-    \vspace{-\baselineskip}%
-    \vspace{1em}%
-    %FIXME
-    \vspace{-\baselineskip}\vspace{1ex}%
-}%
 
-\defbeamertemplate{footline}{lecturefootline}{%
-    \hspace{\tumbeamer@logoheight}%
-    \hfill%
-    \ifnum\c@part<0%
-        \insertsection%
-    \else%
-        \chaptername~\thepart: \insertpart%
-        \ifnum\c@section=0%
-        \else%
-            \tumbeamer@sep\insertsection%
-        \fi%
-    \fi%
-    \makebox[2.897\tumbeamer@logoheight]{%
-        \hfill\insertframenumber\hspace{\tumbeamer@logoheight}%
-    }%
-    \vspace{\tumbeamer@logoheight}%
-    \vspace{-\baselineskip}%
-}%
 
-\iftumbeamer@lecture
-    \setbeamertemplate{headline}[lectureheadline]
-    \setbeamertemplate{footline}[lecturefootline]
-\fi
-\iftumbeamer@beamer
-    \setbeamertemplate{headline}[tumheadline]
-    \setbeamertemplate{footline}[tumfootline]
-\fi
+
+
+
 \iftumbeamer@beameralt
     \setbeamertemplate{headline}[tumaltheadline]
     \setbeamertemplate{footline}[tumaltfootline]
@@ -572,44 +492,6 @@
 }
 
 
-\DeclareDocumentCommand{\tumbeamer@lecture@titleframe}{}{%
-    \setbeamertemplate{footline}{}%
-    \begin{frame}[c]%
-        \centering%
-        \color{\tumbeamer@basecolor}%
-        \LARGE%
-        \strut\thelecture%
-        \ifx\theshortlecture\empty\else%
-            \ (\theshortlecture)%
-        \fi%
-        \\[1ex]%
-        \large%
-        \strut\ifx\themodule\empty\else%
-            \themodule{}%
-            \ifx\thesemester\empty\else%
-                \ --\ %
-            \fi%
-        \fi%
-        \ifx\thesemester\empty\else%
-            \thesemester%
-        \fi%
-        \\[4ex]%
-        \color{black}%FIXME choose beamer default fg color
-        \bfseries\strut\thelecturer\normalfont%
-        \\[4ex]%
-        \strut\theassistants%
-        \\[4ex]%
-        \normalsize%
-        \ifdefined\school%
-            \ifdefined\chair%
-                \chair\\%
-            \fi%
-            \school\\%
-        \fi%
-        \orgname\\%
-    \end{frame}%
-    \setbeamertemplate{footline}[lecturefootline]%
-}
 
 \DeclareDocumentCommand{\tumbeamer@lecture@partframe}{}{%
     \begin{frame}[allowframebreaks]%
@@ -634,39 +516,7 @@
 
 
 \let\tumbeamer@origdocument\document%
-\iftumbeamer@lecture%
-    \ifnotitleframe\relax\else%
-        \def\document{\tumbeamer@origdocument\tumbeamer@lecture@titleframe}%
-    \fi%
 
-    \ifnocontentframes\relax\else%
-        \let\tumbeamer@origpart\part%
-        \renewcommand{\part}[1]{%
-            \tumbeamer@origpart{#1}\tumbeamer@lecture@partframe%
-        }
-
-        \let\tumbeamer@origsection\section
-        \newcommand{\tumbeamer@section}[2][\relax]{%
-            \ifx\relax#1%
-                \tumbeamer@origsection{#2}%
-            \else%
-                \tumbeamer@origsection[#1]{#2}%
-            \fi%
-            \tumbeamer@lecture@sectionframe%
-        }
-        \def\section{%
-            \@ifstar{\tumbeamer@origsection*}{\tumbeamer@section}%
-        }
-    \fi%
-\fi
-\iftumbeamer@beamer%
-    \ifnotitleframe\relax\else%
-        \def\document{%
-            \tumbeamer@origdocument\tumbeamer@beamer@titleframe%
-%            \tumbeamer@beamer@contentframe%
-        }%
-    \fi%
-\fi%
 \iftumbeamer@beameralt%
     \ifnotitleframe\relax\else%
         \def\document{%
