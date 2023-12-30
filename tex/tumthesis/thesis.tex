@@ -1,6 +1,7 @@
-\documentclass[IN,11pt,twoside,openright,idp,english]{tumthesis}
+\documentclass[]{report}
 \usepackage[backend=bibtex,style=ieee]{biblatex}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \usepackage{csquotes}
 \usepackage{url}
 \usepackage{amsmath}
@@ -13,17 +14,125 @@
 \usepackage{varwidth}
 \usepackage[hang]{footmisc}
 
-\titleenglish{Development of a Framework for Retrieval of Parameters of the Starlink Dish}
-\titlegerman{Entwurf eines Frameworks zur Informationsgewinnung von Parametern der Starlink Dish}
+\begin{filecontents}{ref.bib}
+    @misc{izhikevich2023democratizing,
+    title         = {Democratizing LEO Satellite Network Measurement},
+    author        = {Liz Izhikevich and Manda Tran and Katherine Izhikevich and Gautam Akiwate and Zakir Durumeric},
+    year          = {2023},
+    eprint        = {2306.07469},
+    archiveprefix = {arXiv},
+    primaryclass  = {cs.NI}
+  }
+  @online{llc-application,
+    author  = {Space Exploration Technologies Corp. (“SpaceX”)},
+    title   = {Starlink Services LLC Application for ETC Designation},
+    year    = 2020,
+    url     = {https://web.archive.org/web/20220320174537/https://ecfsapi.fcc.gov/file/1020316268311/Starlink%20Services%20LLC%20Application%20for%20ETC%20Designation.pdf},
+    urldate = {2023-09-28}
+  }
+  @online{tweet,
+    author  = {Elon Musk},
+    title   = {Laser links in orbit can reduce long-distance latency},
+    year    = 2021,
+    url     = {https://web.archive.org/web/20230705153022/https://twitter.com/elonmusk/status/1415527753185730564?s=20},
+    urldate = {2023-09-28}
+  }
+  @inproceedings{browser-side,
+    author    = {Kassem, Mohamed M. and Raman, Aravindh and Perino, Diego and Sastry, Nishanth},
+    title     = {A Browser-Side View of Starlink Connectivity},
+    year      = {2022},
+    isbn      = {9781450392594},
+    publisher = {Association for Computing Machinery},
+    address   = {New York, NY, USA},
+    url       = {https://doi.org/10.1145/3517745.3561457},
+    doi       = {10.1145/3517745.3561457},
+    abstract  = {LEO satellite "mega-constellations" such as SpaceX's Starlink, Amazon's Kuiper, OneWeb are launching thousands of satellites annually, promising high-bandwidth low-latency connectivity. To quantify the achievable performance of such providers, we carry out a measurement study of the spatial and temporal characteristics as well as the geographic variability of the connectivity provided by Starlink, the current leader in this space. We do this by building and deploying a browser extension that provides data about web performance seen by 28 users from 10 cities across the world. We complement this with performance tests run from three measurement nodes hosted by volunteer enthusiasts in the UK, EU and USA. Our findings suggest that although Starlink offers some of the best web performance figures among the ISPs observed, there are important sources of variability in performance such as weather conditions. The bent-pipe connection to a satellite and back to earth also forms a significant component of the observed latency. We also observe frequent and significant packet losses of up to 50\% of packets, which appear to be correlated with handovers between satellites. This has an effect on achievable throughput even when using modern congestion control protocols such as BBR or CUBIC.},
+    booktitle = {Proceedings of the 22nd ACM Internet Measurement Conference},
+    pages     = {151–158},
+    numpages  = {8},
+    series    = {IMC '22}
+  }
+  @inproceedings{first-look,
+    author    = {Michel, Fran\c{c}ois and Trevisan, Martino and Giordano, Danilo and Bonaventure, Olivier},
+    title     = {A First Look at Starlink Performance},
+    year      = {2022},
+    isbn      = {9781450392594},
+    publisher = {Association for Computing Machinery},
+    address   = {New York, NY, USA},
+    url       = {https://doi.org/10.1145/3517745.3561416},
+    doi       = {10.1145/3517745.3561416},
+    abstract  = {With new Low Earth Orbit satellite constellations such as Starlink, satellite-based Internet access is becoming an alternative to traditional fixed and wireless technologies with comparable throughputs and latencies. In this paper, we investigate the user-perceived performance of Starlink. Our measurements show that latency remains low and does not vary significantly under idle or lightly loaded links. Compared to another commercial Internet access using a geostationary satellite, Starlink achieves higher TCP throughput and provides faster web browsing. To avoid interference from performance enhancing proxies commonly used in satellite networks, we also use QUIC to assess performance under load and packet loss. Our results indicate that delay and packet loss increase slightly under load for both upload and download.},
+    booktitle = {Proceedings of the 22nd ACM Internet Measurement Conference},
+    pages     = {130–136},
+    numpages  = {7},
+    keywords  = {measurements, starlink, low earth orbit, satellite communications, network performance},
+    location  = {Nice, France},
+    series    = {IMC '22}
+  }
+  @article{pan2023measuring,
+    title   = {Measuring a low-earth-orbit satellite network},
+    author  = {Pan, Jianping and Zhao, Jinwei and Cai, Lin},
+    journal = {arXiv preprint arXiv:2307.06863},
+    year    = {2023}
+  }
+  @online{glitching,
+    author  = {Lennert Wouters},
+    title   = {Glitched on Earth by Humans: A Black-Box Security Evaluation of the SpaceX Starlink User Terminal},
+    year    = 2022,
+    url     = {https://i.blackhat.com/USA-22/Wednesday/US-22-Wouters-Glitched-On-Earth.pdf},
+    urldate = {2023-09-25}
+  }
+  @online{quarkslab,
+    author  = {Carlo Ramponi},
+    title   = {Diving into Starlink's User Terminal Firmware},
+    year    = 2023,
+    url     = {https://blog.quarkslab.com/starlink.html},
+    urldate = {2023-09-25}
+  }
+  @Article{Hunter:2007,
+    Author    = {Hunter, J. D.},
+    Title     = {Matplotlib: A 2D graphics environment},
+    Journal   = {Computing in Science \& Engineering},
+    Volume    = {9},
+    Number    = {3},
+    Pages     = {90--95},
+    abstract  = {Matplotlib is a 2D graphics package used for Python for
+    application development, interactive scripting, and publication-quality
+    image generation across user interfaces and operating systems.},
+    publisher = {IEEE COMPUTER SOC},
+    doi       = {10.1109/MCSE.2007.55},
+    year      = 2007
+  }
+  @article{cite-key,
+    abstract   = {The rising population of artificial satellites and associated debris in low-altitude orbits is increasing the overall brightness of the night sky, threatening ground-based astronomy as well as a diversity of stakeholders and ecosystems reliant on dark skies. We present calculations of the potentially large rise in global sky brightness from space objects in low Earth orbit, including qualitative and quantitative assessments of how professional astronomy may be affected. Debris proliferation is of special concern: we calculate that all log-decades in debris size contribute approximately the same amount of night sky radiance, so debris-generating events are expected to lead to a rapid rise in night sky brightness along with serious collision risks for satellites from centimetre-sized objects. This increase in low-Earth-orbit traffic will lead to loss of astronomical data and diminish opportunities for ground-based discoveries as faint astrophysical signals become increasingly lost in the noise. Lastly, we discuss the broader consequences of brighter skies for a range of sky constituencies, equity/inclusion and accessibility for Earth- and space-based science, and cultural sky traditions. Space and dark skies represent an intangible heritage that deserves intentional preservation and safeguarding for future generations.},
+    author     = {Barentine, John C. and Venkatesan, Aparna and Heim, Jessica and Lowenthal, James and Kocifaj, Miroslav and Bar{\'a}, Salvador},
+    date       = {2023-03-01},
+    isbn       = {2397-3366},
+    journal    = {Nature Astronomy},
+    number     = {3},
+    pages      = {252--258},
+    title      = {Aggregate effects of proliferating low-Earth-orbit objects and implications for astronomical data lost in the noise},
+    url        = {https://doi.org/10.1038/s41550-023-01904-2},
+    volume     = {7},
+    bdsk-url-1 = {https://doi.org/10.1038/s41550-023-01904-2}
+  }
+  
+  @online{kuiplaunches,
+    author  = {Amazon Staff},
+    title   = {The latest updates from Project Kuiper’s satellite test mission},
+    year    = 2023,
+    url     = {https://www.aboutamazon.com/news/innovation-at-amazon/amazon-project-kuiper-latest-updates},
+    urldate = {2023-12-14}
+  }
+\end{filecontents} 
+
+
+
+\title{Development of a Framework for Retrieval of Parameters of the Starlink Dish}
 \author{Roberto Castellotti}
-\supervisor{\chairhead}
-\assistants{Leander Seidlitz, Johannes Zirngibl}
-\advisor{Leander Seidlitz, Johannes Zirngibl}
-\courseofstudy{Informatics}
-\date{September 15, 2016}
-\location{Garching}
+% \assistants{Leander Seidlitz, Johannes Zirngibl}
+\date{\today}
 \setcounter{tocdepth}{2}
-\addbibresource{ref.bib}
 \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}  
 
 \begin{document}
@@ -35,6 +144,7 @@ showstringspaces=false
 \pagenumbering{gobble}  
 \maketitle
 \cleardoublepage
+
 
 \begin{abstract} 
 
@@ -58,7 +168,6 @@ Throughout the course of our research, we developed tooling to interact with the
     
 \tableofcontents
 
-\startcontent
 
 \chapter{Introduction and Background}   
 
@@ -568,7 +677,7 @@ and check whether the $ 0 $ value (there was -1 before, and we currently have 1)
 
 First, we must write a script to extract obstruction maps from the dish. To achieve this goal, we can use the
 \texttt{api.get\_obstruction\_map}
-\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blame/main/api.py\#L26}}
+\footnote{\url{https://gitlab.lrz.de/netintum/teaching/tumi8-theses/idp-castellotti/-/blob/main/api.py?ref_type=heads\#L54}}
 function, which returns a JSON response similar to this:
 
 \begin{lstlisting}[caption={data from the \texttt{dish\_get\_obstruction\_map} function},captionpos=b]
@@ -746,11 +855,6 @@ print("Longitude:", lon)
 \end{lstlisting}
 
 \clearpage
-\pagestyle{thesischapter}
-\cleardoublepage
-\selectlanguage{english}
-\listoffigures
-\listoftables
 \printbibliography[heading=bibintoc]
 \clearpage
 \pagestyle{empty}
