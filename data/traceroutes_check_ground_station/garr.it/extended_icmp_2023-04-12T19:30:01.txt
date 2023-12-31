@@ -1,0 +1,16 @@
+traceroute to garr.it (193.206.158.22), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.374 ms  0.466 ms  0.575 ms
+ 2  100.64.0.1 (100.64.0.1)  46.277 ms  46.299 ms  46.368 ms
+ 3  172.16.250.140 (172.16.250.140)  46.365 ms  46.361 ms  46.378 ms
+ 4  undefined.hostname.localhost (206.224.65.202)  55.554 ms  55.545 ms  55.564 ms
+ 5  undefined.hostname.localhost (206.224.65.188)  55.451 ms  55.466 ms  55.532 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  55.572 ms  45.080 ms  45.053 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  45.119 ms  65.824 ms  65.822 ms
+ 8  mno-b3-link.ip.twelve99.net (62.115.116.171)  63.246 ms  63.251 ms  63.319 ms
+ 9  consortiumgarr-ic326851-mno-b3.ip.twelve99-cust.net (80.239.135.53)  76.415 ms  76.440 ms  76.501 ms
+10  * * *
+11  rs1-rm02-rl2-rm02.rm02.garr.net (185.191.181.87)  85.636 ms  85.651 ms  85.727 ms
+12  rx1-rm2-edge2-infra.rm2.garr.net (193.206.138.114)  85.717 ms  99.103 ms  99.093 ms
+13  ru-dir-garr-92.dir.garr.it (90.147.92.252)  85.650 ms  54.027 ms  67.224 ms
+14  90.147.92.249 (90.147.92.249)  72.087 ms  72.094 ms  72.137 ms
+15  eventi.dir.garr.it (193.206.158.22)  78.718 ms  78.741 ms  78.793 ms

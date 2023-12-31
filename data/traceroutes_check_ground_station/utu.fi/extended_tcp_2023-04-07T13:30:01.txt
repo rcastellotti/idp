@@ -1,0 +1,17 @@
+traceroute to utu.fi (130.232.246.90), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.474 ms  0.578 ms  0.651 ms
+ 2  100.64.0.1 (100.64.0.1)  52.832 ms  52.848 ms  52.887 ms
+ 3  172.16.250.140 (172.16.250.140)  52.859 ms  52.894 ms  52.932 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.184)  79.788 ms undefined.hostname.localhost (206.224.65.182)  79.816 ms undefined.hostname.localhost (206.224.65.190)  79.833 ms
+ 6  213.144.184.26 (213.144.184.26)  79.886 ms 213.144.184.30 (213.144.184.30)  69.380 ms  69.323 ms
+ 7  ae29.londra32.lon.seabone.net (195.22.209.198)  76.769 ms  62.740 ms ae30.londra32.lon.seabone.net (195.22.209.220)  62.705 ms
+ 8  195.66.225.24 (195.66.225.24)  62.619 ms  62.628 ms  62.702 ms
+ 9  de-ffm.nordu.net (109.105.97.79)  62.606 ms  62.633 ms  62.617 ms
+10  de-hmb.nordu.net (109.105.97.104)  83.447 ms  96.696 ms  83.441 ms
+11  * * *
+12  ndn-gw.funet.fi (109.105.102.169)  108.671 ms  108.679 ms  108.663 ms
+13  turku1.ip.funet.fi (86.50.255.97)  95.419 ms  95.479 ms  95.392 ms
+14  utu-a.funet.fi (193.167.244.237)  95.419 ms  87.819 ms  87.829 ms
+15  kenny-ext.utu.fi (130.232.202.65)  82.678 ms  95.861 ms  95.876 ms
+16  utu.fi (130.232.246.90)  82.423 ms  95.772 ms  95.987 ms

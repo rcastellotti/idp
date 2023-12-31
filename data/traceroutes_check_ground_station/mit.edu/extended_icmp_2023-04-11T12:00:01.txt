@@ -1,0 +1,12 @@
+traceroute to mit.edu (23.218.165.107), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.387 ms  0.508 ms  0.608 ms
+ 2  100.64.0.1 (100.64.0.1)  49.749 ms  49.774 ms  49.835 ms
+ 3  * * *
+ 4  undefined.hostname.localhost (206.224.65.194)  57.799 ms  57.813 ms *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  a23-218-165-107.deploy.static.akamaitechnologies.com (23.218.165.107)  87.223 ms  87.244 ms  60.501 ms

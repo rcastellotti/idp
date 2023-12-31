@@ -1,0 +1,14 @@
+traceroute to mit.edu (104.102.9.251), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.500 ms  0.635 ms  0.763 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * ffm-bb1-link.ip.twelve99.net (62.115.114.88)  24.781 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  24.780 ms
+ 8  hbg-bb3-link.ip.twelve99.net (62.115.123.77)  32.685 ms  51.325 ms *
+ 9  hbg-b2-link.ip.twelve99.net (62.115.120.71)  51.310 ms hbg-b2-link.ip.twelve99.net (62.115.132.109)  51.370 ms hbg-b2-link.ip.twelve99.net (62.115.120.71)  51.325 ms
+10  * * *
+11  * * *
+12  * * *
+13  a104-102-9-251.deploy.static.akamaitechnologies.com (104.102.9.251)  61.803 ms  32.586 ms  40.575 ms

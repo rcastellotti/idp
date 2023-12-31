@@ -1,0 +1,8 @@
+traceroute to ox.ac.uk (151.101.194.216), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.547 ms  0.647 ms  0.726 ms
+ 2  100.64.0.1 (100.64.0.1)  70.506 ms  70.516 ms  121.069 ms
+ 3  172.16.250.140 (172.16.250.140)  121.067 ms  121.129 ms  121.114 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.186)  121.074 ms undefined.hostname.localhost (206.224.65.180)  121.052 ms undefined.hostname.localhost (206.224.65.178)  121.082 ms
+ 6  * * fra1.decixfra.fastly.net (80.81.195.54)  110.560 ms
+ 7  151.101.194.216 (151.101.194.216)  110.552 ms  58.723 ms  58.742 ms

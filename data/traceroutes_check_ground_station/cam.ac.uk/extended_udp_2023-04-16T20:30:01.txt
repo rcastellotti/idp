@@ -1,0 +1,31 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.527 ms * *
+ 2  100.64.0.1 (100.64.0.1)  20.981 ms  34.329 ms  34.339 ms
+ 3  172.16.250.140 (172.16.250.140)  34.361 ms  34.400 ms  34.444 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  34.493 ms  34.493 ms undefined.hostname.localhost (206.224.65.206)  34.451 ms
+ 5  undefined.hostname.localhost (206.224.65.184)  34.316 ms undefined.hostname.localhost (206.224.65.178)  34.360 ms  34.410 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  34.476 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  24.257 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  24.174 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  37.123 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  29.918 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  23.193 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  44.583 ms  44.583 ms  26.097 ms
+ 9  ldn-bb1-link.ip.twelve99.net (62.115.135.24)  39.463 ms  39.502 ms  52.871 ms
+10  ldn-b11-link.ip.twelve99.net (62.115.138.169)  52.902 ms  52.881 ms  52.933 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  52.964 ms  52.922 ms  52.902 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  52.835 ms  40.219 ms  40.212 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  40.246 ms  53.542 ms  53.501 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  47.068 ms  47.005 ms  54.966 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  54.974 ms  54.881 ms  54.915 ms
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

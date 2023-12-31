@@ -1,0 +1,12 @@
+traceroute to mit.edu (23.218.165.107), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.484 ms * *
+ 2  100.64.0.1 (100.64.0.1)  27.089 ms  27.105 ms  27.142 ms
+ 3  172.16.250.140 (172.16.250.140)  42.978 ms  42.997 ms  42.986 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.186)  50.924 ms undefined.hostname.localhost (206.224.65.188)  50.865 ms undefined.hostname.localhost (206.224.65.182)  50.854 ms
+ 6  ae3-1.fra20.core-backbone.com (80.81.192.187)  50.930 ms  29.047 ms  29.002 ms
+ 7  ae8-2026.muc10.core-backbone.com (5.56.19.14)  36.925 ms  40.047 ms  39.988 ms
+ 8  * * *
+ 9  * * *
+10  * * *
+11  a23-218-165-107.deploy.static.akamaitechnologies.com (23.218.165.107)  50.578 ms  50.606 ms  36.034 ms

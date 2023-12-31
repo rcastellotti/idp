@@ -1,0 +1,12 @@
+traceroute to mit.edu (104.68.95.219), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.378 ms  0.479 ms  0.556 ms
+ 2  * * *
+ 3  172.16.250.140 (172.16.250.140)  51.392 ms  51.462 ms  51.457 ms
+ 4  undefined.hostname.localhost (206.224.65.206)  51.541 ms  51.561 ms  51.631 ms
+ 5  undefined.hostname.localhost (206.224.65.192)  51.406 ms  51.450 ms  51.493 ms
+ 6  213.144.184.30 (213.144.184.30)  51.582 ms  40.648 ms  40.634 ms
+ 7  195.219.223.10 (195.219.223.10)  40.510 ms  31.892 ms  31.868 ms
+ 8  if-ae-54-2.tcore1.fr0-frankfurt.as6453.net (195.219.219.72)  55.966 ms * *
+ 9  if-ae-55-2.tcore2.pvu-paris.as6453.net (80.231.245.6)  55.788 ms  55.774 ms  55.792 ms
+10  if-ae-49-2.tcore1.pvu-paris.as6453.net (80.231.153.20)  55.738 ms  55.787 ms  55.768 ms
+11  a104-68-95-219.deploy.static.akamaitechnologies.com (104.68.95.219)  55.574 ms  55.581 ms  39.806 ms

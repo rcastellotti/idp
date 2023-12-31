@@ -1,0 +1,11 @@
+traceroute to mit.edu (23.33.6.100), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.451 ms  0.563 ms  0.638 ms
+ 2  100.64.0.1 (100.64.0.1)  32.934 ms * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * ffm-b5-link.ip.twelve99.net (62.115.37.20)  49.258 ms 213.144.184.26 (213.144.184.26)  49.233 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  82.768 ms ae0.milano52.mil.seabone.net (195.22.196.69)  69.110 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  56.275 ms
+ 8  mno-b3-link.ip.twelve99.net (62.115.116.171)  56.344 ms akamai-it.milano52.mil.seabone.net (195.22.192.33)  68.897 ms mno-b3-link.ip.twelve99.net (62.115.116.173)  56.269 ms
+ 9  akamai-svc071524-lag003377.ip.twelve99-cust.net (62.115.40.165)  56.281 ms  83.202 ms *
+10  a23-33-6-100.deploy.static.akamaitechnologies.com (23.33.6.100)  83.203 ms *  83.108 ms

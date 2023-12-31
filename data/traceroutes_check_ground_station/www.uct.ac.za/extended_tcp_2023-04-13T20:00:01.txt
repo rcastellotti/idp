@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.505 ms  0.583 ms  0.687 ms
+ 2  100.64.0.1 (100.64.0.1)  32.923 ms  41.005 ms  52.738 ms
+ 3  172.16.250.140 (172.16.250.140)  52.738 ms  52.818 ms  52.881 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.190)  52.782 ms undefined.hostname.localhost (206.224.65.184)  52.699 ms undefined.hostname.localhost (206.224.65.190)  52.755 ms
+ 6  213.144.184.26 (213.144.184.26)  52.900 ms  40.359 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  40.300 ms
+ 7  * ae31.franco31.fra.seabone.net (89.221.34.117)  25.701 ms *
+ 8  * be2845.ccr41.fra03.atlas.cogentco.com (154.54.56.189)  69.980 ms *
+ 9  be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  77.881 ms  77.865 ms  77.768 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  77.857 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  77.767 ms be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  77.817 ms
+11  149.11.39.2 (149.11.39.2)  77.629 ms  77.635 ms  77.686 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  89.628 ms et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  46.095 ms  46.089 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  252.283 ms  289.593 ms  289.664 ms
+14  et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  289.663 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  289.787 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  289.700 ms
+15  et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  289.586 ms  289.503 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  289.579 ms
+16  154.114.124.1 (154.114.124.1)  289.622 ms  289.628 ms  289.586 ms
+17  137.158.248.97 (137.158.248.97)  289.592 ms  353.404 ms  243.997 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  306.037 ms  305.821 ms  305.826 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  305.926 ms  305.783 ms  310.865 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  305.768 ms  305.810 ms  305.781 ms

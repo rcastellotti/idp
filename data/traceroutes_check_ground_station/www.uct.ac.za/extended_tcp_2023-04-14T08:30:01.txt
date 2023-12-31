@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.549 ms  0.650 ms  0.734 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  67.961 ms undefined.hostname.localhost (206.224.65.182)  67.922 ms undefined.hostname.localhost (206.224.65.178)  67.855 ms
+ 6  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  67.988 ms  57.539 ms 213.144.184.26 (213.144.184.26)  57.481 ms
+ 7  ae31.franco31.fra.seabone.net (89.221.34.117)  57.381 ms  27.905 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  27.922 ms
+ 8  * be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  35.835 ms  35.841 ms
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  59.637 ms be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  59.611 ms  39.868 ms
+10  be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  50.513 ms  42.526 ms be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  42.567 ms
+11  149.11.39.2 (149.11.39.2)  35.951 ms  43.962 ms  35.942 ms
+12  et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  49.175 ms  59.824 ms  59.764 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  240.016 ms  248.144 ms  239.829 ms
+14  et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  250.665 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  249.642 ms  249.634 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  240.128 ms  263.955 ms et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  255.650 ms
+16  154.114.124.1 (154.114.124.1)  257.233 ms  263.443 ms  263.410 ms
+17  137.158.248.97 (137.158.248.97)  255.566 ms  250.514 ms  250.450 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  275.908 ms  275.862 ms  275.943 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  275.877 ms  254.748 ms  262.705 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  262.637 ms * *

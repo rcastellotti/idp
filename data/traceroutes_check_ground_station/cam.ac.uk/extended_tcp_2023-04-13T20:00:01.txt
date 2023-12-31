@@ -1,0 +1,7 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.552 ms  0.632 ms  0.710 ms
+ 2  * * *
+ 3  172.16.250.140 (172.16.250.140)  69.958 ms  69.969 ms  70.030 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.192)  70.034 ms undefined.hostname.localhost (206.224.65.188)  69.989 ms undefined.hostname.localhost (206.224.65.184)  69.914 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  69.989 ms  52.774 ms tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  93.886 ms

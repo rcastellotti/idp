@@ -1,0 +1,31 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.596 ms  0.670 ms  0.736 ms
+ 2  100.64.0.1 (100.64.0.1)  51.058 ms  83.422 ms  83.420 ms
+ 3  172.16.250.140 (172.16.250.140)  83.486 ms  83.486 ms  83.553 ms
+ 4  undefined.hostname.localhost (206.224.65.206)  83.556 ms undefined.hostname.localhost (206.224.65.194)  83.504 ms undefined.hostname.localhost (206.224.65.202)  83.479 ms
+ 5  undefined.hostname.localhost (206.224.65.186)  83.276 ms undefined.hostname.localhost (206.224.65.178)  83.351 ms undefined.hostname.localhost (206.224.65.192)  83.284 ms
+ 6  213.144.184.30 (213.144.184.30)  83.506 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  73.181 ms 213.144.184.26 (213.144.184.26)  73.159 ms
+ 7  * * ae31.franco31.fra.seabone.net (89.221.34.117)  39.717 ms
+ 8  be2845.ccr41.fra03.atlas.cogentco.com (154.54.56.189)  47.754 ms be3187.ccr42.fra03.atlas.cogentco.com (130.117.1.118)  47.685 ms *
+ 9  be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  41.873 ms be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  41.825 ms *
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  57.912 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  57.891 ms  57.811 ms
+11  149.11.39.2 (149.11.39.2)  57.771 ms  53.353 ms  61.257 ms
+12  et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  69.550 ms  93.487 ms  93.494 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  285.694 ms  285.748 ms  285.625 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  285.635 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  285.533 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  285.686 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  285.477 ms et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  285.377 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  285.326 ms
+16  154.114.124.1 (154.114.124.1)  272.272 ms  264.350 ms  256.055 ms
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

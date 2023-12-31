@@ -1,0 +1,7 @@
+traceroute to tum.de (129.187.255.109), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.574 ms * *
+ 2  100.64.0.1 (100.64.0.1)  23.710 ms  37.035 ms  37.046 ms
+ 3  172.16.250.140 (172.16.250.140)  37.163 ms  37.126 ms  37.112 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  37.197 ms  37.181 ms undefined.hostname.localhost (206.224.65.202)  37.141 ms
+ 5  undefined.hostname.localhost (206.224.65.186)  36.944 ms undefined.hostname.localhost (206.224.65.192)  36.976 ms  36.988 ms
+ 6  f5slb4.lrz.de (129.187.255.244)  1892.912 ms !H ffm-bb1-link.ip.twelve99.net (62.115.114.88)  26.794 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  26.791 ms

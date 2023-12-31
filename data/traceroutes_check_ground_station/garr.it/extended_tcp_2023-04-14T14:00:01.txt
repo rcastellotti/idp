@@ -1,0 +1,16 @@
+traceroute to garr.it (193.206.158.22), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.565 ms  0.639 ms  0.788 ms
+ 2  100.64.0.1 (100.64.0.1)  33.514 ms  33.524 ms  33.583 ms
+ 3  172.16.250.140 (172.16.250.140)  33.566 ms  49.399 ms  49.383 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.186)  49.336 ms undefined.hostname.localhost (206.224.65.192)  49.362 ms undefined.hostname.localhost (206.224.65.182)  49.245 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  49.420 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  32.975 ms  32.920 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  32.875 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  23.861 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  31.827 ms
+ 8  mno-b3-link.ip.twelve99.net (62.115.116.171)  32.224 ms  37.411 ms  37.422 ms
+ 9  consortiumgarr-ic326851-mno-b3.ip.twelve99-cust.net (80.239.135.53)  56.038 ms  56.052 ms  56.035 ms
+10  * * *
+11  rs1-mi02-rl1-rm02.rm02.garr.net (185.191.181.72)  56.040 ms rs1-rm02-rl1-rm02.rm02.garr.net (185.191.181.85)  56.077 ms rs1-mi02-rl1-rm02.rm02.garr.net (185.191.181.72)  56.009 ms
+12  rx1-rm2-edge1-infra.rm2.garr.net (193.206.138.112)  55.992 ms rx1-rm2-edge2-infra.rm2.garr.net (193.206.138.114)  56.079 ms  40.351 ms
+13  ru-dir-garr-92.dir.garr.it (90.147.92.252)  40.324 ms ru-bk-dir-garr-92.dir.garr.it (90.147.92.253)  56.504 ms ru-dir-garr-92.dir.garr.it (90.147.92.252)  38.742 ms
+14  90.147.92.251 (90.147.92.251)  38.795 ms  38.748 ms  54.944 ms
+15  eventi.dir.garr.it (193.206.158.22)  54.646 ms  54.743 ms  54.733 ms

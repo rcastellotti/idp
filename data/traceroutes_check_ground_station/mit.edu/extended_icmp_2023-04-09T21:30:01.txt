@@ -1,0 +1,15 @@
+traceroute to mit.edu (23.52.58.207), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.352 ms  0.438 ms  0.557 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  ae1.r01.ams03.ien.netarch.akamai.com (23.197.69.35)  115.821 ms  177.171 ms  61.340 ms
+13  ae4.drt-ams.netarch.akamai.com (23.197.69.129)  61.238 ms  74.447 ms  54.678 ms
+14  a23-52-58-207.deploy.static.akamaitechnologies.com (23.52.58.207)  41.362 ms  33.240 ms  46.495 ms

@@ -1,0 +1,31 @@
+traceroute to mit.edu (88.221.34.133), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.629 ms  0.717 ms *
+ 2  100.64.0.1 (100.64.0.1)  30.668 ms  30.708 ms  30.701 ms
+ 3  172.16.250.140 (172.16.250.140)  30.737 ms  30.718 ms  30.795 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  30.774 ms undefined.hostname.localhost (206.224.65.202)  41.395 ms undefined.hostname.localhost (206.224.65.194)  41.324 ms
+ 5  undefined.hostname.localhost (206.224.65.188)  41.287 ms undefined.hostname.localhost (206.224.65.190)  41.210 ms undefined.hostname.localhost (206.224.65.180)  41.162 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  41.322 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  37.349 ms 213.144.184.30 (213.144.184.30)  52.178 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.124.116)  62.827 ms et9-0-2.miami19.mia.seabone.net (89.221.41.171)  169.600 ms et9-1-5.miami19.mia.seabone.net (89.221.41.161)  190.850 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  89.397 ms  89.391 ms akamai-row.miami19.mia.seabone.net (89.221.41.247)  201.377 ms
+ 9  ash-bb2-link.ip.twelve99.net (62.115.112.242)  169.467 ms  169.347 ms  169.351 ms
+10  * * mai-b2-link.ip.twelve99.net (62.115.120.177)  201.328 ms
+11  * akamai-svc069986-lag003206.ip.twelve99-cust.net (62.115.190.209)  201.253 ms *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

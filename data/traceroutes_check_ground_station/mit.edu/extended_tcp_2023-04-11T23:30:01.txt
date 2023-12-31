@@ -1,0 +1,13 @@
+traceroute to mit.edu (23.56.203.58), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.468 ms  0.537 ms  0.651 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * 213.144.184.26 (213.144.184.26)  53.411 ms 213.144.184.30 (213.144.184.30)  53.371 ms
+ 7  akamai.francoforte34.fra.seabone.net (89.221.34.57)  53.261 ms  31.973 ms  31.885 ms
+ 8  ae19.r02.border101.fra02.fab.netarch.akamai.com (23.210.52.219)  31.935 ms  32.154 ms  32.154 ms
+ 9  * * *
+10  * * *
+11  * * *
+12  a23-56-203-58.deploy.static.akamaitechnologies.com (23.56.203.58)  42.164 ms  50.283 ms  50.315 ms

@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.546 ms  0.621 ms  0.692 ms
+ 2  100.64.0.1 (100.64.0.1)  73.919 ms  73.932 ms  73.984 ms
+ 3  172.16.250.140 (172.16.250.140)  90.039 ms  89.921 ms  90.008 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  89.872 ms undefined.hostname.localhost (206.224.65.182)  89.779 ms undefined.hostname.localhost (206.224.65.186)  89.838 ms
+ 6  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  89.922 ms 213.144.184.26 (213.144.184.26)  47.150 ms *
+ 7  * * ae31.franco31.fra.seabone.net (89.221.34.117)  105.533 ms
+ 8  be3187.ccr42.fra03.atlas.cogentco.com (130.117.1.118)  105.511 ms be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  105.450 ms *
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  105.565 ms be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  105.568 ms  105.626 ms
+10  be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  105.570 ms  105.455 ms  105.440 ms
+11  149.11.39.2 (149.11.39.2)  105.527 ms  105.584 ms  58.806 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  62.165 ms et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  86.052 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  85.996 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  350.238 ms  350.126 ms  350.138 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  350.314 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  350.168 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  350.262 ms
+15  et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  350.166 ms  350.223 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  349.902 ms
+16  154.114.124.1 (154.114.124.1)  349.930 ms  350.011 ms  349.893 ms
+17  137.158.248.97 (137.158.248.97)  349.989 ms  266.116 ms  256.872 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  256.748 ms  303.958 ms  304.056 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  304.055 ms  480.743 ms *
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  303.897 ms  488.588 ms  303.880 ms

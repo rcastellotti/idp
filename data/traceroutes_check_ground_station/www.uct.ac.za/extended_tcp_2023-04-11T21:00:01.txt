@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.615 ms  0.717 ms  0.784 ms
+ 2  * 100.64.0.1 (100.64.0.1)  84.746 ms  84.756 ms
+ 3  172.16.250.140 (172.16.250.140)  84.754 ms  84.785 ms  84.822 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  84.707 ms  84.710 ms undefined.hostname.localhost (206.224.65.186)  84.748 ms
+ 6  213.144.184.26 (213.144.184.26)  84.731 ms  74.355 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  74.283 ms
+ 7  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  74.278 ms * ae31.franco31.fra.seabone.net (89.221.34.117)  50.645 ms
+ 8  be2846.ccr42.fra03.atlas.cogentco.com (154.54.37.29)  57.254 ms * be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  70.435 ms
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  70.548 ms  70.459 ms be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  70.520 ms
+10  be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  70.490 ms  70.440 ms  70.345 ms
+11  149.11.39.2 (149.11.39.2)  70.298 ms  50.488 ms  58.083 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  78.070 ms  78.059 ms  94.506 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  290.062 ms  290.031 ms  290.082 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  290.096 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  290.043 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  259.639 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  257.731 ms et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  275.178 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  275.168 ms
+16  154.114.124.1 (154.114.124.1)  271.918 ms  255.537 ms  341.702 ms
+17  137.158.248.97 (137.158.248.97)  341.768 ms  341.674 ms  341.727 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  341.489 ms  341.530 ms *
+20  * * *
+21  137.158.159.1 (137.158.159.1)  341.522 ms  341.482 ms  341.514 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  266.755 ms  282.446 ms  262.194 ms

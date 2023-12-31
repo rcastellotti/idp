@@ -1,0 +1,16 @@
+traceroute to caida.org (192.172.226.78), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.586 ms  0.666 ms  0.749 ms
+ 2  100.64.0.1 (100.64.0.1)  57.051 ms  57.069 ms  57.101 ms
+ 3  172.16.250.140 (172.16.250.140)  57.097 ms  57.149 ms  57.182 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.178)  57.036 ms undefined.hostname.localhost (206.224.65.192)  56.973 ms undefined.hostname.localhost (206.224.65.180)  57.001 ms
+ 6  213.144.184.30 (213.144.184.30)  57.078 ms 213.144.184.26 (213.144.184.26)  46.653 ms 213.144.184.30 (213.144.184.30)  46.630 ms
+ 7  ae-16.edge8.Frankfurt1.Level3.net (4.68.63.109)  62.223 ms  45.792 ms  45.724 ms
+ 8  * * *
+ 9  CENIC.ear1.LosAngeles1.Level3.net (4.35.156.66)  208.183 ms  192.235 ms  208.278 ms
+10  dc-lax-agg8--lax-agg10-300g.cenic.net (137.164.11.71)  208.223 ms  208.203 ms  208.210 ms
+11  dc-tus-agg8--lax-agg8-300g.cenic.net (137.164.11.83)  208.166 ms  208.075 ms  178.363 ms
+12  sand1-agg-01--tus-agg8--300g--01.cenic.net (137.164.11.85)  178.349 ms  178.461 ms  171.853 ms
+13  sdsc--sand1-agg-01--100g--01.cenic.net (137.164.23.43)  187.817 ms  187.718 ms  187.922 ms
+14  medusa-mx960.sdsc.edu (192.12.207.46)  187.819 ms  187.802 ms  187.804 ms
+15  rommie.caida.org (192.172.226.78)  172.085 ms  172.156 ms  203.925 ms

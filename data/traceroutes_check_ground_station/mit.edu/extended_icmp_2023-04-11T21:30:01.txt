@@ -1,0 +1,14 @@
+traceroute to mit.edu (96.6.240.166), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.360 ms  0.464 ms  0.548 ms
+ 2  100.64.0.1 (100.64.0.1)  46.380 ms  46.402 ms  46.468 ms
+ 3  172.16.250.140 (172.16.250.140)  46.464 ms  59.628 ms  59.655 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  59.759 ms  59.756 ms  59.774 ms
+ 5  undefined.hostname.localhost (206.224.65.182)  59.681 ms  59.677 ms  59.706 ms
+ 6  213.144.184.26 (213.144.184.26)  59.794 ms  62.478 ms  62.431 ms
+ 7  89.221.43.233 (89.221.43.233)  85.211 ms  59.304 ms  59.302 ms
+ 8  89.221.43.35 (89.221.43.35)  62.116 ms  62.124 ms  55.316 ms
+ 9  ae1.r01.lon03.icn.netarch.akamai.com (23.210.50.34)  55.205 ms  55.229 ms  68.515 ms
+10  ae10.r01.lon01.icn.netarch.akamai.com (95.100.192.238)  68.562 ms  68.587 ms  68.652 ms
+11  ae1.r01.lon01.ien.netarch.akamai.com (23.210.48.35)  68.602 ms  68.598 ms  103.318 ms
+12  ae4.virtus-lon.netarch.akamai.com (23.210.48.189)  211.512 ms  211.505 ms  211.520 ms
+13  a96-6-240-166.deploy.static.akamaitechnologies.com (96.6.240.166)  211.400 ms  211.428 ms  211.523 ms

@@ -1,0 +1,15 @@
+traceroute to mit.edu (23.52.58.207), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.478 ms  0.555 ms  0.661 ms
+ 2  100.64.0.1 (100.64.0.1)  45.715 ms  45.731 ms  45.789 ms
+ 3  172.16.250.140 (172.16.250.140)  45.777 ms  45.765 ms  45.774 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.184)  77.596 ms undefined.hostname.localhost (206.224.65.180)  77.557 ms undefined.hostname.localhost (206.224.65.188)  77.606 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  77.596 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  109.729 ms  109.677 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  109.638 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  77.946 ms  77.939 ms
+ 8  adm-bb4-link.ip.twelve99.net (62.115.122.200)  99.384 ms adm-bb1-link.ip.twelve99.net (62.115.120.240)  99.445 ms  99.425 ms
+ 9  adm-b10-link.ip.twelve99.net (62.115.120.227)  99.338 ms adm-b10-link.ip.twelve99.net (62.115.120.229)  89.196 ms adm-b10-link.ip.twelve99.net (62.115.120.227)  89.223 ms
+10  akamai-ic342259-adm-b10.ip.twelve99-cust.net (62.115.171.197)  89.222 ms  106.445 ms  49.140 ms
+11  ae2.r01.ams01.icn.netarch.akamai.com (23.210.55.36)  57.105 ms  57.056 ms  57.019 ms
+12  ae1.r01.ams03.ien.netarch.akamai.com (23.197.69.35)  64.962 ms  57.364 ms  57.304 ms
+13  * * *
+14  a23-52-58-207.deploy.static.akamaitechnologies.com (23.52.58.207)  82.484 ms  73.230 ms  55.986 ms

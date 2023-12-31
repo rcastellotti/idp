@@ -1,0 +1,11 @@
+traceroute to mit.edu (104.81.118.59), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.497 ms * *
+ 2  100.64.0.1 (100.64.0.1)  37.913 ms  37.924 ms  37.953 ms
+ 3  172.16.250.140 (172.16.250.140)  37.937 ms  45.785 ms  45.793 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  53.795 ms undefined.hostname.localhost (206.224.65.198)  53.756 ms undefined.hostname.localhost (206.224.65.206)  53.783 ms
+ 5  undefined.hostname.localhost (206.224.65.180)  53.694 ms undefined.hostname.localhost (206.224.65.188)  53.653 ms undefined.hostname.localhost (206.224.65.178)  53.597 ms
+ 6  * ffm-b5-link.ip.twelve99.net (62.115.37.20)  35.086 ms 213.144.184.26 (213.144.184.26)  63.603 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.124.116)  44.222 ms retn-svc072993-ic360713.ip.twelve99-cust.net (62.115.178.57)  33.715 ms ae8.francoforte73.fra.seabone.net (195.22.211.57)  33.713 ms
+ 8  ffm-b5-link.ip.twelve99.net (62.115.114.91)  57.406 ms 195.22.214.85 (195.22.214.85)  92.199 ms ae5-9.RT.LIM.WAW.PL.retn.net (87.245.233.46)  108.164 ms
+ 9  ae5-9.RT.LIM.WAW.PL.retn.net (87.245.233.46)  108.204 ms ae1-13.RT.LIM.WAW.PL.retn.net (87.245.233.57)  108.338 ms retn-svc072993-ic360713.ip.twelve99-cust.net (62.115.178.57)  92.132 ms
+10  a104-81-118-59.deploy.static.akamaitechnologies.com (104.81.118.59)  108.217 ms  108.126 ms ae1-13.RT.LIM.WAW.PL.retn.net (87.245.233.57)  108.253 ms

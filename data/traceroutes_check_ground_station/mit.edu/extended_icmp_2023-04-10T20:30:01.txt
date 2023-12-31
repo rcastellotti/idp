@@ -1,0 +1,14 @@
+traceroute to mit.edu (104.69.7.38), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.291 ms  0.366 ms  0.428 ms
+ 2  100.64.0.1 (100.64.0.1)  33.821 ms  44.488 ms  44.484 ms
+ 3  172.16.250.140 (172.16.250.140)  55.297 ms  55.337 ms  55.381 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  55.399 ms  55.416 ms  55.488 ms
+ 5  undefined.hostname.localhost (206.224.65.178)  55.226 ms  55.299 ms  55.296 ms
+ 6  213.144.184.26 (213.144.184.26)  55.499 ms  43.040 ms  43.076 ms
+ 7  ae5.parigi51.par.seabone.net (213.144.168.125)  96.107 ms  66.978 ms  77.541 ms
+ 8  akamai.parigi51.par.seabone.net (213.144.168.157)  77.530 ms  70.380 ms  70.388 ms
+ 9  ae34.r03.border101.par02.fab.netarch.akamai.com (23.210.53.25)  95.685 ms  138.501 ms  138.519 ms
+10  * * *
+11  * * *
+12  * * *
+13  a104-69-7-38.deploy.static.akamaitechnologies.com (104.69.7.38)  116.827 ms  116.849 ms  116.884 ms

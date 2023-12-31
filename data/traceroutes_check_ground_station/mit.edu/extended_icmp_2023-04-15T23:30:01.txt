@@ -1,0 +1,8 @@
+traceroute to mit.edu (2.19.42.129), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.298 ms  0.374 ms  0.441 ms
+ 2  100.64.0.1 (100.64.0.1)  28.692 ms  36.652 ms  36.678 ms
+ 3  172.16.250.140 (172.16.250.140)  46.209 ms  46.226 ms  46.276 ms
+ 4  undefined.hostname.localhost (206.224.65.206)  46.271 ms  46.268 ms  46.287 ms
+ 5  undefined.hostname.localhost (206.224.65.192)  46.112 ms  46.106 ms  46.127 ms
+ 6  decix-fra9.netarch.akamai.com (80.81.192.28)  46.285 ms  36.106 ms  36.126 ms
+ 7  a2-19-42-129.deploy.static.akamaitechnologies.com (2.19.42.129)  47.725 ms  26.665 ms  42.704 ms

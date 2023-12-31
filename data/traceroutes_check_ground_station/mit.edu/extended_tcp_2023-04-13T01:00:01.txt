@@ -1,0 +1,7 @@
+traceroute to mit.edu (23.217.237.133), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.485 ms  0.623 ms  0.728 ms
+ 2  100.64.0.1 (100.64.0.1)  30.246 ms  38.203 ms  46.201 ms
+ 3  172.16.250.140 (172.16.250.140)  46.300 ms  46.288 ms  46.300 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.192)  46.156 ms undefined.hostname.localhost (206.224.65.188)  46.167 ms undefined.hostname.localhost (206.224.65.178)  46.155 ms
+ 6  a23-217-237-133.deploy.static.akamaitechnologies.com (23.217.237.133)  70.053 ms 213.144.184.26 (213.144.184.26)  75.280 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  35.295 ms

@@ -1,0 +1,31 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.611 ms  0.707 ms  0.804 ms
+ 2  100.64.0.1 (100.64.0.1)  60.353 ms  60.358 ms  60.386 ms
+ 3  172.16.250.140 (172.16.250.140)  60.365 ms  60.392 ms  60.419 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  60.463 ms  60.510 ms undefined.hostname.localhost (206.224.65.202)  60.395 ms
+ 5  undefined.hostname.localhost (206.224.65.192)  60.374 ms undefined.hostname.localhost (206.224.65.188)  60.316 ms undefined.hostname.localhost (206.224.65.182)  60.262 ms
+ 6  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  77.365 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  67.100 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  66.984 ms
+ 7  ae31.franco31.fra.seabone.net (89.221.34.117)  66.893 ms  38.949 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  38.961 ms
+ 8  be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  38.349 ms  38.314 ms be3187.ccr42.fra03.atlas.cogentco.com (130.117.1.118)  38.240 ms
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  54.167 ms  54.175 ms  54.220 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  54.284 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  54.159 ms be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  54.133 ms
+11  149.11.39.2 (149.11.39.2)  54.127 ms  47.336 ms  47.329 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  63.229 ms et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  63.281 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  63.202 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  267.124 ms  243.865 ms  243.858 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  243.892 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  251.737 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  251.672 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  251.607 ms  268.959 ms  268.907 ms
+16  154.114.124.1 (154.114.124.1)  268.952 ms  268.959 ms  286.523 ms
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.478 ms  0.588 ms  0.663 ms
+ 2  100.64.0.1 (100.64.0.1)  51.794 ms  51.812 ms  83.398 ms
+ 3  172.16.250.140 (172.16.250.140)  83.471 ms  83.460 ms  83.472 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.182)  83.365 ms undefined.hostname.localhost (206.224.65.180)  83.505 ms undefined.hostname.localhost (206.224.65.182)  83.439 ms
+ 6  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  115.667 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  74.669 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  63.718 ms
+ 7  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  63.658 ms ae31.franco31.fra.seabone.net (89.221.34.117)  63.744 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  63.726 ms
+ 8  * be2846.ccr42.fra03.atlas.cogentco.com (154.54.37.29)  45.632 ms *
+ 9  be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  85.723 ms  85.732 ms  85.762 ms
+10  be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  69.642 ms  47.654 ms  48.145 ms
+11  149.11.39.2 (149.11.39.2)  48.127 ms  48.129 ms  48.160 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  63.737 ms  55.797 ms  47.625 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  247.802 ms  247.715 ms  247.745 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  247.623 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  247.580 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  247.587 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  247.447 ms  247.455 ms et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  247.902 ms
+16  154.114.124.1 (154.114.124.1)  247.918 ms  248.032 ms  292.725 ms
+17  137.158.248.97 (137.158.248.97)  276.832 ms  276.697 ms  276.664 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  247.688 ms  260.811 ms  260.777 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  271.840 ms  271.755 ms  271.836 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  271.789 ms  271.643 ms  269.182 ms

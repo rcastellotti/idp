@@ -1,0 +1,16 @@
+traceroute to caida.org (192.172.226.78), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.617 ms  0.691 ms  0.746 ms
+ 2  100.64.0.1 (100.64.0.1)  30.785 ms  30.780 ms  30.835 ms
+ 3  172.16.250.140 (172.16.250.140)  30.814 ms  43.796 ms  43.775 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  43.809 ms  43.784 ms undefined.hostname.localhost (206.224.65.202)  43.810 ms
+ 5  undefined.hostname.localhost (206.224.65.192)  43.803 ms undefined.hostname.localhost (206.224.65.182)  43.756 ms  43.803 ms
+ 6  213.144.184.26 (213.144.184.26)  43.803 ms  49.757 ms  31.182 ms
+ 7  ae-16.edge8.Frankfurt1.Level3.net (4.68.63.109)  31.278 ms  31.152 ms  31.124 ms
+ 8  * * *
+ 9  CENIC.ear1.LosAngeles1.Level3.net (4.35.156.66)  184.369 ms  184.375 ms  190.955 ms
+10  dc-lax-agg8--lax-agg10-300g.cenic.net (137.164.11.71)  197.551 ms  197.609 ms  197.510 ms
+11  dc-tus-agg8--lax-agg8-300g.cenic.net (137.164.11.83)  190.839 ms  197.542 ms  197.476 ms
+12  sand1-agg-01--tus-agg8--300g--01.cenic.net (137.164.11.85)  179.927 ms  179.862 ms  179.939 ms
+13  * * *
+14  * * *
+15  rommie.caida.org (192.172.226.78)  241.532 ms  241.587 ms *

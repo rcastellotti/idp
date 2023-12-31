@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.476 ms  0.585 ms  0.675 ms
+ 2  100.64.0.1 (100.64.0.1)  108.391 ms  108.406 ms  108.459 ms
+ 3  172.16.250.140 (172.16.250.140)  108.445 ms  108.504 ms  108.493 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.184)  108.404 ms undefined.hostname.localhost (206.224.65.186)  108.458 ms undefined.hostname.localhost (206.224.65.178)  108.382 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  108.499 ms  94.575 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  94.547 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  94.447 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  69.635 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  69.646 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  45.058 ms prs-bb2-link.ip.twelve99.net (62.115.122.138)  58.346 ms prs-bb1-link.ip.twelve99.net (62.115.123.13)  58.273 ms
+ 9  * ldn-bb1-link.ip.twelve99.net (62.115.135.24)  58.323 ms  58.307 ms
+10  ldn-b11-link.ip.twelve99.net (62.115.138.169)  58.336 ms  58.341 ms  58.304 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  58.369 ms  58.353 ms  58.444 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  58.360 ms  58.261 ms  54.971 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  41.671 ms  75.978 ms  75.971 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  89.315 ms  89.194 ms  89.204 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  102.471 ms  102.455 ms  102.411 ms
+16  uoc.ja.net (146.97.41.38)  102.558 ms  102.541 ms  102.548 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  102.455 ms  102.416 ms  102.400 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  89.146 ms  89.195 ms  59.811 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  59.872 ms  46.580 ms  59.832 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  53.973 ms * *
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  74.440 ms  74.714 ms  74.438 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  74.832 ms  74.802 ms  74.614 ms

@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.473 ms  0.572 ms  0.640 ms
+ 2  100.64.0.1 (100.64.0.1)  45.282 ms  45.297 ms  45.354 ms
+ 3  172.16.250.140 (172.16.250.140)  45.342 ms  45.354 ms  45.431 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.192)  45.386 ms undefined.hostname.localhost (206.224.65.178)  45.286 ms undefined.hostname.localhost (206.224.65.188)  45.317 ms
+ 6  213.144.184.30 (213.144.184.30)  45.441 ms  34.904 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  34.889 ms
+ 7  ae31.franco31.fra.seabone.net (89.221.34.117)  34.826 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  31.791 ms  31.783 ms
+ 8  * be3187.ccr42.fra03.atlas.cogentco.com (130.117.1.118)  45.098 ms be2846.ccr42.fra03.atlas.cogentco.com (154.54.37.29)  45.105 ms
+ 9  be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  53.075 ms  52.991 ms be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  52.955 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  53.051 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  52.987 ms  53.019 ms
+11  149.11.39.2 (149.11.39.2)  52.826 ms  52.885 ms  31.928 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  39.789 ms et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  34.566 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  34.494 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  266.884 ms  266.771 ms  266.817 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  266.848 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  274.611 ms  274.560 ms
+15  et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  274.476 ms  274.435 ms  274.508 ms
+16  154.114.124.1 (154.114.124.1)  266.914 ms  248.004 ms  248.017 ms
+17  137.158.248.97 (137.158.248.97)  240.663 ms  240.500 ms  240.510 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  248.681 ms  248.758 ms  248.675 ms
+20  * * *
+21  * * 137.158.159.1 (137.158.159.1)  271.112 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  271.036 ms  241.852 ms  257.821 ms

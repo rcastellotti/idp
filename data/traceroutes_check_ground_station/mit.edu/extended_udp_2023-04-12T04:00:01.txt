@@ -1,0 +1,31 @@
+traceroute to mit.edu (104.69.7.38), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.538 ms * *
+ 2  100.64.0.1 (100.64.0.1)  26.481 ms  26.489 ms  26.550 ms
+ 3  172.16.250.140 (172.16.250.140)  34.282 ms  34.296 ms  42.346 ms
+ 4  undefined.hostname.localhost (206.224.65.202)  42.423 ms  42.465 ms undefined.hostname.localhost (206.224.65.194)  42.381 ms
+ 5  undefined.hostname.localhost (206.224.65.190)  42.307 ms undefined.hostname.localhost (206.224.65.184)  42.214 ms undefined.hostname.localhost (206.224.65.192)  42.274 ms
+ 6  213.144.184.26 (213.144.184.26)  42.401 ms 213.144.184.30 (213.144.184.30)  32.011 ms 213.144.184.26 (213.144.184.26)  32.019 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  31.927 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  21.893 ms  29.843 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  35.687 ms  35.691 ms  43.701 ms
+ 9  prs-b1-link.ip.twelve99.net (62.115.125.171)  39.316 ms  39.281 ms  39.303 ms
+10  * akamai-svc079579-lag004046.c.telia.net (80.239.193.111)  47.171 ms  47.177 ms
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

@@ -1,0 +1,7 @@
+traceroute to mit.edu (88.221.181.64), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  100.64.0.1 (100.64.0.1)  37.103 ms  37.120 ms  37.158 ms
+ 3  172.16.250.140 (172.16.250.140)  37.139 ms  52.769 ms  52.779 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.188)  52.769 ms  52.757 ms  52.764 ms
+ 6  213.144.184.26 (213.144.184.26)  52.768 ms a88-221-181-64.deploy.static.akamaitechnologies.com (88.221.181.64)  32.552 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  32.432 ms

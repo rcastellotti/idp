@@ -1,0 +1,31 @@
+traceroute to mit.edu (104.126.247.110), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.520 ms  0.607 ms  0.675 ms
+ 2  100.64.0.1 (100.64.0.1)  43.236 ms  43.249 ms  43.316 ms
+ 3  172.16.250.140 (172.16.250.140)  43.301 ms  43.289 ms  43.291 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  43.318 ms undefined.hostname.localhost (206.224.65.206)  43.431 ms undefined.hostname.localhost (206.224.65.202)  43.333 ms
+ 5  undefined.hostname.localhost (206.224.65.192)  43.295 ms undefined.hostname.localhost (206.224.65.180)  43.305 ms  43.362 ms
+ 6  213.144.184.26 (213.144.184.26)  59.082 ms 213.144.184.30 (213.144.184.30)  36.674 ms *
+ 7  * ae5.parigi51.par.seabone.net (213.144.168.125)  105.806 ms *
+ 8  * * *
+ 9  ae1.r02.par01.icn.netarch.akamai.com (23.210.53.38)  97.754 ms * *
+10  * * ae2.r01.par04.ien.netarch.akamai.com (23.197.68.39)  137.582 ms
+11  * ae3.intx-par8.netarch.akamai.com (23.197.68.133)  76.076 ms *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

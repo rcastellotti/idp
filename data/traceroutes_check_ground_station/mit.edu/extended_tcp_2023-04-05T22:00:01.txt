@@ -1,0 +1,7 @@
+traceroute to mit.edu (104.88.85.227), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.481 ms  0.558 ms  0.664 ms
+ 2  100.64.0.1 (100.64.0.1)  65.997 ms  66.012 ms  66.077 ms
+ 3  172.16.250.140 (172.16.250.140)  66.064 ms  99.267 ms  99.295 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.186)  99.324 ms undefined.hostname.localhost (206.224.65.178)  99.325 ms undefined.hostname.localhost (206.224.65.188)  99.313 ms
+ 6  213.144.184.26 (213.144.184.26)  99.351 ms  89.099 ms a104-88-85-227.deploy.static.akamaitechnologies.com (104.88.85.227)  102.302 ms

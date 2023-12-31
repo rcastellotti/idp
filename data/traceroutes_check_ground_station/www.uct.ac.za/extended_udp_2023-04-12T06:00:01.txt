@@ -1,0 +1,31 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.551 ms  0.644 ms  0.721 ms
+ 2  100.64.0.1 (100.64.0.1)  24.393 ms  24.404 ms  24.434 ms
+ 3  172.16.250.140 (172.16.250.140)  42.982 ms  43.005 ms  42.985 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  43.031 ms undefined.hostname.localhost (206.224.65.194)  43.059 ms undefined.hostname.localhost (206.224.65.202)  42.981 ms
+ 5  undefined.hostname.localhost (206.224.65.180)  42.809 ms undefined.hostname.localhost (206.224.65.178)  42.852 ms undefined.hostname.localhost (206.224.65.182)  42.813 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  42.990 ms  37.852 ms 213.144.184.26 (213.144.184.26)  48.441 ms
+ 7  ae31.franco31.fra.seabone.net (89.221.34.117)  37.754 ms  35.437 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  24.710 ms
+ 8  * be2846.ccr42.fra03.atlas.cogentco.com (154.54.37.29)  27.218 ms be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  37.848 ms
+ 9  be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  37.857 ms be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  48.430 ms  38.419 ms
+10  be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  48.936 ms  48.944 ms  59.630 ms
+11  149.11.39.2 (149.11.39.2)  59.532 ms  59.511 ms  59.562 ms
+12  et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  70.048 ms  38.063 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  38.076 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  243.381 ms  252.710 ms  252.710 ms
+14  et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  252.770 ms  252.671 ms  269.825 ms
+15  et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  245.434 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  245.465 ms et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  245.342 ms
+16  154.114.124.1 (154.114.124.1)  254.620 ms  254.697 ms  254.579 ms
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

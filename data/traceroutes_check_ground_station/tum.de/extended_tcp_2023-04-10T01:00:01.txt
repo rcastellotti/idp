@@ -1,0 +1,7 @@
+traceroute to tum.de (129.187.255.109), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.531 ms  0.630 ms  0.721 ms
+ 2  100.64.0.1 (100.64.0.1)  88.332 ms  88.342 ms  88.408 ms
+ 3  172.16.250.140 (172.16.250.140)  88.396 ms  88.418 ms  88.477 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  88.395 ms undefined.hostname.localhost (206.224.65.184)  101.460 ms undefined.hostname.localhost (206.224.65.188)  88.283 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  88.429 ms  37.223 ms tu-muenchen.de (129.187.255.109)  63.517 ms

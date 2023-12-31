@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.583 ms  0.661 ms  0.753 ms
+ 2  100.64.0.1 (100.64.0.1)  56.231 ms  56.289 ms  56.303 ms
+ 3  172.16.250.140 (172.16.250.140)  72.044 ms  72.137 ms  72.122 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.192)  72.000 ms  72.086 ms undefined.hostname.localhost (206.224.65.178)  71.973 ms
+ 6  213.144.184.26 (213.144.184.26)  72.112 ms 213.144.184.30 (213.144.184.30)  61.501 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  61.424 ms
+ 7  ae31.franco31.fra.seabone.net (89.221.34.117)  61.334 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  28.143 ms *
+ 8  * be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  74.233 ms  74.228 ms
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  74.251 ms be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  116.509 ms be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  116.372 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  116.398 ms  116.382 ms  148.385 ms
+11  149.11.39.2 (149.11.39.2)  148.370 ms  148.285 ms  148.240 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  148.416 ms et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  148.346 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  148.292 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  348.260 ms  348.273 ms  295.548 ms
+14  et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  295.565 ms  295.575 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  261.722 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  261.603 ms  261.614 ms  281.521 ms
+16  154.114.124.1 (154.114.124.1)  289.573 ms  289.539 ms  289.623 ms
+17  * 137.158.248.97 (137.158.248.97)  289.575 ms  297.377 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  264.070 ms  264.066 ms  271.993 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  305.226 ms  305.067 ms  305.082 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  305.149 ms  305.246 ms  305.345 ms

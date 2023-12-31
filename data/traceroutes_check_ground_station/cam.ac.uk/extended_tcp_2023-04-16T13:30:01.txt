@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.497 ms  0.598 ms  0.664 ms
+ 2  100.64.0.1 (100.64.0.1)  54.084 ms  54.100 ms  54.139 ms
+ 3  172.16.250.140 (172.16.250.140)  54.122 ms  54.158 ms  54.148 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.192)  81.863 ms undefined.hostname.localhost (206.224.65.190)  81.913 ms undefined.hostname.localhost (206.224.65.180)  81.823 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  81.965 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  68.039 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  68.041 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.124.116)  67.992 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  43.140 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  43.126 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  49.635 ms prs-bb2-link.ip.twelve99.net (62.115.122.138)  56.309 ms  49.576 ms
+ 9  * ldn-bb1-link.ip.twelve99.net (62.115.135.24)  57.483 ms  73.524 ms
+10  ldn-b11-link.ip.twelve99.net (62.115.141.247)  73.464 ms ldn-b11-link.ip.twelve99.net (62.115.138.169)  73.523 ms  73.507 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  73.537 ms  73.543 ms  73.506 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  73.555 ms  73.538 ms  66.914 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  66.826 ms  66.883 ms  90.919 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  84.538 ms  84.479 ms  84.536 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  92.405 ms  92.291 ms  92.275 ms
+16  uoc.ja.net (146.97.41.38)  92.427 ms  92.411 ms  92.317 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  92.281 ms  92.361 ms  92.248 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  75.527 ms  75.514 ms  75.572 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  91.369 ms  78.383 ms  78.321 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  78.333 ms  60.974 ms  76.974 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  76.910 ms  76.971 ms  76.955 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  77.015 ms  92.862 ms  92.853 ms

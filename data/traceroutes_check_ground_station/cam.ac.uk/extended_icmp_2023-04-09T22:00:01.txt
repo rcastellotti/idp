@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.320 ms  0.394 ms  0.459 ms
+ 2  100.64.0.1 (100.64.0.1)  40.293 ms  40.317 ms  40.380 ms
+ 3  172.16.250.140 (172.16.250.140)  40.374 ms  40.402 ms  40.470 ms
+ 4  undefined.hostname.localhost (206.224.65.206)  56.222 ms  56.217 ms  56.233 ms
+ 5  undefined.hostname.localhost (206.224.65.184)  56.163 ms  56.251 ms  56.303 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  56.310 ms  36.820 ms  32.857 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  32.865 ms  32.858 ms  48.815 ms
+ 8  prs-bb2-link.ip.twelve99.net (62.115.122.138)  65.133 ms  65.157 ms  65.220 ms
+ 9  * * *
+10  ldn-b11-link.ip.twelve99.net (62.115.141.247)  47.924 ms * *
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  63.832 ms  79.882 ms  59.579 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  59.473 ms  59.486 ms  59.598 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  59.554 ms  59.583 ms  67.409 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  67.440 ms  47.785 ms  47.961 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  47.905 ms  47.911 ms  47.971 ms
+16  uoc.ja.net (146.97.41.38)  55.835 ms  55.762 ms  55.779 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  63.864 ms  56.042 ms  56.099 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  48.174 ms  47.945 ms  48.069 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  47.942 ms  47.927 ms  48.075 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  48.120 ms  48.041 ms  48.005 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  47.942 ms  47.859 ms  55.765 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  55.953 ms  55.890 ms  55.896 ms

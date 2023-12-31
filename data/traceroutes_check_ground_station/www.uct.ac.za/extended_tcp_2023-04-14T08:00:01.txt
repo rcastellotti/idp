@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.559 ms  0.653 ms  0.736 ms
+ 2  100.64.0.1 (100.64.0.1)  73.418 ms  73.431 ms  73.486 ms
+ 3  172.16.250.140 (172.16.250.140)  133.393 ms  133.403 ms  133.466 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.182)  133.396 ms undefined.hostname.localhost (206.224.65.180)  133.385 ms undefined.hostname.localhost (206.224.65.192)  133.391 ms
+ 6  213.144.184.26 (213.144.184.26)  133.420 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  93.684 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  77.694 ms
+ 7  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  77.733 ms  77.716 ms *
+ 8  * * *
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  168.662 ms  228.481 ms  228.465 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  228.375 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  168.618 ms be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  178.960 ms
+11  149.11.39.2 (149.11.39.2)  119.028 ms  119.035 ms  118.935 ms
+12  et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  59.969 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  59.862 ms  59.856 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  250.455 ms  271.760 ms  266.965 ms
+14  et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  266.788 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  266.847 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  266.793 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  266.702 ms et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  266.761 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  299.628 ms
+16  154.114.124.1 (154.114.124.1)  255.821 ms  284.605 ms  285.721 ms
+17  137.158.248.97 (137.158.248.97)  285.728 ms *  285.658 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  250.002 ms  271.821 ms  271.786 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  255.889 ms  255.958 ms  310.040 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  310.130 ms  310.067 ms  310.109 ms

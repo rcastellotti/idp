@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.513 ms  0.633 ms  0.830 ms
+ 2  100.64.0.1 (100.64.0.1)  27.035 ms  27.089 ms  27.079 ms
+ 3  172.16.250.140 (172.16.250.140)  27.089 ms  58.783 ms  58.844 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.186)  58.694 ms undefined.hostname.localhost (206.224.65.188)  58.571 ms undefined.hostname.localhost (206.224.65.180)  58.632 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  58.744 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  32.202 ms  41.631 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  57.634 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  57.587 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  57.656 ms
+ 8  prs-bb2-link.ip.twelve99.net (62.115.122.138)  73.639 ms  73.623 ms prs-bb1-link.ip.twelve99.net (62.115.123.13)  73.574 ms
+ 9  ldn-bb1-link.ip.twelve99.net (62.115.135.24)  73.640 ms  73.624 ms *
+10  ldn-b11-link.ip.twelve99.net (62.115.138.169)  73.642 ms ldn-b11-link.ip.twelve99.net (62.115.141.247)  73.658 ms ldn-b11-link.ip.twelve99.net (62.115.138.169)  73.610 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  83.924 ms  73.635 ms  76.502 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  45.598 ms  45.593 ms  125.519 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  141.861 ms  125.414 ms  125.434 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  141.688 ms  141.570 ms  141.581 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  125.560 ms  125.447 ms  125.461 ms
+16  uoc.ja.net (146.97.41.38)  141.624 ms  141.674 ms  141.658 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  141.531 ms * *
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  80.070 ms  80.115 ms  80.118 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  80.057 ms  79.941 ms  79.914 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  63.811 ms  63.775 ms  63.828 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  63.666 ms  79.758 ms  97.483 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  97.498 ms  97.359 ms  46.173 ms

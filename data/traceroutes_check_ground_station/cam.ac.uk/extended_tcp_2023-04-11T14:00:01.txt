@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.546 ms  0.704 ms  0.850 ms
+ 2  100.64.0.1 (100.64.0.1)  72.426 ms  72.436 ms  72.492 ms
+ 3  172.16.250.140 (172.16.250.140)  72.478 ms  72.463 ms  72.472 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  72.499 ms undefined.hostname.localhost (206.224.65.192)  72.412 ms undefined.hostname.localhost (206.224.65.190)  72.414 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  72.506 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  62.144 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  62.140 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  62.021 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  22.224 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  22.219 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  31.441 ms prs-bb2-link.ip.twelve99.net (62.115.122.138)  31.477 ms prs-bb1-link.ip.twelve99.net (62.115.123.13)  31.420 ms
+ 9  ldn-bb1-link.ip.twelve99.net (62.115.135.24)  52.725 ms *  52.723 ms
+10  ldn-b11-link.ip.twelve99.net (62.115.138.169)  52.735 ms  52.720 ms  52.725 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  52.752 ms  52.736 ms  58.292 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  58.306 ms  58.266 ms  58.250 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  58.159 ms  59.466 ms  59.453 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  59.551 ms  59.513 ms  59.498 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  59.445 ms  59.430 ms  59.513 ms
+16  uoc.ja.net (146.97.41.38)  59.516 ms  59.598 ms  59.485 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  71.265 ms  71.301 ms  71.244 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  71.311 ms  71.295 ms  57.604 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  57.392 ms  57.479 ms  57.379 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  57.420 ms  57.433 ms  57.489 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  113.325 ms  113.337 ms  113.391 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  113.410 ms  57.210 ms  65.169 ms

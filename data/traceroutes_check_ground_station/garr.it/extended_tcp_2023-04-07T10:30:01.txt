@@ -1,0 +1,7 @@
+traceroute to garr.it (193.206.158.22), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.484 ms  0.570 ms  0.653 ms
+ 2  * * *
+ 3  * 172.16.250.140 (172.16.250.140)  58.133 ms  58.122 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.190)  57.982 ms undefined.hostname.localhost (206.224.65.184)  58.041 ms undefined.hostname.localhost (206.224.65.182)  58.000 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  58.083 ms eventi.dir.garr.it (193.206.158.22)  63.408 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  71.285 ms

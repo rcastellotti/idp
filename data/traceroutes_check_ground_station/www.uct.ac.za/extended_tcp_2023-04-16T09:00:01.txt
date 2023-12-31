@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.590 ms  0.663 ms  0.737 ms
+ 2  100.64.0.1 (100.64.0.1)  28.327 ms  41.501 ms  48.267 ms
+ 3  172.16.250.140 (172.16.250.140)  48.280 ms  48.332 ms  48.317 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.184)  48.267 ms undefined.hostname.localhost (206.224.65.182)  48.293 ms undefined.hostname.localhost (206.224.65.180)  48.232 ms
+ 6  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  61.360 ms  39.566 ms 213.144.184.26 (213.144.184.26)  39.541 ms
+ 7  * ae31.franco31.fra.seabone.net (89.221.34.117)  37.075 ms *
+ 8  * be3186.ccr41.fra03.atlas.cogentco.com (130.117.0.1)  49.876 ms *
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  63.094 ms  63.044 ms be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  63.079 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  63.101 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  60.008 ms  60.046 ms
+11  149.11.39.2 (149.11.39.2)  59.871 ms  46.553 ms  53.268 ms
+12  et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  53.173 ms et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  66.650 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  66.675 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  259.866 ms  259.737 ms  259.742 ms
+14  et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  266.414 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  273.151 ms et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  259.720 ms
+15  et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  253.343 ms  252.890 ms  266.238 ms
+16  154.114.124.1 (154.114.124.1)  253.306 ms  266.519 ms  279.746 ms
+17  137.158.248.97 (137.158.248.97)  273.169 ms  259.900 ms  246.723 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  316.111 ms  315.979 ms  315.985 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  315.974 ms  247.428 ms  247.392 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  247.314 ms  287.287 ms  287.220 ms

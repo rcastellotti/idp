@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.498 ms  0.621 ms  0.723 ms
+ 2  100.64.0.1 (100.64.0.1)  90.541 ms  90.554 ms  107.840 ms
+ 3  172.16.250.140 (172.16.250.140)  107.910 ms  107.900 ms  107.910 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.186)  107.770 ms undefined.hostname.localhost (206.224.65.184)  107.832 ms undefined.hostname.localhost (206.224.65.182)  107.901 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  107.917 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  97.132 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  97.030 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.124.116)  97.086 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  32.431 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  32.424 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  47.601 ms prs-bb2-link.ip.twelve99.net (62.115.122.138)  47.605 ms *
+ 9  ldn-bb1-link.ip.twelve99.net (62.115.135.24)  47.593 ms  47.577 ms  56.948 ms
+10  ldn-b11-link.ip.twelve99.net (62.115.141.247)  56.882 ms  56.980 ms ldn-b11-link.ip.twelve99.net (62.115.138.169)  56.938 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  56.992 ms  56.930 ms  42.587 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  42.516 ms  41.259 ms  57.335 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  57.215 ms  57.298 ms  47.916 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  48.020 ms  47.933 ms  47.913 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  47.931 ms  47.833 ms  47.862 ms
+16  uoc.ja.net (146.97.41.38)  47.862 ms  51.063 ms  51.314 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  51.272 ms  51.117 ms  51.061 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  51.200 ms  51.243 ms  51.228 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  51.122 ms  51.106 ms  59.163 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  59.078 ms  47.329 ms  57.945 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  57.847 ms  57.812 ms  57.842 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  57.924 ms  57.941 ms  57.863 ms

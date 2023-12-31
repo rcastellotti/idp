@@ -1,0 +1,16 @@
+traceroute to caida.org (192.172.226.78), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.509 ms  0.587 ms  0.694 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  106.067 ms undefined.hostname.localhost (206.224.65.186)  106.134 ms undefined.hostname.localhost (206.224.65.178)  106.094 ms
+ 6  213.144.184.30 (213.144.184.30)  114.079 ms  111.589 ms  103.642 ms
+ 7  ae-16.edge8.Frankfurt1.Level3.net (4.68.63.109)  151.686 ms  71.734 ms  87.814 ms
+ 8  * * *
+ 9  CENIC.ear1.LosAngeles1.Level3.net (4.35.156.66)  311.949 ms  359.731 ms  312.118 ms
+10  dc-lax-agg8--lax-agg10-300g.cenic.net (137.164.11.71)  215.976 ms  351.735 ms  287.948 ms
+11  dc-tus-agg8--lax-agg8-300g.cenic.net (137.164.11.83)  391.860 ms  335.903 ms  359.958 ms
+12  sand1-agg-01--tus-agg8--300g--01.cenic.net (137.164.11.85)  280.075 ms  309.579 ms  301.414 ms
+13  sdsc--sand1-agg-01--100g--01.cenic.net (137.164.23.43)  277.362 ms  302.386 ms  350.384 ms
+14  medusa-mx960.sdsc.edu (192.12.207.46)  254.401 ms  326.370 ms  342.352 ms
+15  rommie.caida.org (192.172.226.78)  350.308 ms  286.408 ms  302.305 ms

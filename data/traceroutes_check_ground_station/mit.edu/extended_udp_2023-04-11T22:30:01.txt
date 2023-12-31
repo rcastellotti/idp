@@ -1,0 +1,14 @@
+traceroute to mit.edu (104.102.9.251), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.529 ms * *
+ 2  100.64.0.1 (100.64.0.1)  39.790 ms  39.800 ms  39.850 ms
+ 3  172.16.250.140 (172.16.250.140)  39.834 ms  46.346 ms  46.329 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  46.391 ms undefined.hostname.localhost (206.224.65.202)  46.398 ms undefined.hostname.localhost (206.224.65.198)  46.336 ms
+ 5  undefined.hostname.localhost (206.224.65.186)  46.403 ms undefined.hostname.localhost (206.224.65.184)  46.372 ms undefined.hostname.localhost (206.224.65.192)  46.401 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  52.888 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  35.868 ms  34.391 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  34.152 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  34.208 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  34.263 ms
+ 8  hbg-bb3-link.ip.twelve99.net (62.115.123.77)  47.382 ms  47.437 ms  47.313 ms
+ 9  hbg-b2-link.ip.twelve99.net (62.115.120.71)  53.889 ms hbg-b2-link.ip.twelve99.net (62.115.132.109)  53.901 ms hbg-b2-link.ip.twelve99.net (62.115.120.71)  67.224 ms
+10  * * *
+11  * * *
+12  * * *
+13  a104-102-9-251.deploy.static.akamaitechnologies.com (104.102.9.251)  46.226 ms * *

@@ -1,0 +1,12 @@
+traceroute to mit.edu (104.126.247.110), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.480 ms  0.590 ms  0.661 ms
+ 2  100.64.0.1 (100.64.0.1)  69.437 ms  69.451 ms  69.519 ms
+ 3  172.16.250.140 (172.16.250.140)  69.507 ms  82.687 ms  82.705 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.184)  82.762 ms undefined.hostname.localhost (206.224.65.182)  82.685 ms undefined.hostname.localhost (206.224.65.186)  82.715 ms
+ 6  ffm-bb2-link.ip.twelve99.net (62.115.114.90)  82.732 ms 213.144.184.30 (213.144.184.30)  72.286 ms 213.144.184.26 (213.144.184.26)  98.716 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.114.90)  72.218 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  29.643 ms ffm-bb2-link.ip.twelve99.net (62.115.114.90)  42.828 ms
+ 8  akamai.parigi51.par.seabone.net (213.144.168.157)  82.439 ms prs-bb2-link.ip.twelve99.net (62.115.122.138)  60.925 ms *
+ 9  prs-b9-link.ip.twelve99.net (62.115.115.87)  74.393 ms  74.377 ms ae1.r02.par01.icn.netarch.akamai.com (23.210.53.38)  95.747 ms
+10  akamai-svc085735-lag004662.ip.twelve99-cust.net (62.115.48.11)  74.299 ms ae2.r01.par04.ien.netarch.akamai.com (23.197.68.39)  95.761 ms akamai-svc085735-lag004662.ip.twelve99-cust.net (62.115.48.11)  74.356 ms
+11  ae3.intx-par8.netarch.akamai.com (23.197.68.133)  82.315 ms  82.371 ms a104-126-247-110.deploy.static.akamaitechnologies.com (104.126.247.110)  74.306 ms

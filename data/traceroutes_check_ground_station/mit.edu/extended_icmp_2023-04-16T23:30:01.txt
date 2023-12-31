@@ -1,0 +1,13 @@
+traceroute to mit.edu (23.217.237.133), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.377 ms  0.473 ms  0.559 ms
+ 2  100.64.0.1 (100.64.0.1)  35.438 ms  44.665 ms  44.691 ms
+ 3  172.16.250.140 (172.16.250.140)  52.713 ms  52.789 ms  52.785 ms
+ 4  undefined.hostname.localhost (206.224.65.206)  52.798 ms  52.869 ms  52.867 ms
+ 5  undefined.hostname.localhost (206.224.65.184)  52.652 ms  52.688 ms  52.759 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  52.885 ms  37.769 ms  37.739 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.124.116)  45.592 ms  31.293 ms  47.305 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  47.274 ms  54.640 ms  54.693 ms
+ 9  prs-b3-link.ip.twelve99.net (62.115.118.59)  159.892 ms  43.708 ms  59.694 ms
+10  akamai-ic341388-prs-b3.ip.twelve99-cust.net (62.115.169.193)  91.653 ms  91.676 ms  91.740 ms
+11  ae7.intx-par5.netarch.akamai.com (23.210.53.151)  75.842 ms  75.837 ms  75.853 ms
+12  a23-217-237-133.deploy.static.akamaitechnologies.com (23.217.237.133)  59.682 ms  59.697 ms  64.225 ms

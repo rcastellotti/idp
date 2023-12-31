@@ -1,0 +1,31 @@
+traceroute to mit.edu (104.102.9.251), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.595 ms  0.690 ms *
+ 2  100.64.0.1 (100.64.0.1)  46.346 ms  46.344 ms  46.390 ms
+ 3  172.16.250.140 (172.16.250.140)  52.825 ms  52.791 ms  52.782 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  59.624 ms undefined.hostname.localhost (206.224.65.206)  59.643 ms undefined.hostname.localhost (206.224.65.194)  59.640 ms
+ 5  undefined.hostname.localhost (206.224.65.186)  59.487 ms undefined.hostname.localhost (206.224.65.184)  59.528 ms undefined.hostname.localhost (206.224.65.186)  59.470 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  59.573 ms  44.966 ms *
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  93.971 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  93.945 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  93.936 ms
+ 8  hbg-bb3-link.ip.twelve99.net (62.115.123.77)  107.101 ms  107.074 ms  107.077 ms
+ 9  hbg-b2-link.ip.twelve99.net (62.115.120.71)  106.957 ms  106.934 ms  106.881 ms
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

@@ -1,0 +1,11 @@
+traceroute to mit.edu (88.221.34.133), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.337 ms  0.425 ms  0.488 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  et2-1-0.miami19.mia.seabone.net (89.221.41.187)  165.902 ms  135.968 ms  135.867 ms
+ 8  akamai-row.miami19.mia.seabone.net (89.221.41.247)  148.054 ms  135.887 ms  135.883 ms
+ 9  ae2.ecx-mia.netarch.akamai.com (23.203.157.139)  292.036 ms  147.928 ms  196.042 ms
+10  a88-221-34-133.deploy.static.akamaitechnologies.com (88.221.34.133)  135.722 ms  139.980 ms  136.832 ms

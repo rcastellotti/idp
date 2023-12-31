@@ -1,0 +1,16 @@
+traceroute to tum.de (129.187.255.109), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.491 ms  0.593 ms  0.671 ms
+ 2  100.64.0.1 (100.64.0.1)  60.906 ms  60.920 ms  60.985 ms
+ 3  172.16.250.140 (172.16.250.140)  76.778 ms  76.786 ms  76.853 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.192)  76.672 ms undefined.hostname.localhost (206.224.65.178)  76.795 ms undefined.hostname.localhost (206.224.65.188)  76.701 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  87.425 ms  74.160 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  74.173 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  74.157 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  26.215 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  36.632 ms
+ 8  hbg-bb2-link.ip.twelve99.net (62.115.127.90)  47.390 ms hbg-bb3-link.ip.twelve99.net (62.115.123.77)  30.692 ms *
+ 9  hbg-b2-link.ip.twelve99.net (62.115.120.71)  41.439 ms  41.397 ms hbg-b2-link.ip.twelve99.net (62.115.132.109)  41.377 ms
+10  dfn-svc083360-ic373396.ip.twelve99-cust.net (213.248.100.167)  51.709 ms  51.667 ms  51.725 ms
+11  cr-erl2-be7.x-win.dfn.de (188.1.146.209)  62.269 ms  62.227 ms  53.070 ms
+12  cr-gar1-be3.x-win.dfn.de (188.1.144.214)  59.592 ms  58.636 ms  58.627 ms
+13  kr-gar188-0.x-win.dfn.de (188.1.37.90)  58.879 ms  58.744 ms  58.753 ms
+14  vl-3001.cvr2-2wr.lrz.de (129.187.0.168)  59.595 ms  59.488 ms  59.446 ms
+15  tu-muenchen.de (129.187.255.109)  59.277 ms  59.319 ms  59.278 ms

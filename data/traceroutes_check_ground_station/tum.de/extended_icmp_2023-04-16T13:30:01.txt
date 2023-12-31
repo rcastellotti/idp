@@ -1,0 +1,16 @@
+traceroute to tum.de (129.187.255.109), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.305 ms  0.397 ms  0.477 ms
+ 2  100.64.0.1 (100.64.0.1)  58.869 ms  58.897 ms  58.943 ms
+ 3  172.16.250.140 (172.16.250.140)  58.926 ms  118.892 ms  118.916 ms
+ 4  undefined.hostname.localhost (206.224.65.194)  119.040 ms  119.036 ms  119.058 ms
+ 5  undefined.hostname.localhost (206.224.65.178)  118.952 ms  118.949 ms  118.973 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  119.056 ms  109.005 ms  108.970 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  168.569 ms  109.084 ms  109.143 ms
+ 8  hbg-bb2-link.ip.twelve99.net (62.115.127.90)  85.276 ms  85.258 ms  99.774 ms
+ 9  hbg-b2-link.ip.twelve99.net (62.115.132.109)  119.698 ms  119.707 ms  119.781 ms
+10  dfn-svc083360-ic373396.ip.twelve99-cust.net (213.248.100.167)  119.761 ms  54.460 ms  54.468 ms
+11  cr-erl2-be7.x-win.dfn.de (188.1.146.209)  70.351 ms  90.417 ms  62.470 ms
+12  cr-gar1-be3.x-win.dfn.de (188.1.144.214)  70.406 ms  70.468 ms  86.367 ms
+13  * * *
+14  vl-3001.cvr2-2wr.lrz.de (129.187.0.168)  86.366 ms  73.584 ms  73.584 ms
+15  tu-muenchen.de (129.187.255.109)  67.914 ms  75.954 ms  60.165 ms

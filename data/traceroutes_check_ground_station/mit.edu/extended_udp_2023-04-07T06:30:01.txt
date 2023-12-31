@@ -1,0 +1,12 @@
+traceroute to mit.edu (23.33.6.100), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.459 ms * *
+ 2  100.64.0.1 (100.64.0.1)  36.629 ms  61.979 ms  61.989 ms
+ 3  172.16.250.140 (172.16.250.140)  62.001 ms  62.079 ms  62.064 ms
+ 4  undefined.hostname.localhost (206.224.65.202)  62.089 ms undefined.hostname.localhost (206.224.65.194)  62.094 ms undefined.hostname.localhost (206.224.65.206)  62.117 ms
+ 5  undefined.hostname.localhost (206.224.65.180)  61.941 ms undefined.hostname.localhost (206.224.65.178)  61.954 ms undefined.hostname.localhost (206.224.65.190)  62.002 ms
+ 6  213.144.184.26 (213.144.184.26)  62.143 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  51.717 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  51.690 ms
+ 7  ae0.milano52.mil.seabone.net (195.22.196.69)  67.354 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  39.276 ms ae0.milano52.mil.seabone.net (195.22.196.69)  47.218 ms
+ 8  mno-b3-link.ip.twelve99.net (62.115.116.171)  54.991 ms mno-b3-link.ip.twelve99.net (62.115.116.173)  54.933 ms akamai-it.milano52.mil.seabone.net (195.22.192.33)  58.042 ms
+ 9  akamai-svc071524-lag003377.ip.twelve99-cust.net (62.115.40.165)  48.541 ms  48.542 ms *
+10  * * *
+11  a23-33-6-100.deploy.static.akamaitechnologies.com (23.33.6.100)  48.466 ms  57.869 ms  57.871 ms

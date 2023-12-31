@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.549 ms  0.661 ms  0.744 ms
+ 2  100.64.0.1 (100.64.0.1)  53.990 ms  53.989 ms  54.048 ms
+ 3  172.16.250.140 (172.16.250.140)  99.310 ms  99.265 ms  99.348 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.182)  99.320 ms undefined.hostname.localhost (206.224.65.180)  99.322 ms undefined.hostname.localhost (206.224.65.184)  99.266 ms
+ 6  ffm-bb1-link.ip.twelve99.net (62.115.114.88)  147.176 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  70.444 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  49.602 ms
+ 7  ffm-bb1-link.ip.twelve99.net (62.115.124.116)  49.603 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  61.589 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  61.597 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  77.516 ms  89.056 ms  89.047 ms
+ 9  ldn-bb1-link.ip.twelve99.net (62.115.135.24)  89.059 ms  89.084 ms  98.308 ms
+10  ldn-b11-link.ip.twelve99.net (62.115.138.169)  98.351 ms ldn-b11-link.ip.twelve99.net (62.115.141.247)  98.308 ms ldn-b11-link.ip.twelve99.net (62.115.138.169)  98.319 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  98.369 ms  98.332 ms  98.316 ms
+12  * * *
+13  * ae28.londtw-sbr2.ja.net (146.97.33.62)  173.461 ms  124.400 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  124.415 ms  124.392 ms  200.286 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  169.046 ms  168.909 ms  168.917 ms
+16  uoc.ja.net (146.97.41.38)  169.067 ms  169.050 ms  168.986 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  168.951 ms  168.891 ms  72.297 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  72.369 ms  72.451 ms  72.336 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  88.081 ms  88.098 ms  88.185 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  88.131 ms  58.514 ms  74.401 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  65.146 ms  85.035 ms  85.128 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  85.309 ms  85.051 ms  85.181 ms

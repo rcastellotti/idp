@@ -1,0 +1,23 @@
+traceroute to cam.ac.uk (128.232.132.8), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.568 ms  0.668 ms  0.748 ms
+ 2  100.64.0.1 (100.64.0.1)  48.299 ms  48.318 ms  64.281 ms
+ 3  172.16.250.140 (172.16.250.140)  64.287 ms  64.344 ms  64.329 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.180)  64.268 ms undefined.hostname.localhost (206.224.65.192)  64.291 ms undefined.hostname.localhost (206.224.65.180)  64.279 ms
+ 6  ffm-b5-link.ip.twelve99.net (62.115.37.20)  64.312 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  52.881 ms  52.841 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.124.118)  68.549 ms ffm-bb1-link.ip.twelve99.net (62.115.124.116)  45.763 ms ffm-bb1-link.ip.twelve99.net (62.115.114.88)  45.779 ms
+ 8  prs-bb2-link.ip.twelve99.net (62.115.122.138)  45.106 ms prs-bb1-link.ip.twelve99.net (62.115.123.13)  44.996 ms  44.913 ms
+ 9  * ldn-bb1-link.ip.twelve99.net (62.115.135.24)  60.883 ms *
+10  ldn-b11-link.ip.twelve99.net (62.115.138.169)  60.871 ms ldn-b11-link.ip.twelve99.net (62.115.141.247)  60.782 ms ldn-b11-link.ip.twelve99.net (62.115.138.169)  60.838 ms
+11  jisc-ic345130-ldn-b7.ip.twelve99-cust.net (62.115.175.107)  60.846 ms  56.053 ms  55.925 ms
+12  ae24.londtt-sbr1.ja.net (146.97.35.193)  55.929 ms  55.929 ms  55.894 ms
+13  ae28.londtw-sbr2.ja.net (146.97.33.62)  55.830 ms  57.686 ms  57.679 ms
+14  ae31.lowdss-sbr1.ja.net (146.97.33.29)  57.712 ms  63.774 ms  63.797 ms
+15  ae26.lowdss-ban1.ja.net (146.97.35.246)  63.759 ms  55.899 ms  55.841 ms
+16  uoc.ja.net (146.97.41.38)  55.963 ms  55.925 ms  55.936 ms
+17  c-mi.b-jc.net.cam.ac.uk (131.111.6.182)  62.079 ms  62.018 ms  62.086 ms
+18  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  72.101 ms  71.994 ms  71.951 ms
+19  d-dw.s-dw.net.cam.ac.uk (193.60.88.2)  56.056 ms  71.741 ms  55.752 ms
+20  s-dw.f-sv-net.net.cam.ac.uk (128.232.128.2)  71.751 ms  71.760 ms  56.035 ms
+21  f-sv-net.f-sv-uis.net.cam.ac.uk (128.232.128.10)  55.957 ms  71.936 ms  71.799 ms
+22  tm-128-232-132-8.tm.uis.cam.ac.uk (128.232.132.8)  71.797 ms  71.825 ms  71.808 ms

@@ -1,0 +1,14 @@
+traceroute to mit.edu (104.84.82.229), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.476 ms  0.556 ms  0.652 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * 89.221.43.233 (89.221.43.233)  82.803 ms 89.221.43.235 (89.221.43.235)  82.732 ms
+ 8  prs-bb1-link.ip.twelve99.net (62.115.123.13)  82.636 ms  82.584 ms 89.221.43.35 (89.221.43.35)  82.682 ms
+ 9  ae1.r01.lon03.icn.netarch.akamai.com (23.210.50.34)  82.642 ms  82.693 ms  82.697 ms
+10  ldn-b3-link.ip.twelve99.net (62.115.120.75)  118.658 ms  118.752 ms  118.656 ms
+11  ae1.r02.lon01.ien.netarch.akamai.com (23.210.48.37)  118.553 ms  118.634 ms  113.380 ms
+12  ae4.linx-lon12.netarch.akamai.com (23.210.48.205)  113.300 ms  113.492 ms *
+13  a104-84-82-229.deploy.static.akamaitechnologies.com (104.84.82.229)  1100.745 ms  41.804 ms  41.878 ms

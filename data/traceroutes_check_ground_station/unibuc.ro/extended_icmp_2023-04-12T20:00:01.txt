@@ -1,0 +1,16 @@
+traceroute to unibuc.ro (80.96.21.209), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.391 ms  0.459 ms  0.531 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * ffm-bb2-link.ip.twelve99.net (62.115.114.90)  35.196 ms  42.989 ms
+ 7  ffm-bb2-link.ip.twelve99.net (62.115.114.90)  43.004 ms  39.840 ms  32.019 ms
+ 8  ffm-b18-link.ip.twelve99.net (62.115.132.233)  47.960 ms  32.070 ms  39.910 ms
+ 9  telekomromania-ic338715-ffm-b10.ip.twelve99-cust.net (62.115.154.69)  31.967 ms  39.865 ms  39.941 ms
+10  * * *
+11  * * *
+12  * * *
+13  adsl92-86-30-10.romtelecom.net (92.86.30.10)  88.584 ms  88.660 ms  88.683 ms
+14  * * *
+15  80.96.21.209 (80.96.21.209)  88.602 ms * *

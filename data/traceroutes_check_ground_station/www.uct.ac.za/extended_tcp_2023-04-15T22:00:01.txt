@@ -1,0 +1,23 @@
+traceroute to www.uct.ac.za (137.158.159.192), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.579 ms  0.660 ms  0.736 ms
+ 2  100.64.0.1 (100.64.0.1)  27.907 ms  39.663 ms  39.667 ms
+ 3  172.16.250.140 (172.16.250.140)  39.704 ms  39.687 ms  39.773 ms
+ 4  * * *
+ 5  undefined.hostname.localhost (206.224.65.178)  39.696 ms undefined.hostname.localhost (206.224.65.190)  39.626 ms undefined.hostname.localhost (206.224.65.178)  39.656 ms
+ 6  be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  39.645 ms 213.144.184.26 (213.144.184.26)  25.643 ms be3031.agr41.fra03.atlas.cogentco.com (130.117.14.197)  58.007 ms
+ 7  ae31.franco31.fra.seabone.net (89.221.34.117)  57.854 ms *  57.835 ms
+ 8  be2845.ccr41.fra03.atlas.cogentco.com (154.54.56.189)  57.869 ms * be3187.ccr42.fra03.atlas.cogentco.com (130.117.1.118)  57.869 ms
+ 9  be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  64.306 ms be2814.ccr42.ams03.atlas.cogentco.com (130.117.0.141)  64.261 ms be2813.ccr41.ams03.atlas.cogentco.com (130.117.0.121)  64.222 ms
+10  be3457.ccr21.ams04.atlas.cogentco.com (130.117.1.10)  64.386 ms  64.394 ms be3458.ccr21.ams04.atlas.cogentco.com (154.54.39.186)  64.242 ms
+11  149.11.39.2 (149.11.39.2)  33.254 ms  33.227 ms  33.246 ms
+12  et-1-1-0-0-ldn1-ir1.net.tenet.ac.za (155.232.1.81)  47.329 ms  47.310 ms et-1-1-1-0-ldn1-ir1.net.tenet.ac.za (155.232.1.178)  40.867 ms
+13  ae1-306-cpt1-ir1.net.tenet.ac.za (155.232.1.40)  247.564 ms  247.512 ms  247.561 ms
+14  et-1-1-0-0-cpt3-pe1.net.tenet.ac.za (155.232.64.87)  247.514 ms  247.536 ms et-1-1-1-0-cpt2-pe1.net.tenet.ac.za (155.232.64.21)  239.762 ms
+15  et-0-0-0-0-cpt7-pe1.net.tenet.ac.za (155.232.64.76)  239.654 ms  239.643 ms et-0-0-1-0-cpt7-pe1.net.tenet.ac.za (155.232.64.70)  238.881 ms
+16  154.114.124.1 (154.114.124.1)  238.879 ms  238.854 ms  271.201 ms
+17  137.158.248.97 (137.158.248.97)  284.408 ms  284.412 ms  284.392 ms
+18  * * *
+19  137.158.159.1 (137.158.159.1)  395.732 ms *  368.737 ms
+20  * * *
+21  137.158.159.1 (137.158.159.1)  381.979 ms  408.984 ms  388.938 ms
+22  cms-vip-prd.uct.ac.za (137.158.159.192)  240.290 ms  246.974 ms  247.025 ms

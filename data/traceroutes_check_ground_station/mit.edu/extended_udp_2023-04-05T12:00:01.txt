@@ -1,0 +1,31 @@
+traceroute to mit.edu (104.126.247.110), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  0.539 ms * *
+ 2  100.64.0.1 (100.64.0.1)  54.984 ms  58.911 ms  58.924 ms
+ 3  172.16.250.140 (172.16.250.140)  62.923 ms  66.783 ms  66.864 ms
+ 4  undefined.hostname.localhost (206.224.65.198)  66.939 ms undefined.hostname.localhost (206.224.65.202)  66.880 ms undefined.hostname.localhost (206.224.65.194)  66.951 ms
+ 5  undefined.hostname.localhost (206.224.65.178)  66.872 ms undefined.hostname.localhost (206.224.65.186)  66.788 ms undefined.hostname.localhost (206.224.65.184)  66.840 ms
+ 6  213.144.184.26 (213.144.184.26)  66.910 ms ffm-b5-link.ip.twelve99.net (62.115.37.20)  56.170 ms 213.144.184.30 (213.144.184.30)  65.687 ms
+ 7  ae5.parigi51.par.seabone.net (213.144.168.125)  105.681 ms ffm-bb2-link.ip.twelve99.net (62.115.124.118)  57.603 ms  61.531 ms
+ 8  akamai.parigi51.par.seabone.net (213.144.168.157)  93.551 ms  105.618 ms prs-bb2-link.ip.twelve99.net (62.115.122.138)  73.497 ms
+ 9  prs-b9-link.ip.twelve99.net (62.115.115.87)  73.489 ms  73.541 ms  73.521 ms
+10  akamai-svc085735-lag004662.ip.twelve99-cust.net (62.115.48.11)  77.344 ms  77.348 ms ae1.r02.par04.ien.netarch.akamai.com (23.197.68.37)  113.377 ms
+11  * * ae4.intx-par8.netarch.akamai.com (23.197.68.197)  75.722 ms
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
